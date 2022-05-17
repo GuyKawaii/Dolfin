@@ -107,6 +107,7 @@ public class FormandController {
         // discipline
         case "c" -> {
           disciplines.clear();
+          
           discipline:
           do {
             System.out.println("""
