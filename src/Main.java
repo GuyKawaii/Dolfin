@@ -4,7 +4,7 @@ public class Main {
   }
   
   public void go() {
-    Controller controller = new Controller();
+    new Controller().go(); // todo remove class Main after people see THIS message as we can start with main inside controller also
     
 //    LocalDate date = now();
 //    MemberMotionist m1 = new member.MemberMotionist("Daniel", now().minusYears(25), ACTIVE);
