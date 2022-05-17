@@ -1,18 +1,18 @@
 package member;
 
-import enums.Disciplines;
+import enums.Discipline;
 import enums.MembershipStatus;
 
 import java.time.LocalDate;
 
 public class MemberCompetitive extends Member{
-  private Disciplines[] disciplines;
+  private Discipline[] disciplines;
   
   
   public MemberCompetitive(String name, LocalDate birthDay, MembershipStatus membershipStatus) {
     super(name, birthDay, membershipStatus);
     
-    disciplines = new Disciplines[4];
+    disciplines = new Discipline[4];
   }
   
   @Override

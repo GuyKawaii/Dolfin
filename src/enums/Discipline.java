@@ -1,13 +1,13 @@
 package enums;
 
-public enum Disciplines {
+public enum Discipline {
   CRAWL("CRAWL"),
   BACK_CRAWL("BACK_CRAWL"),
   BREAST_STROKE("BREAST_STROKE"),
   BUTTERFLY("BUTTERFLY");
   private final String discipline;
   
-  Disciplines(String discipline) {
+  Discipline(String discipline) {
     this.discipline = discipline;
   }
   
