@@ -92,4 +92,22 @@ public abstract class Member {
   public double getRestance() {
     return restance;
   }
+  
+  // todo add equality by name first and maybe more parameters later
+//  @Override
+//  public boolean equals(Member other) {
+//    return this.getName().equals(other.getName());
+//  }
+  
+  
+  @Override
+  public String toString() {
+    return String.format("%s %s %s %s con:%.2f res:%.2f\n",
+        name,
+        birthday,
+        ageGroup,
+        membershipStatus,
+        contingent,
+        restance);
+  }
 }

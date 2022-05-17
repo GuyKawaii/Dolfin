@@ -1,7 +1,7 @@
 public class Trainer {
   private String name;
   
-  public  Trainer(String name) {
+  public Trainer(String name) {
     setName(name);
   }
   
@@ -12,6 +12,5 @@ public class Trainer {
   public void setName(String name) {
     this.name = name;
   }
-  
   
 }
