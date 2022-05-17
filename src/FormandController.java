@@ -1,6 +1,6 @@
 import enums.Discipline;
 import enums.MembershipStatus;
-import member.MemberMotionist;
+import member.Motionist;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -31,22 +31,10 @@ public class FormandController {
           SELECT:\040""");
       String userInput = scanner.nextLine().toLowerCase();
       switch (userInput) {
-        case "see", "s" -> {
-//          System.out.println("See member list");
-          printMemberList();
-        }
-        case "delete", "d" -> {
-//          System.out.println("Delete member");
-          deleteMember();
-        }
-        case "register", "r" -> {
-//          System.out.println("Register member");
-          registerMember();
-        }
-        default -> {
-          mainMenu = false;
-        }
-        
+        case "see", "s" -> printMemberList();
+        case "delete", "d" -> deleteMember();
+        case "register", "r" -> registerMember();
+        default -> mainMenu = false;
       }
     } while (mainMenu);
     
@@ -114,7 +102,7 @@ public class FormandController {
         default -> {
           break register;
         }
-        case "m" -> controller.getMemberList().addMotionist(new MemberMotionist(name, birthday, membershipStatus));
+        case "m" -> controller.getMemberList().addMotionist(new Motionist(name, birthday, membershipStatus));
         
         // discipline
         case "c" -> {
@@ -150,7 +138,7 @@ public class FormandController {
             System.out.println(disciplines);
           } while (disciplines.size() < 4);
           
-          controller.getMemberList().addMotionist(new MemberMotionist(name, birthday, membershipStatus));
+          controller.getMemberList().addMotionist(new Motionist(name, birthday, membershipStatus));
         }
         
       }

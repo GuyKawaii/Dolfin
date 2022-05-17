@@ -1,12 +1,12 @@
 import member.Member;
-import member.MemberCompetitive;
-import member.MemberMotionist;
+import member.Competitive;
+import member.Motionist;
 
 import java.util.ArrayList;
 
 public class MemberList {
-  private ArrayList<MemberMotionist> motionists;
-  private ArrayList<MemberCompetitive> competitors;
+  private ArrayList<Motionist> motionists;
+  private ArrayList<Competitive> competitors;
   
   public MemberList() {
     motionists = new ArrayList<>();
@@ -14,16 +14,16 @@ public class MemberList {
     
   }
   
-  public MemberMotionist getMotionist(String name) {
-    for (MemberMotionist motionist : motionists)
+  public Motionist getMotionist(String name) {
+    for (Motionist motionist : motionists)
       if (motionist.getName().equals(name)) return motionist;
     
     // not found
     return null;
   }
   
-  public MemberCompetitive getCompetitive(String name) {
-    for (MemberCompetitive competitors : competitors)
+  public Competitive getCompetitive(String name) {
+    for (Competitive competitors : competitors)
       if (competitors.getName().equals(name)) return competitors;
     
     // not found
@@ -42,16 +42,16 @@ public class MemberList {
     return null;
   }
   
-  public void addMotionist(MemberMotionist motionist) {
+  public void addMotionist(Motionist motionist) {
     motionists.add(motionist);
   }
   
-  public void addCompetitive(MemberCompetitive competitive) {
+  public void addCompetitive(Competitive competitive) {
     competitors.add(competitive);
   }
   
   public boolean removeMotionist(String name) {
-    for (MemberMotionist motionist : motionists)
+    for (Motionist motionist : motionists)
       if (motionist.getName().equals(name)) {
         motionists.remove(motionist);
         return true;
@@ -62,7 +62,7 @@ public class MemberList {
   }
   
   public boolean removeCompetitive(String name) {
-    for (MemberCompetitive competitive : competitors)
+    for (Competitive competitive : competitors)
       if (competitive.getName().equals(name)) {
         competitors.remove(competitive);
         return true;
@@ -96,21 +96,21 @@ public class MemberList {
     return competitors.size();
   }
   
-  public ArrayList<MemberCompetitive> getCompetitors() {
+  public ArrayList<Competitive> getCompetitors() {
     return competitors;
   }
   
-  public ArrayList<MemberMotionist> getMotionists() {
+  public ArrayList<Motionist> getMotionists() {
     return motionists;
   }
   
   public ArrayList<Member> getMembers() {
     ArrayList<Member> members = new ArrayList<>();
     
-    for (MemberCompetitive competitive : competitors)
+    for (Competitive competitive : competitors)
       members.add((Member) competitive);
     
-    for (MemberMotionist motionist : motionists)
+    for (Motionist motionist : motionists)
       members.add((Member) motionist);
     
     return members;

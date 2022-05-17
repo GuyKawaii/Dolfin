@@ -5,11 +5,11 @@ import enums.MembershipStatus;
 
 import java.time.LocalDate;
 
-public class MemberCompetitive extends Member{
+public class Competitive extends Member{
   private Discipline[] disciplines;
   
   
-  public MemberCompetitive(String name, LocalDate birthDay, MembershipStatus membershipStatus) {
+  public Competitive(String name, LocalDate birthDay, MembershipStatus membershipStatus) {
     super(name, birthDay, membershipStatus);
     
     disciplines = new Discipline[4];

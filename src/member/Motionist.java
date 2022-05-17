@@ -1,13 +1,12 @@
 package member;
 
-import enums.AgeGroup;
 import enums.MembershipStatus;
 
 import java.time.LocalDate;
 
-public class MemberMotionist extends Member {
+public class Motionist extends Member {
   
-  public MemberMotionist(String name, LocalDate birthday, MembershipStatus membershipStatus) {
+  public Motionist(String name, LocalDate birthday, MembershipStatus membershipStatus) {
     super(name, birthday, membershipStatus);
   }
   
