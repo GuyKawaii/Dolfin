@@ -11,4 +11,8 @@ public class MemberMotionist extends Member {
     super(name, birthday, membershipStatus);
   }
   
+  @Override
+  public String toString() {
+    return super.toString();
+  }
 }
