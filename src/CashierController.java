@@ -12,6 +12,7 @@ public class CashierController {
     scanner = new Scanner(System.in);
   }
   
+  
   public void mainMenu() {
     boolean mainMenu = true;
     do {
@@ -27,7 +28,7 @@ public class CashierController {
           SELECT:\040""");
       String userInput = scanner.nextLine().toLowerCase();
       switch (userInput) {
-        case "1" -> printMemberList();
+        case "1" -> UI.printMembers(controller.getMemberList().getMembers());
         case "2" -> printRestanceMembers();
         case "3" -> printExpeditedEarnings();
         case "4" -> billAllMembers();
@@ -44,83 +45,104 @@ public class CashierController {
   
   public void printRestanceMembers() {
     ArrayList<Member> memberArrayList = controller.getMemberList().getMembers();
-    int membersInRestance = 0;
-    int membersNotInRestance = 0;
+    int amountRestance = 0;
+    int amountNoRestance = 0;
+    double totalRestance = 0;
     
-    for (int i = 0; i < memberArrayList.size(); i++) {
-      Member member = memberArrayList.get(i);
+    // for each member
+    for (Member member : memberArrayList) {
       if (member.getRestance() > 0) {
-        System.out.println(String.format("res:%.2f %s", member.getRestance(), member.getName())); //TODO Gør det pænere - evt. align navnene
-        membersInRestance++;
+        System.out.printf(Color.TEXT_RED + "res:%8.2f %s" + Color.TEXT_RESET + "\n", member.getRestance(), member.getName());
+        totalRestance += member.getRestance();
+        amountRestance++;
       } else {
-        membersNotInRestance++;
+        amountNoRestance++;
       }
     }
     
-    System.out.println(String.format("Members with restance [%3d] and without restance [%3d]", membersInRestance, membersNotInRestance)); // todo make nice cash money money baby
-    if (membersInRestance == 0) System.out.println("There are no members with restance");
+    if (amountRestance == 0) System.out.println("There are no members with restance!");
+    else {
+      System.out.printf("""
+        RESTANCE TOTAL: %.2f
+        %3d RESTANCE     MEMBERS
+        %3d NON-RESTANCE MEMBERS
+        """, totalRestance, amountRestance, amountNoRestance);
+    }
+    
   }
   
   public void printExpeditedEarnings() {
     ArrayList<Member> memberArrayList = controller.getMemberList().getMembers();
     StringBuilder restanceMembers = new StringBuilder();
     StringBuilder contingentMembers = new StringBuilder();
+    
     double expectedEarnings = 0;
     
-    restanceMembers.append("\nNONE PAYING\n");
-    contingentMembers.append("PAYING\n");
+    restanceMembers.append("\nMISSING PAYMENT\n");
+    contingentMembers.append("CONTINGENT PAYED\n");
     
-    for (int i = 0; i < memberArrayList.size(); i++) {
-      Member member = memberArrayList.get(i);
+    for (Member member : memberArrayList) {
       if (member.getRestance() == 0) {
         contingentMembers.append(String.format("con:%.2f %s\n", member.getContingent(), member.getName())); //TODO gør den grøn for positive beløb
         expectedEarnings += member.getContingent();
+        
       } else {
         restanceMembers.append(String.format("res:%.2f %s\n", member.getRestance(), member.getName())); //TODO gør den rød for folk der ikke er med
       }
-      
     }
     
     System.out.println(restanceMembers);
     System.out.println(contingentMembers);
-    System.out.println(String.format("Expected earnings: %.2f", expectedEarnings)); // todo make nice cash money money baby
+    System.out.printf("EXPECTED EARNINGS: %.2f\n", expectedEarnings);
   }
   
   public void billAllMembers() {
     ArrayList<Member> members = controller.getMemberList().getMembers();
     
-    for (Member member : members)
-      member.addRestanceOnePeriod();
+    System.out.print("Are you sure Y/N ");
+    String input = scanner.nextLine().toLowerCase();
     
-    System.out.println("BILLED ALL MEMBERS");
+    if (input.equals("y")) {
+      for (Member member : members)
+        member.addRestanceOnePeriod();
+      
+      System.out.println("BILLED ALL MEMBERS");
+    }
   }
   
   public void changeMemberResistance() {
     MemberList memberList = controller.getMemberList();
     Member member = null;
+    double amount;
     String name;
     
-    getMember:
     do {
       
-      printMemberList();
       
-      System.out.println("""
-          
-          CHANGE MEMBER RESISTANCE
-          abort at any time -> Enter
-          select member     -> name
-          INPUT:\40""");
-      name = scanner.nextLine();
-      if ("".equals(name)) break getMember;
-      else {
-        member = memberList.getMember(name);
-        System.out.println(member);
-        if (member != null) break getMember;
-      }
-    } while (true);
-  
-    System.out.println("""
+      getMember:
+      do {
+        
+        // to help input correct information
+        printMemberList();
+        if (member != null) System.out.println(member);
+        
+        System.out.print("""
+            
+            CHANGE MEMBER RESISTANCE
+            abort at any time -> Enter
+            select member     -> name
+            INPUT:\40""");
+        name = scanner.nextLine();
+        if ("".equals(name)) return;
+        else {
+          member = memberList.getMember(name);
+          if (member != null) break getMember;
+        }
+      } while (true);
+      
+      System.out.println(member);
+      
+      System.out.print("""
           
           CHANGE MEMBER RESISTANCE
           add    restance for one period -> 1
@@ -128,21 +150,46 @@ public class CashierController {
           add    amount of restance      -> a amount
           remove amount of restance      -> r amount
           INPUT:\40""");
-    String[] inputs = scanner.nextLine().toLowerCase().split(" ", 2);
-    
-    switch (inputs[0]) {
-      case "1" -> member.addRestanceOnePeriod();
-      case "2" -> member.removeRestanceOnePeriod();
+      String[] inputs = inputActionAndNumber();
+      amount = Double.parseDouble(inputs[1]);
       
+      switch (inputs[0]) {
+        case "1" -> member.addRestanceOnePeriod();
+        case "2" -> member.removeRestanceOnePeriod();
+        case "add", "a" -> member.addRestance(amount);
+        case "remove", "r" -> member.removeRestance(amount);
+        default -> {
+          return;
+        }
+      }
       
+      System.out.println(member);
       
-    }
-    
+    } while (true);
   }
   
-  public void input() {
-  
-  
+  public String[] inputActionAndNumber() {
+    // returns an action and a valid-number as strings.
+    // user can input: ACTION NO-NUMBER -> ACTION 0
+    // user can input: ACTION NUMBER    -> ACTION NUMBER
+    String[] inputs;
+    Double number = null;
+    
+    do {
+      inputs = scanner.nextLine().toLowerCase().split(" ", 2);
+      
+      // return with 0
+      if (inputs.length == 1) return new String[]{inputs[0], "0"};
+      
+      // return with valid number
+      try {
+        number = Double.parseDouble(inputs[1]);
+      } catch (Exception e) {
+        System.out.println(inputs[1] + " is not a valid number");
+      }
+    } while (number == null);
+    
+    return inputs;
   }
   
   

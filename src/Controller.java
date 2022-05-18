@@ -7,6 +7,7 @@ public class Controller {
   // other controllers
   private FormandController formandController;
   private CashierController cashierController;
+  private TrainerController trainerController;
   
   // program state
   private MemberList memberList;
@@ -28,6 +29,7 @@ public class Controller {
       
 //      formandController.mainMenu();
       cashierController.mainMenu();
+//      trainerController.mainMenu();
     } while (true);
     
   }
