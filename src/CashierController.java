@@ -83,11 +83,11 @@ public class CashierController {
     
     for (Member member : memberArrayList) {
       if (member.getRestance() == 0) {
-        contingentMembers.append(String.format("con:%.2f %s\n", member.getContingent(), member.getName())); //TODO gør den grøn for positive beløb
+        contingentMembers.append(String.format(Color.TEXT_GREEN + "con:%8.2f %s\n" + Color.TEXT_RESET, member.getContingent(), member.getName()));
         expectedEarnings += member.getContingent();
         
       } else {
-        restanceMembers.append(String.format("res:%.2f %s\n", member.getRestance(), member.getName())); //TODO gør den rød for folk der ikke er med
+        restanceMembers.append(String.format(Color.TEXT_RED + "res:%8.2f %s\n" + Color.TEXT_RESET, member.getRestance(), member.getName()));
       }
     }
     
