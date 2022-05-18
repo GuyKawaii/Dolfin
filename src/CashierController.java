@@ -1,5 +1,6 @@
 import member.Member;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class CashierController {
@@ -36,11 +37,43 @@ public class CashierController {
   }
   
   public void printRestanceMembers() {
-    System.out.println(controller.getMemberList().getMembers());
+    ArrayList<Member> memberArrayList = controller.getMemberList().getMembers();
+    int membersInRestance = 0;
+    int membersNotInRestance = 0;
+  
+    for (int i = 0; i < memberArrayList.size(); i++) {
+      Member member = memberArrayList.get(i);
+      if (member.getRestance() > 0) {
+        System.out.println(String.format("res:%.2f %s", member.getRestance(), member.getName())); //TODO Gør det pænere - evt. align navnene
+        membersInRestance++;
+      } else {
+        membersNotInRestance++;
+      }
+    }
+  
+    System.out.println(String.format("Members with restance [%3d] and without restance [%3d]", membersInRestance, membersNotInRestance)); // todo make nice cash money money baby
+    if (membersInRestance == 0) System.out.println("There are no members with restance");
   }
   
   public void printExpeditedEarnings() {
-    System.out.println(controller.getMemberList().getMembers());
+    ArrayList<Member> memberArrayList = controller.getMemberList().getMembers();
+    int membersInRestance = 0;
+    int membersNotInRestance = 0;
+    int expectedEarnings = 0;
+  
+    for (int i = 0; i < memberArrayList.size(); i++) {
+      Member member = memberArrayList.get(i);
+      if (member.getRestance() == 0) {
+        System.out.println(String.format("res:%.2f %s", member.getRestance(), member.getName())); //TODO gør den grøn for positive beløb
+        membersInRestance++;
+      } else {
+        System.out.println(String.format("res:%.2f %s", member.getRestance(), member.getName())); //TODO gør den rød for folk der ikke er med
+        membersNotInRestance++;
+      }
+    }
+  
+    System.out.println(String.format("Members with restance [%3d] and without restance [%3d]", membersInRestance, membersNotInRestance)); // todo make nice cash money money baby
+    if (membersInRestance == 0) System.out.println("There are no members with restance");
   }
   
   public void billAllMembers() {
@@ -73,7 +106,6 @@ public class CashierController {
     } while (true);
     
   }
-  
   
   
 }

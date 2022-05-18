@@ -85,6 +85,10 @@ public abstract class Member {
     return contingent;
   }
   
+  public void addRestanceOnePeriod() {
+    restance += contingent;
+  }
+  
   public void setRestance(double restance) {
     this.restance = restance;
   }
