@@ -1,9 +1,11 @@
 package member;
 
 import enums.AgeGroup;
+
 import static enums.AgeGroup.*;
 
 import enums.MembershipStatus;
+
 import static enums.MembershipStatus.*;
 
 import java.time.LocalDate; // (yyyy-MM-dd)
@@ -89,6 +91,21 @@ public abstract class Member {
     restance += contingent;
   }
   
+  public void removeRestanceOnePeriod() {
+    if (restance - contingent > 0) restance = restance - contingent;
+    else restance = 0;
+  }
+  
+  public void addRestance(double amount) {
+    restance += amount;
+  }
+  
+  public void removeRestance(double amount) {
+    if (restance - amount > 0) restance = restance - amount;
+    else restance = 0;
+  }
+  
+  
   public void setRestance(double restance) {
     this.restance = restance;
   }
@@ -114,4 +131,6 @@ public abstract class Member {
         contingent,
         restance);
   }
+  
+
 }

@@ -1,5 +1,6 @@
 import enums.Discipline;
 import enums.MembershipStatus;
+import member.Competitive;
 import member.Motionist;
 
 import java.time.LocalDate;
@@ -102,10 +103,12 @@ public class FormandController {
         default -> {
           break register;
         }
+        // motionist
         case "m" -> controller.getMemberList().addMotionist(new Motionist(name, birthday, membershipStatus));
         
-        // discipline
+        // competitive
         case "c" -> {
+          // discipline
           disciplines.clear();
           
           discipline:
@@ -139,7 +142,7 @@ public class FormandController {
             System.out.println(disciplines);
           } while (disciplines.size() < 4);
           
-          controller.getMemberList().addMotionist(new Motionist(name, birthday, membershipStatus));
+          controller.getMemberList().addCompetitive(new Competitive(name, birthday, membershipStatus, disciplines));
         }
         
       }
