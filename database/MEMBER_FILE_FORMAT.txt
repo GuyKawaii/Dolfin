@@ -1,7 +1,0 @@
-separate members(member abstract?)
-- competitive swimmer
-- Motionist
-
-file structure maybe 2 files for "faster checks" member abstract competitive and Motionist just extends
-NAME;BIRTH-YEAR;{SENIOR/JUNIOR};{PASSIVE/ACTIVE};MOTIONIST  ;NONPAYED;{NONE/BUTTERFLY};{NONE/CRAWL};{NONE/RYGCRAWL};{NONE/BRYSTSVØMNING}
-NAME;BIRTH-YEAR;{SENIOR/JUNIOR};{PASSIVE/ACTIVE};COMPETITIVE;NONPAYED;

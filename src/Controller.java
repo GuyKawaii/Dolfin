@@ -1,4 +1,9 @@
+import enums.Discipline;
 import member.*;
+import filehandling.*;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import static enums.MembershipStatus.*;
 import static java.time.LocalDate.now;
@@ -7,6 +12,9 @@ public class Controller {
   // other controllers
   private FormandController formandController;
   private CashierController cashierController;
+  private TrainerController trainerController;
+  
+  private FileHandlingMemberList fileHandlingMemberList;
   
   // program state
   private MemberList memberList;
@@ -15,11 +23,31 @@ public class Controller {
     formandController = new FormandController(this);
     cashierController = new CashierController(this);
     memberList = new MemberList();
+    fileHandlingMemberList = new FileHandlingMemberList();
   }
   
   public void go() {
-    
+  
     initDatabase();
+  
+    // fileHandlingMemberList.appendCompetitor(memberList.getCompetitors()); // append one competitor to the end of the file csv
+    
+    fileHandlingMemberList.saveMotionists(memberList.getMotionists());        // save whole database as csv
+    System.out.println("Original database motionist arraylist");
+    UI.printMotionists(memberList.getMotionists());
+    System.out.println("Loaded database motionist.csv");
+    UI.printMotionists(fileHandlingMemberList.loadMotionists());
+  
+  
+    fileHandlingMemberList.saveCompetitors(memberList.getCompetitors());
+    System.out.println("Original database competitive from arrayList");
+    UI.printCompetitors(memberList.getCompetitors());
+    System.out.println("Loaded database competitive.csv");
+    UI.printCompetitors(fileHandlingMemberList.loadCompetitors());
+  
+    
+    // extra
+    System.out.println(fileHandlingMemberList.stringDisciplines(memberList.getCompetitive("Mike").getDisciplines()));
     
     // select menu todo add main menu here
     do {
@@ -28,6 +56,7 @@ public class Controller {
       
 //      formandController.mainMenu();
       cashierController.mainMenu();
+//      trainerController.mainMenu();
     } while (true);
     
   }
@@ -38,12 +67,23 @@ public class Controller {
   
   public void initDatabase() {
     // todo remove method later
-    memberList.addMotionist(new member.Motionist("Daniel", now().minusYears(25), ACTIVE));
-    memberList.addMotionist(new member.Motionist("Kasper", now().minusYears(22), ACTIVE));
+   // memberList.addMotionist(new member.Motionist("Daniel", now().minusYears(25), ACTIVE));
+   // memberList.addMotionist(new member.Motionist("Kasper", now().minusYears(22), ACTIVE));
     memberList.addMotionist(new member.Motionist("William", now().minusYears(17), ACTIVE));
     memberList.addMotionist(new member.Motionist("Thomas", now().minusYears(19), PASSIVE));
     
-    memberList.addCompetitive(new member.Competitive("Mike", now().minusYears(21), ACTIVE));
+    Motionist harRestance1 = new member.Motionist("Daniel", now().minusYears(25), ACTIVE);
+    harRestance1.setRestance(54);
+    Motionist harRestance2 = new member.Motionist("Kasper", now().minusYears(22), ACTIVE);
+    harRestance2.setRestance(500);
+    memberList.addMotionist(harRestance1);
+    memberList.addMotionist(harRestance2);
+    
+    // ArrayList<Integer> numbers = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6));
+    ArrayList<Discipline> disciplines = new ArrayList<>(Arrays.asList(Discipline.BACK_CRAWL, Discipline.CRAWL));
+    Competitive mike = new member.Competitive("Mike", now().minusYears(21), ACTIVE,  disciplines);
+    
+    memberList.addCompetitive(mike);
     memberList.addCompetitive(new member.Competitive("Lotte", now().minusYears(24), ACTIVE));
     memberList.addCompetitive(new member.Competitive("Veronica", now().minusYears(26), ACTIVE));
     memberList.addCompetitive(new member.Competitive("Grethe", now().minusYears(23), PASSIVE));

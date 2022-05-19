@@ -22,6 +22,10 @@ public class Competitive extends Member{
     this.disciplines = disciplines;
   }
   
+  public ArrayList<Discipline> getDisciplines() {
+    return disciplines;
+  }
+  
   @Override
   public String toString() {
     return super.toString();

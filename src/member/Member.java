@@ -1,11 +1,8 @@
 package member;
 
 import enums.AgeGroup;
-
 import static enums.AgeGroup.*;
-
 import enums.MembershipStatus;
-
 import static enums.MembershipStatus.*;
 
 import java.time.LocalDate; // (yyyy-MM-dd)
