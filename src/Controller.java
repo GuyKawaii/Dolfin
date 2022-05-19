@@ -67,8 +67,8 @@ public class Controller {
   
   public void initDatabase() {
     // todo remove method later
-    memberList.addMotionist(new member.Motionist("Daniel", now().minusYears(25), ACTIVE));
-    memberList.addMotionist(new member.Motionist("Kasper", now().minusYears(22), ACTIVE));
+   // memberList.addMotionist(new member.Motionist("Daniel", now().minusYears(25), ACTIVE));
+   // memberList.addMotionist(new member.Motionist("Kasper", now().minusYears(22), ACTIVE));
     memberList.addMotionist(new member.Motionist("William", now().minusYears(17), ACTIVE));
     memberList.addMotionist(new member.Motionist("Thomas", now().minusYears(19), PASSIVE));
     
