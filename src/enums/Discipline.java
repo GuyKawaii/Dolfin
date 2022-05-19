@@ -11,7 +11,7 @@ public enum Discipline {
     this.discipline = discipline;
   }
   
-  public String getDiscipline() {
+  public String getString() {
     return discipline;
   }
   
