@@ -1,3 +1,5 @@
+package UserInterface;
+
 public class Color {
   public static final String TEXT_RESET = "\u001B[0m";
   public static final String TEXT_BLACK = "\u001B[30m";

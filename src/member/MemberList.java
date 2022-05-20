@@ -1,6 +1,9 @@
+package member;
+
 import member.Member;
 import member.Competitive;
 import member.Motionist;
+
 
 import java.util.ArrayList;
 
@@ -40,6 +43,18 @@ public class MemberList {
     if (member != null) return member;
     
     return null;
+  }
+
+  public boolean isGetMember(String name) {
+    Member member;
+
+    member = (Member) getMotionist(name);
+    if (member != null) return true;
+
+    member = (Member) getCompetitive(name);
+    if (member != null) return true;
+
+    return false;
   }
   
   public boolean addMotionist(Motionist motionist) {
@@ -130,11 +145,13 @@ public class MemberList {
     
     return members;
   }
+
+
   
   
   @Override
   public String toString() {
-    return "MemberList{" +
+    return "member.MemberList{" +
            "motionists=" + motionists +
            ", competitives=" + competitors +
            '}';

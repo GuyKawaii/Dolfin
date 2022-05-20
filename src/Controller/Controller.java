@@ -1,6 +1,9 @@
+package Controller;
+
+import UserInterface.UI;
 import enums.Discipline;
 import member.*;
-import filehandling.*;
+import filehandling.FileHandlingMemberList;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -53,7 +56,6 @@ public class Controller {
     UI.printCompetitors(memberList.getCompetitors());
     System.out.println("Loaded database competitive.csv");
     UI.printCompetitors(fileHandlingMemberList.loadCompetitors());
-  
     
     // extra
     //System.out.println(fileHandlingMemberList.stringDisciplines(memberList.getCompetitive("Mike").getDisciplines())); //virker ikke
@@ -70,7 +72,9 @@ public class Controller {
         case "1" -> cashierController.cashierMenu();
         case "2" -> System.out.println("Does not work right now"); //trainerController.mainMenu();
         case "3" -> formandController.formandMenu();
-        case ""  -> mainMenu = false;
+        case ""  -> {
+
+          mainMenu = false;}
         default -> UI.invalidInputMessage();
       }
 

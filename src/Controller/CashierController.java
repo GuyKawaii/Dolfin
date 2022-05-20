@@ -1,5 +1,11 @@
-import member.Member;
+package Controller;
 
+import Controller.Controller;
+import UserInterface.*;
+import UserInterface.Color;
+import member.*;
+
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Locale;
 

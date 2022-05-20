@@ -162,6 +162,7 @@ public class FileHandlingMemberList {
   
   public boolean appendCompetitive(Competitive competitive) {
     // append to end of file
+    if(competitive == null) return false;
     try {
       FileWriter file = new FileWriter(databaseFolder + competitiveFile, true);
       file.write(String.format("%s;%s;%s;%s;%s\n",
