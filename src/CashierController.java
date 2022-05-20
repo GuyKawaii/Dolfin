@@ -54,7 +54,7 @@ public class CashierController {
     
     if (amountRestance == 0) CashierUI.printNoMembersWithRestance();
     else {
-      CashierUI.printTotalRestance(amountRestance, amountNoRestance, totalRestance); //this is not working right now
+      CashierUI.printTotalRestance(amountRestance, amountNoRestance, totalRestance);
       /* System.out.printf("""
         RESTANCE TOTAL: %.2f
         %3d RESTANCE     MEMBERS
