@@ -1,12 +1,8 @@
 package Controller;
 
 import UserInterface.UI;
-import enums.Discipline;
 import member.*;
 import filehandling.FileHandlingMemberList;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 
 import static enums.MembershipStatus.*;
 import static java.time.LocalDate.now;
@@ -67,7 +63,7 @@ public class Controller {
     boolean mainMenu = true;
     do {
       UI.printMainMenu();
-      String userInput = UI.receiveStringInput();
+      String userInput = UI.receiveStringInputToUpperCase();
       switch (userInput) {
         case "1" -> cashierController.cashierMenu();
         case "2" -> System.out.println("Does not work right now"); //trainerController.mainMenu();

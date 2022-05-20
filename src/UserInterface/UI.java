@@ -3,6 +3,10 @@ package UserInterface;
 import member.Competitive;
 import member.Member;
 import member.Motionist;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Scanner;
 
 import java.util.ArrayList;
@@ -24,13 +28,25 @@ public class UI {
           SELECT:\040""");
   }
 
+  public static String receiveStringInputToUpperCase() {
+      String input;
+      Scanner scanner = new Scanner(System.in);
+      input = scanner.nextLine();
+      if(input == "") {
+        return "";
+      }
+      String s1 = input.substring(0, 1).toUpperCase();
+      String inputCapitalized = s1 + input.substring(1);
+
+      return inputCapitalized;
+  }
+
   public static String receiveStringInput() {
     String input;
     Scanner scanner = new Scanner(System.in);
     input = scanner.nextLine();
-    String output = input.substring(0, 1).toUpperCase() + input.substring(1);
 
-    return output;
+    return input;
   }
 
   public static void printMembers(ArrayList<Member> members) {
