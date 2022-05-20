@@ -12,15 +12,13 @@ import static enums.MembershipStatus.*;
 
 public class FormandController {
   Controller controller;
-  Scanner scanner;
   
   public FormandController(Controller controller) {
     this.controller = controller;
-    scanner = new Scanner(System.in);
   }
   
-  public void mainMenu() {
-    boolean mainMenu = true;
+  public void formandMenu() {
+    boolean formandMenu = true;
     do {
       System.out.print("""
           
@@ -30,14 +28,15 @@ public class FormandController {
           - Delete members      -> 3
           - Return to main menu -> Enter
           SELECT:\040""");
-      String userInput = scanner.nextLine().toLowerCase();
+      String userInput = UI.receiveStringInput();
       switch (userInput) {
         case "1", "see", "s" -> UI.printMembers(controller.getMemberList().getMembers());
         case "2", "register", "r" -> registerMembers();
         case "3", "delete", "d" -> deleteMembers();
-        default -> mainMenu = false;
+        case "" -> formandMenu = false;
+        default -> UI.invalidInputMessage();
       }
-    } while (mainMenu);
+    } while (formandMenu);
     
   }
   
@@ -64,7 +63,7 @@ public class FormandController {
       System.out.print("""
           
           INPUT name:\40""");
-      name = scanner.nextLine();
+      name = UI.receiveStringInput();
       if (name.isBlank()) break registering;
       
       // birthday
@@ -79,7 +78,7 @@ public class FormandController {
           passive -> 2
           abort   -> Enter
           SELECT:\40""");
-      input = scanner.nextLine().toLowerCase();
+      input = UI.receiveStringInput();
       switch (input) {
         case "1", "active", "a" -> membershipStatus = ACTIVE;
         case "2", "passive", "p" -> membershipStatus = PASSIVE;
@@ -95,7 +94,7 @@ public class FormandController {
           motionist   -> 1
           competitive -> 2
           SELECT:\40""");
-      input = scanner.nextLine();
+      input = UI.receiveStringInput();
       switch (input) {
         default -> {
           break registering;
@@ -123,7 +122,7 @@ public class FormandController {
     System.out.print("\nINPUT birthday (yyyy-mm-dd): ");
     
     do {
-      input = scanner.nextLine();
+      input = UI.receiveStringInput();
       if (input.isEmpty()) return null;
       
       try {
@@ -148,7 +147,7 @@ public class FormandController {
           INPUT DISCIPLINES
           crawl -> c | back crawl -> bc | breast stroke -> bs | butterfly -> b | retry -> r
           INPUT:\40""");
-      input = scanner.nextLine().toLowerCase();
+      input = UI.receiveStringInput().toLowerCase();
       
       switch (input) {
         case "1", "crawl", "c" -> {
@@ -186,7 +185,7 @@ public class FormandController {
           - delete member -> name of given member
           - abort         -> [Enter]
           SELECT:\040""");
-      String name = scanner.nextLine();
+      String name = UI.receiveStringInput();
       
       removedMember = controller.getMemberList().removeMember(name);
       

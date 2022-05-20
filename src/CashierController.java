@@ -1,47 +1,37 @@
 import member.Member;
 
 import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.Locale;
 
 public class CashierController {
   Controller controller;
-  Scanner scanner;
   
   public CashierController(Controller controller) {
     this.controller = controller;
-    scanner = new Scanner(System.in);
   }
   
   
-  public void mainMenu() {
-    boolean mainMenu = true;
+  public void cashierMenu() {
+    boolean cashierMenu = true;
     do {
-      System.out.print("""
-          
-          CASHIER:
-          - see all members                   -> 1
-          - see members in restance           -> 2
-          - see expedited earnings for period -> 3
-          - bill all members for one period   -> 4
-          - change member resistance          -> 5
-          - abort                             -> Enter
-          SELECT:\040""");
-      String userInput = scanner.nextLine().toLowerCase();
+      CashierUI.printCashierMenu();
+      String userInput = UI.receiveStringInput();
       switch (userInput) {
         case "1" -> UI.printMembers(controller.getMemberList().getMembers());
         case "2" -> printRestanceMembers();
         case "3" -> printExpeditedEarnings();
         case "4" -> billAllMembers();
         case "5" -> changeMemberResistance();
-        default -> mainMenu = false;
+        case ""  -> cashierMenu = false;
+        default -> UI.invalidInputMessage();
       }
-    } while (mainMenu);
+    } while (cashierMenu);
     
   }
   
   public void printMemberList() {
     System.out.println(controller.getMemberList()); // todo add print method in THIS class NOT in memberList for printing
-  }
+  } //comment from Daniel
   
   public void printRestanceMembers() {
     ArrayList<Member> memberArrayList = controller.getMemberList().getMembers();
@@ -52,7 +42,9 @@ public class CashierController {
     // for each member
     for (Member member : memberArrayList) {
       if (member.getRestance() > 0) {
-        System.out.printf(Color.TEXT_RED + "res:%8.2f %s" + Color.TEXT_RESET + "\n", member.getRestance(), member.getName());
+        CashierUI.printMemberRestance(member.getRestance(), member.getName());
+        //System.out.printf(Color.TEXT_RED + "res:%8.2f %s" + Color.TEXT_RESET + "\n", member.getRestance(), member.getName());
+        //replaced the above and put it in CashierUI
         totalRestance += member.getRestance();
         amountRestance++;
       } else {
@@ -60,13 +52,14 @@ public class CashierController {
       }
     }
     
-    if (amountRestance == 0) System.out.println("There are no members with restance!");
+    if (amountRestance == 0) CashierUI.printNoMembersWithRestance();
     else {
-      System.out.printf("""
+      CashierUI.printTotalRestance(amountRestance, amountNoRestance, totalRestance); //this is not working right now
+      /* System.out.printf("""
         RESTANCE TOTAL: %.2f
         %3d RESTANCE     MEMBERS
         %3d NON-RESTANCE MEMBERS
-        """, totalRestance, amountRestance, amountNoRestance);
+        """, totalRestance, amountRestance, amountNoRestance); */
     }
     
   }
@@ -100,7 +93,7 @@ public class CashierController {
     ArrayList<Member> members = controller.getMemberList().getMembers();
     
     System.out.print("Are you sure Y/N ");
-    String input = scanner.nextLine().toLowerCase();
+    String input = UI.receiveStringInput();
     
     if (input.equals("y")) {
       for (Member member : members)
@@ -132,7 +125,7 @@ public class CashierController {
             abort at any time -> Enter
             select member     -> name
             INPUT:\40""");
-        name = scanner.nextLine();
+        name = UI.receiveStringInput();
         if ("".equals(name)) return;
         else {
           member = memberList.getMember(name);
@@ -176,7 +169,8 @@ public class CashierController {
     Double number = null;
     
     do {
-      inputs = scanner.nextLine().toLowerCase().split(" ", 2);
+     // inputs = scanner.nextLine().toLowerCase().split(" ", 2);
+      inputs = UI.receiveStringInput().toLowerCase().split(" ", 2);
       
       // return with 0
       if (inputs.length == 1) return new String[]{inputs[0], "0"};

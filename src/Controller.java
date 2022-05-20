@@ -27,7 +27,7 @@ public class Controller {
   }
   
   public void go() {
-  
+
     initDatabase();
   
     // fileHandlingMemberList.appendCompetitor(memberList.getCompetitors()); // append one competitor to the end of the file csv
@@ -38,7 +38,7 @@ public class Controller {
     System.out.println("Loaded database motionist.csv");
     UI.printMotionists(fileHandlingMemberList.loadMotionists());
   
-  
+
     fileHandlingMemberList.saveCompetitors(memberList.getCompetitors());
     System.out.println("Original database competitive from arrayList");
     UI.printCompetitors(memberList.getCompetitors());
@@ -48,17 +48,25 @@ public class Controller {
     
     // extra
     System.out.println(fileHandlingMemberList.stringDisciplines(memberList.getCompetitive("Mike").getDisciplines()));
-    
-    // select menu todo add main menu here
+
+    mainMenu(); //starts the program
+  }
+
+  public void mainMenu() {
+    boolean mainMenu = true;
     do {
-      System.out.println("=== main menu ===");
-      System.out.println("MISSING MENU BRO");
-      
-//      formandController.mainMenu();
-      cashierController.mainMenu();
-//      trainerController.mainMenu();
-    } while (true);
-    
+      UI.printMainMenu();
+      String userInput = UI.receiveStringInput();
+      switch (userInput) {
+        case "1" -> cashierController.cashierMenu();
+        case "2" -> System.out.println("Does not work right now"); //trainerController.mainMenu();
+        case "3" -> formandController.formandMenu();
+        case ""  -> mainMenu = false;
+        default -> UI.invalidInputMessage();
+      }
+
+    } while (mainMenu);
+
   }
   
   public MemberList getMemberList() {

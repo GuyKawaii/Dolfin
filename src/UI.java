@@ -1,6 +1,7 @@
 import member.Competitive;
 import member.Member;
 import member.Motionist;
+import java.util.Scanner;
 
 import java.util.ArrayList;
 
