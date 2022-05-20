@@ -42,12 +42,27 @@ public class MemberList {
     return null;
   }
   
-  public void addMotionist(Motionist motionist) {
-    motionists.add(motionist);
+  public boolean addMotionist(Motionist motionist) {
+    // only add if not already present
+    if (motionists.contains(motionist))
+      return false;
+    
+    else {
+      motionists.add(motionist);
+      return true;
+    }
+    
   }
   
-  public void addCompetitive(Competitive competitive) {
-    competitors.add(competitive);
+  public boolean addCompetitive(Competitive competitive) {
+    // only add if not already present
+    if (competitors.contains(competitive))
+      return false;
+    
+    else {
+      competitors.add(competitive);
+      return true;
+    }
   }
   
   public boolean removeMotionist(String name) {

@@ -41,7 +41,7 @@ public class FormandController {
   }
   
   
-  public void registerMembers() {
+  public void registerMembers() { // todo check if member already exists in memberList before adding more details
     // default input
     String input;
     
