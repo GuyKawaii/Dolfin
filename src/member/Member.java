@@ -112,10 +112,21 @@ public abstract class Member {
   }
   
   // todo add equality by name first and maybe more parameters later
-//  @Override
-//  public boolean equals(Member other) {
-//    return this.getName().equals(other.getName());
-//  }
+  public boolean equals(Member other) {
+    boolean isSameName = this.getName().equalsIgnoreCase(other.getName());
+//    boolean isSameBirthday = this.getBirthday().equals(other.getBirthday()); // todo maybe add?
+    
+    return isSameName;
+  }
+  
+  
+  /*
+  new obj m1 -> cat mette 11år
+  new obj m2 -> cat mette 8år
+  if (m2.equals(m2)) false
+  if (m2.equals(m2)) true
+  
+   */
   
   
   @Override
