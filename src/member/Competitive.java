@@ -26,6 +26,11 @@ public class Competitive extends Member{
     return disciplines;
   }
   
+  public boolean hasDiscipline(Discipline discipline) {
+    // checks if the desired competitive decipline
+    return disciplines.contains(discipline);
+  }
+  
   @Override
   public String toString() {
     return super.toString();

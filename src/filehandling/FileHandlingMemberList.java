@@ -47,7 +47,7 @@ public class FileHandlingMemberList {
         motionists.add(motionist);
       }
       
-    } catch (FileNotFoundException e) {
+    } catch (Exception e) {
       System.err.println(e);
       return motionists;
     }
@@ -70,7 +70,7 @@ public class FileHandlingMemberList {
       // release file
       file.close();
       return true;
-    } catch (FileNotFoundException e) {
+    } catch (Exception e) {
       System.err.println(e);
       return false;
     }
@@ -78,6 +78,8 @@ public class FileHandlingMemberList {
   
   public boolean appendMotionistFile(Motionist motionist) {
     // append to end of file
+    if (motionist == null) return false;
+    
     // todo what happens if motionist = null?
     try {
       // block of code that can throw
@@ -128,7 +130,7 @@ public class FileHandlingMemberList {
         competitors.add(competitive);
       }
       
-    } catch (FileNotFoundException e) {
+    } catch (Exception e) {
       System.err.println(e);
       return competitors;
     }
