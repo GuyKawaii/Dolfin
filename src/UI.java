@@ -6,7 +6,30 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class UI {
-  
+
+  public static void invalidInputMessage(){
+    System.out.println(Color.TEXT_RED + "Invalid input" + Color.TEXT_RESET);
+  }
+
+  public static void printMainMenu() {
+    System.out.print("""
+          
+          MAIN MENU:
+          - Cashier Menu                      -> 1
+          - Trainer Menu                      -> 2
+          - Formand Menu                      -> 3
+          - Exit                              -> Enter
+          SELECT:\040""");
+  }
+
+  public static String receiveStringInput() {
+    String input;
+    Scanner scanner = new Scanner(System.in);
+    input = scanner.nextLine();
+
+    return input;
+  }
+
   public static void printMembers(ArrayList<Member> members) {
     // William 2005-05-18 con:1000,00 res:0,00 COMPETITIVE crawl,
     // William 2007-05-18 con:1000,00 res:0,00 MOTIONIST
@@ -59,5 +82,7 @@ public class UI {
       printMotionist(motionist);
     }
   }
-  
+
+
+
 }

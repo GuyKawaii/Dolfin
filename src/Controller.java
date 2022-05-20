@@ -56,7 +56,7 @@ public class Controller {
   
     
     // extra
-    System.out.println(fileHandlingMemberList.stringDisciplines(memberList.getCompetitive("Mike").getDisciplines()));
+    //System.out.println(fileHandlingMemberList.stringDisciplines(memberList.getCompetitive("Mike").getDisciplines())); //virker ikke
 
     mainMenu(); //starts the program
   }
