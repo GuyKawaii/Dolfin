@@ -1,45 +1,39 @@
 package record;
 
-import java.time.LocalDateTime;
+import enums.AgeGroup;
 
-public class RecordTraining {
+import java.time.LocalDate;
+
+public class RecordTraining implements Comparable<RecordTraining> {
   private String name;
-  private LocalDateTime contestantAge; // todo maybe or use ENUM for age bracket
+  private AgeGroup ageGroup;
   private int timeInSeconds;
-  private LocalDateTime date;
-  private String convention;
+  private LocalDate date;
   
-  public RecordTraining(String name, LocalDateTime contestantAge, int timeInSeconds, LocalDateTime date) {
+  // String name, int timeInSeconds, LocalDate date, int placement, String convention
+  public RecordTraining(String name, AgeGroup ageGroup, int timeInSeconds, LocalDate date) {
     setName(name);
-    setContestantAge(contestantAge);
+    setAgeGroup(ageGroup);
     setTimeInSeconds(timeInSeconds);
     setDate(date);
-    setConvention("NONE");
   }
   
-  public RecordTraining(String name, LocalDateTime contestantAge, int timeInSeconds, LocalDateTime date, String convention) {
-    setName(name);
-    setContestantAge(contestantAge);
-    setTimeInSeconds(timeInSeconds);
-    setDate(date);
-    setConvention(convention);
+  public void setAgeGroup(AgeGroup ageGroup) {
+    this.ageGroup = ageGroup;
   }
   
-  public void setDate(LocalDateTime date) {
+  public AgeGroup getAgeGroup() {
+    return ageGroup;
+  }
+  
+  public void setDate(LocalDate date) {
     this.date = date;
   }
   
-  public LocalDateTime getDate() {
+  public LocalDate getDate() {
     return date;
   }
   
-  public void setContestantAge(LocalDateTime contestantAge) {
-    this.contestantAge = contestantAge;
-  }
-  
-  public LocalDateTime getContestantAge() {
-    return contestantAge;
-  }
   
   public void setName(String name) {
     this.name = name;
@@ -57,11 +51,28 @@ public class RecordTraining {
     return timeInSeconds;
   }
   
-  public void setConvention(String convention) {
-    this.convention = convention;
+  @Override
+  public boolean equals(Object obj) {
+    RecordTraining other = (RecordTraining) obj;
+    
+    return this.name.equals(other.name) &&
+           this.ageGroup == other.ageGroup &&
+           this.timeInSeconds == other.timeInSeconds &&
+           this.date.equals(other.date);
   }
   
-  public String getConvention() {
-    return convention;
+  @Override
+  public int compareTo(RecordTraining other) {
+    return this.timeInSeconds - other.timeInSeconds;
+  }
+  
+  @Override
+  public String toString() {
+    return String.format("%s %s %s %s",
+        name,
+        ageGroup.getAgeBracket(),
+        timeInSeconds,
+        date);
   }
 }
+
