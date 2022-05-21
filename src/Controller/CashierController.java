@@ -188,9 +188,8 @@ public class CashierController {
     Double number = null;
 
     do {
-      // inputs = scanner.nextLine().toLowerCase().split(" ", 2);
-      inputs = UI.receiveStringInput().toLowerCase().split(" ", 2);
-
+     // inputs = scanner.nextLine().toLowerCase().split(" ", 2);
+      inputs = UI.receiveStringInput().toLowerCase().split(" ", 2); //changed first letter to uppercase in receiveStringInput method
       // return with 0
       if (inputs.length == 1) return new String[]{inputs[0], "0"};
 
