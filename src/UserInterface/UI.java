@@ -24,12 +24,14 @@ public class UI {
           SELECT:\040""");
   }
 
-  public static String receiveStringInput() {
+  public static String receiveStringInput() { // todo maybe make real nice
     String input;
     Scanner scanner = new Scanner(System.in);
     input = scanner.nextLine();
+    if(input == "") {
+      return "";
+    }
     String output = input.substring(0, 1).toUpperCase() + input.substring(1);
-
     return output;
   }
 
