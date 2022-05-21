@@ -44,18 +44,6 @@ public class MemberList {
     
     return null;
   }
-
-  public boolean isGetMember(String name) {
-    Member member;
-
-    member = (Member) getMotionist(name);
-    if (member != null) return true;
-
-    member = (Member) getCompetitive(name);
-    if (member != null) return true;
-
-    return false;
-  }
   
   public boolean addMotionist(Motionist motionist) {
     // only add if not already present

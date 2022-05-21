@@ -175,11 +175,9 @@ public class FormandController {
         }
         // motionist
         case "1", "m", "motionist" -> {
-
           Motionist newMotionist = new Motionist(name, birthday, membershipStatus);
-
           controller.getMemberList().addMotionist(newMotionist);
-
+          fileHandlingMemberList.saveMotionists(controller.getMemberList().getMotionists());
         }
 
         // competitive

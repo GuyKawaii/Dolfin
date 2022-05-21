@@ -96,7 +96,11 @@ public class Controller {
   
     UI.printCompetitors(memberList.getCompetitors());
   }
-  
+
+  public FileHandlingMemberList getFileHandlingMemberList() {
+    return fileHandlingMemberList;
+  }
+
   // program entry
   public static void main(String[] args) {
 //    new FormandController().mainMenu();
