@@ -1,3 +1,5 @@
+import Controller.Controller;
+
 public class Main {
   public static void main(String[] args) {
     new Main().go();
@@ -17,7 +19,7 @@ public class Main {
 //    MemberCompetitive m7 = new member.MemberCompetitive("Veronica", now().minusYears(26), ACTIVE);
 //    MemberCompetitive m8 = new member.MemberCompetitive("Grethe", now().minusYears(23), PASSIVE);
 //
-//    MemberList memberList = new MemberList();
+//    member.MemberList memberList = new member.MemberList();
 //    memberList.addMotionist(m1);
 //    memberList.addMotionist(m2);
 //    memberList.addMotionist(m3);

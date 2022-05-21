@@ -1,3 +1,7 @@
+package Controller;
+
+import Controller.Controller;
+
 import java.util.Scanner;
 
 public class TrainerController {

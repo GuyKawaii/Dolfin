@@ -1,3 +1,5 @@
+package UserInterface;
+
 import member.Competitive;
 import member.Member;
 import member.Motionist;
@@ -26,8 +28,9 @@ public class UI {
     String input;
     Scanner scanner = new Scanner(System.in);
     input = scanner.nextLine();
+    String output = input.substring(0, 1).toUpperCase() + input.substring(1);
 
-    return input;
+    return output;
   }
 
   public static void printMembers(ArrayList<Member> members) {
