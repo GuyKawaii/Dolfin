@@ -34,7 +34,7 @@ public class FormandController {
           - Delete members      -> 3
           - Return to main menu -> Enter
           SELECT:\040""");
-      String userInput = UI.receiveStringInputToUpperCase();
+      String userInput = UI.receiveStringInput();
       switch (userInput) {
         case "1", "see", "s" -> UI.printMembers(controller.getMemberList().getMembers());
         case "2", "register", "r" -> registerMembers();
