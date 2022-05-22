@@ -9,7 +9,7 @@ public enum MembershipStatus {
     this.subscription = subscription;
   }
   
-  public String getSubscription() {
+  public String getString() {
     return subscription;
   }
 }

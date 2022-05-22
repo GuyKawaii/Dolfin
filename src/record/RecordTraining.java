@@ -66,13 +66,5 @@ public class RecordTraining implements Comparable<RecordTraining> {
     return this.timeInSeconds - other.timeInSeconds;
   }
   
-  @Override
-  public String toString() {
-    return String.format("%s %s %s %s",
-        name,
-        ageGroup.getAgeBracket(),
-        timeInSeconds,
-        date);
-  }
 }
 
