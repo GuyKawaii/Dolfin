@@ -1,4 +1,5 @@
 import Controller.Controller;
+import other.Team;
 
 public class Main {
   public static void main(String[] args) {
