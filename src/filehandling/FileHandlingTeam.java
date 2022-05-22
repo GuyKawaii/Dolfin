@@ -10,6 +10,11 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Scanner;
 
+import member.Competitive;
+import record.RecordTraining;
+
+import java.util.ArrayList;
+
 public class FileHandlingTeam {
   private final String databaseFolder = "database/";
   private final String crawlTrainingFile = "crawlTraining.csv";

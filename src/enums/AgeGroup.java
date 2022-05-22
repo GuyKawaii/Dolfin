@@ -9,7 +9,7 @@ public enum AgeGroup {
     this.ageBracket = ageBracket;
   }
   
-  public String getAgeBracket() {
+  public String getString() {
     return ageBracket;
   }
 }

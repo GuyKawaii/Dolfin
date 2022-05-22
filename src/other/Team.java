@@ -38,6 +38,9 @@ public class Team {
     butterflyCompetition = new ArrayList();
   }
   
+  public AgeGroup getAgeGroup() {
+    return ageGroup;
+  }
   
   public boolean createTrainingRecord(Discipline discipline, String name, int timeInSeconds, LocalDate date) {
     // only create new if time is better
