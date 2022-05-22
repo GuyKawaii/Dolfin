@@ -43,6 +43,11 @@ class TeamTest {
   
   @Test
   void createCompetitiveRecord() {
+    Team team = new Team(SENIOR, new Trainer("Michael"));
+    team.createCompetitiveRecord(CRAWL, "test", 5, LocalDate.now(), 2, "test");
+    
+  
+    assertEquals(team.getBackCrawlCompetition().get(0).getTimeInSeconds(), 5 );
   }
   
   @Test
