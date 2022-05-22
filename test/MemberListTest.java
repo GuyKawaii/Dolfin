@@ -1,23 +1,25 @@
-import enums.AgeGroup;
+import other.Team;
+import other.Trainer;
 import enums.Discipline;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 
+import static enums.AgeGroup.JUNIOR;
 import static org.junit.jupiter.api.Assertions.*;
 
 class MemberListTest {
   
   @Test
   void topFiveUnderFiveNoTraineesTest() {
-    Team team = new Team(AgeGroup.JUNIOR);
+    Team team = new Team(JUNIOR, new Trainer("Bubba"));
     
     assertEquals(0, team.topFiveForDiscipline(Discipline.CRAWL).size());
   }
   
   @Test
   void topFiveUnderFiveTraineesTest() {
-    Team team = new Team(AgeGroup.JUNIOR);
+    Team team = new Team(JUNIOR, new Trainer("Bubba"));
     // 1
     team.createTrainingRecord(Discipline.CRAWL, "name1", 10, LocalDate.now());
     // 2
@@ -43,7 +45,7 @@ class MemberListTest {
   @Test
     // get 5 exactly
   void fiveTraineesTest() {
-    Team team = new Team(AgeGroup.JUNIOR);
+    Team team = new Team(JUNIOR, new Trainer("Bubba"));
     team.createTrainingRecord(Discipline.CRAWL, "name", 10, LocalDate.now());
     
     // top five less than 5 trainees
@@ -52,7 +54,7 @@ class MemberListTest {
   
   @Test
   void aboveFiveTraineesTest() {
-    Team team = new Team(AgeGroup.JUNIOR);
+    Team team = new Team(JUNIOR, new Trainer("Bubba"));
     team.createTrainingRecord(Discipline.CRAWL, "name1", 10, LocalDate.now());
     team.createTrainingRecord(Discipline.CRAWL, "name2", 10, LocalDate.now());
     team.createTrainingRecord(Discipline.CRAWL, "name3", 10, LocalDate.now());

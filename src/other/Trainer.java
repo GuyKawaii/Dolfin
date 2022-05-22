@@ -1,3 +1,5 @@
+package other;
+
 public class Trainer {
   private String name;
   
