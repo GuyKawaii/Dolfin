@@ -13,10 +13,10 @@ import java.util.Collections;
 public class Team {
   private AgeGroup ageGroup;
   private Trainer trainer;
+
+  private ArrayList<Record> allRecords;
   private ArrayList<RecordTraining> crawlTraining;
   private ArrayList<RecordCompetition> crawlCompetition;
-  
-  
   private ArrayList<RecordTraining> backCrawlTraining;
   private ArrayList<RecordCompetition> backCrawlCompetition;
   private ArrayList<RecordTraining> breastStrokeTraining;
