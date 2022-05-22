@@ -1,8 +1,11 @@
 package Controller;
 
 import UserInterface.UI;
+import enums.AgeGroup;
 import member.*;
 import filehandling.FileHandlingMemberList;
+import other.Team;
+import other.Trainer;
 
 import static enums.MembershipStatus.*;
 import static java.time.LocalDate.now;
@@ -13,18 +16,29 @@ public class Controller {
   private CashierController cashierController;
   private TrainerController trainerController;
   
+  // file
   private FileHandlingMemberList fileHandlingMemberList;
   
   // program state
   private MemberList memberList;
+  private Team teamJunior;
+  private  Team teamSenior;
+
   
   // Constructor
   public Controller() {
+    // other controllers
     formandController = new FormandController(this);
     cashierController = new CashierController(this);
     trainerController = new TrainerController(this);
-    memberList = new MemberList();
+  
+    // file
     fileHandlingMemberList = new FileHandlingMemberList();
+    
+    // program state
+    memberList = new MemberList();
+    teamJunior = new Team(AgeGroup.JUNIOR, new Trainer("JUNIOR"));
+    teamSenior = new Team(AgeGroup.SENIOR, new Trainer("SENIOR"));
   }
   
   // getters

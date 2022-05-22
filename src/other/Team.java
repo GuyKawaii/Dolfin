@@ -1,4 +1,4 @@
-//import not_implemented
+package other;
 
 import enums.Discipline;
 import record.RecordCompetition;
@@ -11,6 +11,7 @@ import java.util.Collections;
 
 public class Team {
   private AgeGroup ageGroup;
+  private Trainer trainer;
   private ArrayList<RecordTraining> crawlTraining;
   private ArrayList<RecordCompetition> crawlCompetition;
   
@@ -22,8 +23,10 @@ public class Team {
   private ArrayList<RecordTraining> butterflyTraining;
   private ArrayList<RecordCompetition> butterflyCompetition;
   
-  public Team(AgeGroup ageGroup) {
+  public Team(AgeGroup ageGroup, Trainer trainer) {
     this.ageGroup = ageGroup;
+    this.trainer = trainer;
+    
     // discipline lists
     crawlTraining = new ArrayList();
     crawlCompetition = new ArrayList();

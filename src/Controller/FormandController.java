@@ -43,7 +43,6 @@ public class FormandController {
         default -> UI.invalidInputMessage();
       }
     } while (formandMenu);
-
   }
 
   public LocalDate inputBirthday() {

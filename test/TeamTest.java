@@ -1,6 +1,5 @@
-import enums.AgeGroup;
-import enums.Discipline;
-import org.junit.jupiter.api.BeforeAll;
+import other.Team;
+import other.Trainer;
 import org.junit.jupiter.api.Test;
 import record.RecordTraining;
 
@@ -12,8 +11,6 @@ import static enums.Discipline.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class TeamTest {
-
-//  @BeforeAll
   
   @Test
   void replaceTrainingRecord() {
@@ -26,7 +23,7 @@ class TeamTest {
   
   @Test
   void createTrainingRecord() {
-    Team team = new Team(JUNIOR);
+    Team team = new Team(JUNIOR, new Trainer("Bubba"));
     
     // reference times
     RecordTraining nr1 = new RecordTraining("1", JUNIOR, 1, LocalDate.now());
@@ -54,7 +51,7 @@ class TeamTest {
   
   @Test
   void findTopFive() {
-    Team team = new Team(JUNIOR);
+    Team team = new Team(JUNIOR, new Trainer("Bubba"));
     
     // create reference top five
     ArrayList<RecordTraining> referenceTopFive = new ArrayList<>();
