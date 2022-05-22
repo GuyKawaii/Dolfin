@@ -4,9 +4,16 @@ import Controller.Controller;
 import UserInterface.UI;
 import enums.AgeGroup;
 import enums.Discipline;
+import filehandling.FileHandlingTeam;
 import other.Team;
+import other.Trainer;
+import record.Record;
+import record.RecordTraining;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 import static enums.AgeGroup.*;
 import static enums.Discipline.*;
@@ -14,6 +21,7 @@ import static enums.Discipline.*;
 public class TrainerController {
   Controller controller;
   Scanner scanner;
+  FileHandlingTeam fileHandlingTeam = new FileHandlingTeam();
   
   public TrainerController(Controller controller) {
     this.controller = controller;
@@ -65,9 +73,40 @@ public class TrainerController {
     }
   }
   
-  public void addEntry() {
-  
-  
+  public void addRecord() {
+    Trainer trainer1 = new Trainer("Søren");
+    Trainer trainer2 = new Trainer("Jytte");
+    Team junior = new Team(AgeGroup.JUNIOR, trainer1);
+    Team senior = new Team(AgeGroup.SENIOR, trainer2);
+
+    junior.createTrainingRecord(CRAWL, "William", 6, LocalDate.now());
+    junior.createTrainingRecord(CRAWL, "Anders", 10, LocalDate.now());
+    fileHandlingTeam.saveTeam(junior);
+
+
+    ArrayList<Integer> intArray = new ArrayList<>();
+    ArrayList<Object> objectArray = (ArrayList<Object>)(ArrayList<?>) (intArray);
+
+    fileHandlingTeam.saveRecord(junior.getTrainer(), (ArrayList<Record>)(ArrayList<?>)(junior.getCrawlTraining()));
+    fileHandlingTeam.saveRecord(junior.getTrainer(), junior.getBackCrawlTraining());
+    fileHandlingTeam.saveRecord(junior.getTrainer(), junior.getBreastStrokeTraining());
+    fileHandlingTeam.saveRecord(junior.getTrainer(), junior.getButterflyTraining());
+    fileHandlingTeam.saveRecord(junior.getTrainer(), junior.getCrawlCompetition());
+    fileHandlingTeam.saveRecord(junior.getTrainer(), junior.getBackCrawlCompetition());
+    fileHandlingTeam.saveRecord(junior.getTrainer(), junior.getBreastStrokeCompetition());
+    fileHandlingTeam.saveRecord(junior.getTrainer(), junior.getButterflyCompetition());
+    // senior save?
+    fileHandlingTeam.saveRecord(senior.getTrainer(), senior.getCrawlTraining());
+    fileHandlingTeam.saveRecord(senior.getTrainer(), senior.getCrawlTraining());
+    fileHandlingTeam.saveRecord(senior.getTrainer(), senior.getCrawlTraining());
+    fileHandlingTeam.saveRecord(senior.getTrainer(), senior.getCrawlTraining());
+    fileHandlingTeam.saveRecord(senior.getTrainer(), senior.getCrawlTraining());
+    fileHandlingTeam.saveRecord(senior.getTrainer(), senior.getCrawlTraining());
+    fileHandlingTeam.saveRecord(senior.getTrainer(), senior.getCrawlTraining());
+    fileHandlingTeam.saveRecord(senior.getTrainer(), senior.getCrawlTraining());
+
+
+
   }
   
 }

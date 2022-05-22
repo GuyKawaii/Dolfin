@@ -1,21 +1,56 @@
 package filehandling;
 
+import enums.AgeGroup;
 import member.Competitive;
-import record.RecordTraining;
+import other.*;
+import record.RecordCompetition;
+import record.*;
 
 import java.util.ArrayList;
 
 public class FileHandlingTeam {
-  private final String databaseFolder = "database/";
-  private final String crawlTrainingFile = "crawlTraining.csv";
-  private final String crawlCompetitionFile = "crawlCompetition.csv";
-  private final String backCrawlTrainingFile = "backCrawlTraining.csv";
-  private final String backCrawlCompetitionFile = "backCrawlCompetition.cvs";
-  private final String breastStrokeTrainingFile = "breastStrokeTrainingFile.csv";
-  private final String breastStrokeCompetitionFile = "breastStrokeCompetition.csv";
-  private final String butterflyTrainingFile = "butterflyTrainingFile.csv";
-  private final String butterflyCompetitionFile = "butterflyCompetitionFile.csv";
-  
+    private final String databaseFolder = "database/";
+    private final String crawlTrainingFile = "crawlTraining.csv";
+    private final String crawlCompetitionFile = "crawlCompetition.csv";
+    private final String backCrawlTrainingFile = "backCrawlTraining.csv";
+    private final String backCrawlCompetitionFile = "backCrawlCompetition.cvs";
+    private final String breastStrokeTrainingFile = "breastStrokeTrainingFile.csv";
+    private final String breastStrokeCompetitionFile = "breastStrokeCompetition.csv";
+    private final String butterflyTrainingFile = "butterflyTrainingFile.csv";
+    private final String butterflyCompetitionFile = "butterflyCompetitionFile.csv";
+
+    public void saveRecord(Trainer trainer, ArrayList<record.Record> records) {
+
+    }
+
+    public void saveJuniorRecord(ArrayList<RecordTraining> records) {
+
+    }
+
+    public void saveTeam(Team team) {
+        try {
+            PrintStream file = new PrintStream(databaseFolder + crawlTrainingFile);
+            for (RecordTraining recordTraining : team.getCrawlTraining()) {
+                file.printf("%s;%s;%s;%s;%s\n",
+                        team.getAgeGroup(),
+                        team.getTrainer(),
+                        recordTraining.getName(),
+                        recordTraining.getTimeInSeconds(),
+                        recordTraining.getDate());
+            }
+            file.close();
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+
+
+        // file naming -> ageGroup + training discipline
+        // from array -> file
+
+
+    }
+
+
   
  /*
   public ArrayList<Motionist> loadMotionists() {

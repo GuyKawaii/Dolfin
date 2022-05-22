@@ -7,6 +7,8 @@ import member.*;
 import filehandling.FileHandlingMemberList;
 import other.Team;
 import other.Trainer;
+import record.RecordCompetition;
+import record.RecordTraining;
 
 import java.time.LocalDate;
 
@@ -44,6 +46,10 @@ public class Controller {
     memberList = new MemberList();
     teamJunior = new Team(AgeGroup.JUNIOR, new Trainer("JUNIOR"));
     teamSenior = new Team(AgeGroup.SENIOR, new Trainer("SENIOR"));
+
+    RecordCompetition recordCompetition = new RecordCompetition("name", AgeGroup.JUNIOR, 6, LocalDate.now(), 8,"hallen");
+    RecordTraining recordTraining = new RecordTraining("name", AgeGroup.JUNIOR, 6, LocalDate.now());
+    System.out.println(recordCompetition);
   }
   
   // getters

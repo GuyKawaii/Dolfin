@@ -26,6 +26,10 @@ public class RecordTraining extends Record implements Comparable<RecordTraining>
            this.getTimeInSeconds() == other.getTimeInSeconds() &&
            this.getDate().equals(other.getDate());
   }
-  
+
+  @Override
+  public String toString() {
+    return super.toString();
+  }
 }
 
