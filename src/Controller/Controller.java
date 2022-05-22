@@ -30,7 +30,7 @@ public class Controller {
   private MemberList memberList;
   private Team teamJunior;
   private Team teamSenior;
-  
+
   
   // Constructor
   public Controller() {
@@ -38,7 +38,7 @@ public class Controller {
     formandController = new FormandController(this);
     cashierController = new CashierController(this);
     trainerController = new TrainerController(this);
-    
+
     // file
     fileHandlingMemberList = new FileHandlingMemberList();
     
@@ -56,19 +56,19 @@ public class Controller {
   public MemberList getMemberList() {
     return memberList;
   }
-  
+
   public Team getTeamJunior() {
     return teamJunior;
   }
-  
+
   public Team getTeamSenior() {
     return teamSenior;
   }
-  
+
   // main loop
   public void go() {
-    
-    
+
+
     initDatabase();
     initTeams();
 //    Competitive competitive1 = new member.Competitive("Mike", now().minusYears(21), ACTIVE);
@@ -89,11 +89,11 @@ public class Controller {
     
     // extra
     //System.out.println(fileHandlingMemberList.stringDisciplines(memberList.getCompetitive("Mike").getDisciplines())); //virker ikke
-    
+
     trainerController.mainMenu();
 //    mainMenu(); //starts the program
   }
-  
+
   public void mainMenu() {
     boolean mainMenu = true;
     do {
@@ -104,16 +104,16 @@ public class Controller {
         case "2" -> trainerController.mainMenu();
         case "3" -> formandController.formandMenu();
         case "" -> {
-          
+
           mainMenu = false;
         }
         default -> UI.invalidInputMessage();
       }
-      
+
     } while (mainMenu);
-    
+
   }
-  
+
   public void initDatabase() {
     // todo remove method later
     // Team setup
@@ -129,18 +129,18 @@ public class Controller {
     teamJunior.createTrainingRecord(BUTTERFLY, "2", 2, LocalDate.now());
     teamJunior.createTrainingRecord(BUTTERFLY, "1", 1, LocalDate.now());
   }
-  
+
   public FileHandlingMemberList getFileHandlingMemberList() {
     return fileHandlingMemberList;
   }
-  
+
   public void initTeams() {
     // todo remove method later
-    
-    
+
+
     UI.printCompetitors(memberList.getCompetitors());
   }
-  
+
   // program entry
   public static void main(String[] args) {
 //    new FormandController().mainMenu();

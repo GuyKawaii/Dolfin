@@ -26,6 +26,7 @@ public class TrainerController {
   public TrainerController(Controller controller) {
     this.controller = controller;
     scanner = new Scanner(System.in);
+    addRecord();
   }
   
   public void mainMenu() {

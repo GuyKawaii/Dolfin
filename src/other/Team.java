@@ -1,6 +1,7 @@
 package other;
 
 import enums.Discipline;
+import record.Record;
 import record.RecordCompetition;
 import record.RecordTraining;
 import enums.AgeGroup;
@@ -38,9 +39,13 @@ public class Team {
     butterflyCompetition = new ArrayList();
   }
   
+
+  
   public AgeGroup getAgeGroup() {
     return ageGroup;
   }
+
+  public Trainer getTrainer() {return trainer;}
   
   public boolean createTrainingRecord(Discipline discipline, String name, int timeInSeconds, LocalDate date) {
     // only create new if time is better
@@ -67,6 +72,7 @@ public class Team {
     switch (discipline) {
       case CRAWL ->
           crawlCompetition.add(new RecordCompetition(name, ageGroup, timeInSeconds, date, placement, convention));
+
       case BACK_CRAWL ->
           backCrawlCompetition.add(new RecordCompetition(name, ageGroup, timeInSeconds, date, placement, convention));
       case BREAST_STROKE ->
