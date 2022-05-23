@@ -1,9 +1,7 @@
 package filehandling;
 
-import enums.AgeGroup;
-import member.Competitive;
+import enums.Discipline;
 import other.*;
-import record.RecordCompetition;
 import record.*;
 
 import java.io.PrintStream;
@@ -20,8 +18,20 @@ public class FileHandlingTeam {
     private final String butterflyTrainingFile = "butterflyTrainingFile.csv";
     private final String butterflyCompetitionFile = "butterflyCompetitionFile.csv";
 
-    public void saveRecord(Trainer trainer, ArrayList<record.Record> records) {
 
+    //har fjernet trainer for nu
+    public void saveRecordTraining(ArrayList<RecordTraining> recordTrainings, Discipline discipline) {
+        //Discipline discipline = recordTrainings(0).getDisciple;
+        // save given array to given filepath given py parameter;
+        //tag disciplin fra træner input når han laver record
+        //læg disciplin i record ved træner input?
+        switch (discipline) {
+            case CRAWL -> writeToFileTraining(recordTrainings, crawlTrainingFile);
+            case BACK_CRAWL -> writeToFileTraining(recordTrainings, backCrawlTrainingFile);
+            case BREAST_STROKE -> writeToFileTraining(recordTrainings, breastStrokeTrainingFile);
+            case BUTTERFLY -> writeToFileTraining(recordTrainings, butterflyTrainingFile);
+            // TODO: 23/05/2022 add default?
+        }
     }
 
     public void saveJuniorRecord(ArrayList<RecordTraining> records) {
@@ -29,6 +39,10 @@ public class FileHandlingTeam {
     }
 
     public void saveTeam(Team team) {
+
+        // Tager en bestemt arrayliste af en discplin - den skal ligge den ind i filen som passer til den (16 gange)
+        //
+       // save team.getCrawlTraining() file crawltraning team.getAgeGrup
         try {
             PrintStream file = new PrintStream(databaseFolder + crawlTrainingFile);
             for (RecordTraining recordTraining : team.getCrawlTraining()) {
