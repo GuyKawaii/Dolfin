@@ -5,6 +5,11 @@ import enums.AgeGroup;
 import enums.Discipline;
 import enums.MembershipStatus;
 import member.Competitive;
+import filehandling.FileHandlingTeam;
+import other.Team;
+import other.Trainer;
+import record.Record;
+import record.RecordTraining;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

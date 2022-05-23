@@ -7,6 +7,8 @@ import member.*;
 import filehandling.FileHandlingMemberList;
 import other.Team;
 import other.Trainer;
+import record.RecordCompetition;
+import record.RecordTraining;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -29,7 +31,7 @@ public class Controller {
   private MemberList memberList;
   private Team teamJunior;
   private Team teamSenior;
-  
+
   
   // Constructor
   public Controller() {
@@ -37,7 +39,7 @@ public class Controller {
     formandController = new FormandController(this);
     cashierController = new CashierController(this);
     trainerController = new TrainerController(this);
-    
+
     // file
     fileHandlingMemberList = new FileHandlingMemberList();
     
@@ -51,19 +53,19 @@ public class Controller {
   public MemberList getMemberList() {
     return memberList;
   }
-  
+
   public Team getTeamJunior() {
     return teamJunior;
   }
-  
+
   public Team getTeamSenior() {
     return teamSenior;
   }
-  
+
   // main loop
   public void go() {
-    
-    
+
+
     initDatabase();
     initTeams();
 //    Competitive competitive1 = new member.Competitive("Mike", now().minusYears(21), ACTIVE);
@@ -84,11 +86,11 @@ public class Controller {
     
     // extra
     //System.out.println(fileHandlingMemberList.stringDisciplines(memberList.getCompetitive("Mike").getDisciplines())); //virker ikke
-    
+
     trainerController.mainMenu();
 //    mainMenu(); //starts the program
   }
-  
+
   public void mainMenu() {
     boolean mainMenu = true;
     do {
@@ -99,16 +101,16 @@ public class Controller {
         case "2" -> trainerController.mainMenu();
         case "3" -> formandController.formandMenu();
         case "" -> {
-          
+
           mainMenu = false;
         }
         default -> UI.invalidInputMessage();
       }
-      
+
     } while (mainMenu);
-    
+
   }
-  
+
   public void initDatabase() {
     // todo remove method later
     ArrayList<Discipline> disciplines = new ArrayList<>(Arrays.asList(CRAWL, BACK_CRAWL, BREAST_STROKE));

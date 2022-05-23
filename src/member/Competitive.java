@@ -21,8 +21,8 @@ public class Competitive extends Member{
     
     this.disciplines = disciplines;
   }
-  
-  public ArrayList<Discipline> getDisciplines() {
+
+  public ArrayList<Discipline> getDisciplines(){
     return disciplines;
   }
   
@@ -30,7 +30,7 @@ public class Competitive extends Member{
     // checks if the desired competitive discipline
     return disciplines.contains(discipline);
   }
-  
+
   @Override
   public String toString() {
     return super.toString();

@@ -51,7 +51,7 @@ import java.time.LocalDate;
   
     @Override
     public String toString() {
-      return String.format("%s %s %s %s",
+      return String.format("%s, %s, time in seconds: %s, %s",
           name,
           ageGroup.getString(),
           timeInSeconds,
