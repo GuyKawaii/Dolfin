@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Team {
+public class Team { //TODO maybe change name to TeamRecords?
   private AgeGroup ageGroup;
   private Trainer trainer;
   private ArrayList<RecordTraining> crawlTraining;

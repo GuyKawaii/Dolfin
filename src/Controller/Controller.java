@@ -93,7 +93,7 @@ public class Controller {
     boolean mainMenu = true;
     do {
       UI.printMainMenu();
-      String userInput = UI.receiveStringInput();
+      String userInput = UI.capitalizeStringInput();
       switch (userInput) {
         case "1" -> cashierController.cashierMenu();
         case "2" -> trainerController.mainMenu();

@@ -34,7 +34,7 @@ public class FormandController {
           - Delete members      -> 3
           - Return to main menu -> Enter
           SELECT:\040""");
-      String userInput = UI.receiveStringInput();
+      String userInput = UI.capitalizeStringInput();
       switch (userInput) {
         case "1", "see", "s" -> UI.printMembers(controller.getMemberList().getMembers());
         case "2", "register", "r" -> registerMembers();
@@ -58,7 +58,7 @@ public class FormandController {
           INPUT DISCIPLINES
           crawl -> c | back crawl -> bc | breast stroke -> bs | butterfly -> b | retry -> r
           INPUT:\40""");
-      input = UI.receiveStringInput();
+      input = UI.capitalizeStringInput();
 
       switch (input) {
         case "1", "crawl", "c" -> {
@@ -109,7 +109,7 @@ public class FormandController {
       System.out.print("""
                     
           INPUT name:\40""");
-      name = UI.receiveStringInput();
+      name = UI.capitalizeStringInput();
 
       if (name.isBlank()) break registering;
 
@@ -129,7 +129,7 @@ public class FormandController {
           passive -> 2
           abort   -> Enter
           SELECT:\40""");
-      input = UI.receiveStringInput();
+      input = UI.capitalizeStringInput();
       switch (input) {
         case "1", "active", "a" -> membershipStatus = ACTIVE;
         case "2", "passive", "p" -> membershipStatus = PASSIVE;
@@ -145,7 +145,7 @@ public class FormandController {
           motionist   -> 1
           competitive -> 2
           SELECT:\40""");
-      input = UI.receiveStringInput();
+      input = UI.capitalizeStringInput();
       switch (input) {
         default -> {
           break registering;
@@ -184,7 +184,7 @@ public class FormandController {
           - delete member -> name of given member
           - abort         -> [Enter]
           SELECT:\040""");
-      String name = UI.receiveStringInput();
+      String name = UI.capitalizeStringInput();
       if (name.isBlank()) break selectingMember;
       // try removing
       removedMember = controller.getMemberList().removeMember(name);

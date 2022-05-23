@@ -32,12 +32,12 @@ public class TrainerController {
           - add record          -> 1
           - See top 5 junior    -> 2
           - See top 5 senior    -> 3
-          
+         
           - see junior team     -> 4
           - see senior team     -> 5
           - Return to main menu -> Enter
           SELECT:\040""");
-      String userInput = UI.receiveStringInput();
+      String userInput = UI.capitalizeStringInput();
       switch (userInput) {
         case "1" -> addRecord();
         case "2" -> seeTopFive(JUNIOR);
