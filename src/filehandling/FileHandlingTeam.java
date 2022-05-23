@@ -34,9 +34,53 @@ public class FileHandlingTeam {
         }
     }
 
-    public void saveJuniorRecord(ArrayList<RecordTraining> records) {
-
+    public void saveRecordCompetition(ArrayList<RecordCompetition> recordCompetitions, Discipline discipline) {
+        //Discipline discipline = recordTrainings(0).getDisciple;
+        // save given array to given filepath given py parameter;
+        //tag disciplin fra træner input når han laver record
+        //læg disciplin i record ved træner input?
+        switch (discipline) {
+            case CRAWL -> writeToFileCompetition(recordCompetitions, crawlCompetitionFile);
+            case BACK_CRAWL -> writeToFileCompetition(recordCompetitions, backCrawlCompetitionFile);
+            case BREAST_STROKE -> writeToFileCompetition(recordCompetitions, breastStrokeCompetitionFile);
+            case BUTTERFLY -> writeToFileCompetition(recordCompetitions, butterflyCompetitionFile);
+            // TODO: 23/05/2022 add default?
+        }
     }
+
+    public void writeToFileTraining(ArrayList<RecordTraining> recordTrainings, String discipline) {
+            try {
+                PrintStream write = new PrintStream(databaseFolder + discipline);
+                for (RecordTraining recordTraining : recordTrainings) {
+                    write.printf("%s%s%s%s",
+                            recordTraining.getName(),
+                            recordTraining.getAgeGroup(),
+                            recordTraining.getTimeInSeconds(),
+                            recordTraining.getDate());
+                }
+
+            } catch (Exception e) {
+                System.err.println(e);
+            }
+        }
+
+    public void writeToFileCompetition(ArrayList<RecordCompetition> recordCompetitions, String discipline) {
+        try {
+            PrintStream write = new PrintStream(databaseFolder + discipline);
+            for (RecordCompetition recordCompetition : recordCompetitions) {
+                write.printf("%s%s%s%s",
+                        recordCompetition.getName(),
+                        recordCompetition.getAgeGroup(),
+                        recordCompetition.getTimeInSeconds(),
+                        recordCompetition.getDate());
+            }
+
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+    }
+
+
 
     public void saveTeam(Team team) {
 
