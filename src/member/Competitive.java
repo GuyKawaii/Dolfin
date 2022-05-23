@@ -27,7 +27,7 @@ public class Competitive extends Member{
   }
   
   public boolean hasDiscipline(Discipline discipline) {
-    // checks if the desired competitive decipline
+    // checks if the desired competitive discipline
     return disciplines.contains(discipline);
   }
   

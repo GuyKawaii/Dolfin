@@ -45,26 +45,7 @@ public class FormandController {
     } while (formandMenu);
   }
 
-  public LocalDate inputBirthday() {
-    String input;
-    LocalDate birthday = null;
 
-    System.out.print("\nINPUT birthday (yyyy-mm-dd): ");
-
-    do {
-      input = UI.receiveStringInput();
-      if (input.isEmpty()) return null;
-
-      try {
-        birthday = LocalDate.parse(input);
-      } catch (Exception e) {
-        System.out.println(input + " is not valid date format");
-      }
-
-    } while (birthday == null);
-
-    return birthday;
-  }
 
   public ArrayList<Discipline> inputDisciplines() {
     ArrayList<Discipline> disciplines = new ArrayList<>();
@@ -136,7 +117,8 @@ public class FormandController {
       if(controller.getMemberList().getMember(name) != null) break registering;
 
       // birthday
-      birthday = inputBirthday();
+      System.out.print("\nINPUT birthday (yyyy-mm-dd): ");
+      birthday = UI.inputDate();
       if (birthday == null) break registering;
 
       // membership status

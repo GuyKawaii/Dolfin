@@ -14,7 +14,8 @@ public class RecordCompetition {
   private int placement;
   private String convention;
   
-  // String name, int timeInSeconds, LocalDate date, int placement, String convention
+  // String name, int timeInSeconds, LocalDate date,
+  // int placement, String convention
   
   // String name, AgeGroup, int timeInSeconds, LocalDate date, int placement, String convention
   public RecordCompetition(String name, AgeGroup ageGroup, int timeInSeconds, LocalDate date, int placement, String convention) {

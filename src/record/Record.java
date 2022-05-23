@@ -9,8 +9,7 @@ import java.time.LocalDate;
     private AgeGroup ageGroup;
     private int timeInSeconds;
     private LocalDate date;
-  
-    // String name, int timeInSeconds, LocalDate date, int placement, String convention
+    
     public Record(String name, AgeGroup ageGroup, int timeInSeconds, LocalDate date) {
       setName(name);
       setAgeGroup(ageGroup);

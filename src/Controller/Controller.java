@@ -9,9 +9,10 @@ import other.Team;
 import other.Trainer;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
 
-import static enums.Discipline.BACK_CRAWL;
-import static enums.Discipline.BUTTERFLY;
+import static enums.Discipline.*;
 import static enums.MembershipStatus.*;
 import static java.time.LocalDate.now;
 
@@ -110,6 +111,25 @@ public class Controller {
   
   public void initDatabase() {
     // todo remove method later
+    ArrayList<Discipline> disciplines = new ArrayList<>(Arrays.asList(CRAWL, BACK_CRAWL, BREAST_STROKE));
+    
+    memberList.addCompetitive(new Competitive("1", LocalDate.now(), PASSIVE, disciplines));
+    memberList.addCompetitive(new Competitive("2", LocalDate.now(), PASSIVE, disciplines));
+    memberList.addCompetitive(new Competitive("3", LocalDate.now(), ACTIVE, disciplines));
+    memberList.addCompetitive(new Competitive("4", LocalDate.now(), ACTIVE, disciplines));
+    memberList.addCompetitive(new Competitive("5", LocalDate.now().minusYears(30), PASSIVE, disciplines));
+    memberList.addCompetitive(new Competitive("6", LocalDate.now().minusYears(30), PASSIVE, disciplines));
+    memberList.addCompetitive(new Competitive("7", LocalDate.now().minusYears(30), ACTIVE, disciplines));
+    memberList.addCompetitive(new Competitive("8", LocalDate.now().minusYears(30), ACTIVE, disciplines));
+    
+  }
+  
+  public FileHandlingMemberList getFileHandlingMemberList() {
+    return fileHandlingMemberList;
+  }
+  
+  public void initTeams() {
+    // todo remove method later
     // Team setup
     teamJunior.createTrainingRecord(BACK_CRAWL, "7", 7, LocalDate.now());
     teamJunior.createTrainingRecord(BACK_CRAWL, "6", 6, LocalDate.now());
@@ -122,17 +142,6 @@ public class Controller {
     teamJunior.createTrainingRecord(BUTTERFLY, "3", 3, LocalDate.now());
     teamJunior.createTrainingRecord(BUTTERFLY, "2", 2, LocalDate.now());
     teamJunior.createTrainingRecord(BUTTERFLY, "1", 1, LocalDate.now());
-  }
-  
-  public FileHandlingMemberList getFileHandlingMemberList() {
-    return fileHandlingMemberList;
-  }
-  
-  public void initTeams() {
-    // todo remove method later
-    
-    
-    UI.printCompetitors(memberList.getCompetitors());
   }
   
   // program entry
