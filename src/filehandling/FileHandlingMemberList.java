@@ -36,10 +36,12 @@ public class FileHandlingMemberList {
   
   // motionist
   public ArrayList<Motionist> loadMotionists() {
+    String filePath = (databaseFolder + motionistFile);
     ArrayList<Motionist> motionists = new ArrayList<>();
     Motionist motionist;
+    
     try {
-      Scanner fileScanner = new Scanner(new File(databaseFolder + motionistFile));
+      Scanner fileScanner = new Scanner(new File(filePath));
       while (fileScanner.hasNextLine()) {
         String line = fileScanner.nextLine();
         Scanner token = new Scanner(line).useDelimiter(";").useLocale(Locale.ENGLISH);
@@ -58,7 +60,10 @@ public class FileHandlingMemberList {
       }
       
     } catch (Exception e) {
-      System.err.println(e);
+      // create empty file if not found
+      createEmptyFile(filePath);
+  
+      // empty
       return motionists;
     }
     
@@ -80,6 +85,7 @@ public class FileHandlingMemberList {
       // release file
       file.close();
       return true;
+      
     } catch (Exception e) {
       System.err.println(e);
       return false;
@@ -113,13 +119,14 @@ public class FileHandlingMemberList {
   
   // competitive
   public ArrayList<Competitive> loadCompetitors() {
+    String filePath = (databaseFolder + competitiveFile);
     ArrayList<Competitive> competitors = new ArrayList<>();
     Competitive competitive;
     // todo make controller catch and deal with exception
     ArrayList<Discipline> disciplines = new ArrayList<>();
     
     try {
-      Scanner fileScanner = new Scanner(new File(databaseFolder + competitiveFile));
+      Scanner fileScanner = new Scanner(new File(filePath));
       while (fileScanner.hasNextLine()) {
         String line = fileScanner.nextLine();
         Scanner token = new Scanner(line).useDelimiter(";").useLocale(Locale.ENGLISH);
@@ -140,7 +147,10 @@ public class FileHandlingMemberList {
       }
       
     } catch (Exception e) {
-      System.err.println(e);
+      // create empty file if not found
+      createEmptyFile(filePath);
+  
+      // empty
       return competitors;
     }
     
