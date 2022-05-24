@@ -1,17 +1,24 @@
 package UserInterface;
 
+import enums.AgeGroup;
 import enums.Discipline;
 import member.Competitive;
 import member.Member;
+import member.MemberList;
 import member.Motionist;
 import other.Team;
 import record.RecordTraining;
 
+import java.time.LocalDate;
 import java.util.Scanner;
 
 import java.util.ArrayList;
 
+import static enums.Discipline.*;
+import static enums.Discipline.BUTTERFLY;
+
 public class UI {
+  static Scanner scanner = new Scanner(System.in);
   
   public static void invalidInputMessage() {
     System.out.println(Color.TEXT_RED + "Invalid input" + Color.TEXT_RESET);
@@ -28,20 +35,77 @@ public class UI {
         SELECT:\040""");
   }
   
-  public static String receiveStringInput() { // todo maybe make real nice
+  public static int inputPositiveNumber() {
+    String input;
+    int num = 0;
+    
+    while (num < 1) {
+      // input
+      input = scanner.nextLine();
+      if (input.isEmpty()) return 0;
+      
+      // number
+      try {
+        num = Integer.parseInt(input);
+        
+        if (num < 1) System.out.println(Color.TEXT_RED + "smallest valid number is 1" + Color.TEXT_RESET);
+      } catch (Exception e) {
+        System.out.println(Color.TEXT_RED + input + " is not valid" + Color.TEXT_RESET);
+      }
+    }
+    
+    return num;
+  }
+  
+  public static LocalDate inputDate() {
+    String input;
+    LocalDate date = null;
+    
+    do {
+      input = UI.capitalizeStringInput();
+      if (input.isEmpty()) return null;
+      
+      try {
+        date = LocalDate.parse(input);
+      } catch (Exception e) {
+        System.out.println(input + " is not valid date format");
+      }
+      
+    } while (date == null);
+    
+    return date;
+  }
+  
+  public static String capitalizeStringInput() { // todo maybe make real nice
     String input;
     Scanner scanner = new Scanner(System.in);
     input = scanner.nextLine();
-    if (input == "") {
+    if (input.equals("")) {
       return "";
     }
-    String output = input.substring(0, 1).toUpperCase() + input.substring(1);
-    return output;
+    
+    return input.substring(0, 1).toUpperCase() + input.substring(1);
   }
   
+  public static Competitive findActiveCompetitive(MemberList memberList) {
+    String name;
+    Competitive competitive = null;
+    boolean found;
+    
+    while (competitive == null) {
+      name = scanner.nextLine();
+      if (name.isEmpty()) return null;
+      
+      competitive = memberList.getCompetitive(name);
+      if (competitive == null)
+        System.out.printf(Color.TEXT_RED + "CANNOT FIND %s competitive member\n" + Color.TEXT_RESET, name);
+    }
+    
+    return competitive;
+  }
+  
+  
   public static void printMembers(ArrayList<Member> members) {
-    // William 2005-05-18 con:1000,00 res:0,00 COMPETITIVE crawl,
-    // William 2007-05-18 con:1000,00 res:0,00 MOTIONIST
     for (Member member : members) {
       printMember(member);
     }
@@ -92,17 +156,75 @@ public class UI {
     }
   }
   
+  public static Discipline selectCompetitorDiscipline(Competitive competitive) {
+    // TODO can we slpit this method up? If not where does it belong?
+    // only get discipline if competitive has it
+    Discipline discipline = null;
+    String input;
+    
+    System.out.printf("""
+        
+        CAN SELECT: %s
+        
+        DISCIPLINE
+        crawl -> c | back crawl -> bc | breast stroke -> bs | butterfly -> b
+        - Return to main menu -> Enter
+        SELECT:\040""", competitive.getDisciplines());
+    
+    getDiscipline:
+    while (true) {
+      input = scanner.nextLine();
+      discipline = null;
+      
+      switch (input) {
+        case "1", "crawl", "c" -> discipline = CRAWL;
+        case "2", "back crawl", "bc" -> discipline = BACK_CRAWL;
+        case "3", "breast stroke", "bs" -> discipline = BREAST_STROKE;
+        case "4", "butterfly", "b" -> discipline = BUTTERFLY;
+        case "" -> {
+          return null;
+        }
+        default -> {
+          System.out.printf("%sCANNOT SELECT BY \"%s\"%s - SELECT BY: crawl -> c | back crawl -> bc | breast stroke -> bs | butterfly -> b\n",
+              Color.TEXT_RED,
+              input,
+              Color.TEXT_RESET);
+        }
+      }
+      
+      if (competitive.hasDiscipline(discipline)) break getDiscipline;
+      else if (discipline != null) System.out.printf("%sMEMBER DOES NOT HAVE \"%s\"%s - MEMBER ONLY HAS: %S\n",
+          Color.TEXT_RED,
+          discipline,
+          Color.TEXT_RESET,
+          competitive.getDisciplines());
+    }
+    
+    return discipline;
+  }
+  
   
   public static void printTopFiveDiscipline(Discipline discipline, Team team) {
     ArrayList<RecordTraining> records = team.topFiveForDiscipline(discipline);
     
     // heading
-    System.out.printf("%s - %s\n",team.getAgeGroup().getString(), discipline.getString());
-    System.out.printf("%-15s  %-5s  %s\n", "NAME", "TIME (sec)", "DATE");
-    
-    // elements
-    for (RecordTraining record : records) {
-      System.out.println(String.format("%-15s  %-10s  %s", record.getName(), record.getTimeInSeconds(), record.getDate()));
+    System.out.printf("\n%s - %s", team.getAgeGroup().getString(), discipline.getString());
+    if (records.size() == 0) System.out.printf(" [NA]\n");
+    else {
+      System.out.printf("\n%-15s  %-10s  %s\n", "NAME", "TIME (sec)", "DATE");
+      
+      // records
+      for (RecordTraining record : records)
+        System.out.printf("%-15s  %-10s  %s\n", record.getName(), record.getTimeInSeconds(), record.getDate());
     }
   }
+  
+  public static void printTeam(AgeGroup ageGroup, ArrayList<Competitive> competitors) {
+    // todo name and parameters combined are incongruent
+    
+    
+    
+  }
+  
+  
 }

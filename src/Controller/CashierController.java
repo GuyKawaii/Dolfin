@@ -1,14 +1,10 @@
 package Controller;
 
-import Controller.Controller;
 import UserInterface.*;
 import UserInterface.Color;
-import filehandling.FileHandlingMemberList;
 import member.*;
 
-import java.awt.*;
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class CashierController {
   Controller controller;
@@ -22,7 +18,7 @@ public class CashierController {
     boolean cashierMenu = true;
     do {
       CashierUI.printCashierMenu();
-      String userInput = UI.receiveStringInput();
+      String userInput = UI.capitalizeStringInput();
       switch (userInput) {
         case "1" -> UI.printMembers(controller.getMemberList().getMembers());
         case "2" -> printRestanceMembers();
@@ -100,7 +96,7 @@ public class CashierController {
     ArrayList<Member> members = controller.getMemberList().getMembers();
     
     System.out.print("Are you sure Y/N ");
-    String input = UI.receiveStringInput();
+    String input = UI.capitalizeStringInput();
     
     if (input.equals("Y")) {
       for (Member member : members) {
@@ -133,7 +129,7 @@ public class CashierController {
             abort at any time -> Enter
             select member     -> name
             INPUT:\40""");
-        name = UI.receiveStringInput();
+        name = UI.capitalizeStringInput();
         if ("".equals(name)) return;
         else {
           member = memberList.getMember(name);
@@ -190,7 +186,7 @@ public class CashierController {
     
     do {
       // inputs = scanner.nextLine().toLowerCase().split(" ", 2);
-      inputs = UI.receiveStringInput().toLowerCase().split(" ", 2); //changed first letter to uppercase in receiveStringInput method
+      inputs = UI.capitalizeStringInput().toLowerCase().split(" ", 2); //changed first letter to uppercase in receiveStringInput method
       // return with 0
       if (inputs.length == 1) return new String[]{inputs[0], "0"};
       

@@ -21,16 +21,16 @@ public class Competitive extends Member{
     
     this.disciplines = disciplines;
   }
-  
-  public ArrayList<Discipline> getDisciplines() {
+
+  public ArrayList<Discipline> getDisciplines(){
     return disciplines;
   }
   
   public boolean hasDiscipline(Discipline discipline) {
-    // checks if the desired competitive decipline
+    // checks if the desired competitive discipline
     return disciplines.contains(discipline);
   }
-  
+
   @Override
   public String toString() {
     return super.toString();

@@ -9,8 +9,7 @@ import java.time.LocalDate;
     private AgeGroup ageGroup;
     private int timeInSeconds;
     private LocalDate date;
-  
-    // String name, int timeInSeconds, LocalDate date, int placement, String convention
+    
     public Record(String name, AgeGroup ageGroup, int timeInSeconds, LocalDate date) {
       setName(name);
       setAgeGroup(ageGroup);
@@ -52,7 +51,7 @@ import java.time.LocalDate;
   
     @Override
     public String toString() {
-      return String.format("%s %s %s %s",
+      return String.format("%s, %s, time in seconds: %s, %s",
           name,
           ageGroup.getString(),
           timeInSeconds,
