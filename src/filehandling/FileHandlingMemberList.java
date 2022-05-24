@@ -28,7 +28,7 @@ public class FileHandlingMemberList {
     ArrayList<Competitive> competitors = new ArrayList<>();
     for (Member member : members) {
       if (member instanceof Motionist) motionists.add((Motionist) member);
-      else if (member instanceof Competitive) motionists.add((Motionist) member);
+      else if (member instanceof Competitive) competitors.add((Competitive) member);
     }
 
     if (!saveMotionists(motionists)) return false;
