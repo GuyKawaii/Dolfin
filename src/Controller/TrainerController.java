@@ -158,7 +158,7 @@ public class TrainerController {
 
             // competitive, name, ageGroup
             System.out.print("""
-                              
+                    
                     ADDING RECORDS:
                     - name of person      -> name
                     - Return to main menu -> Enter
@@ -176,7 +176,7 @@ public class TrainerController {
 
             // timeInSeconds
             System.out.print("""
-                              
+                    
                     TIME:
                     - time (sec)          -> number
                     - Return to main menu -> Enter
@@ -193,7 +193,7 @@ public class TrainerController {
 
             // record type
             System.out.print("""
-                              
+                    
                     TYPE:
                     - training            -> 1
                     - competition         -> 2
@@ -227,7 +227,7 @@ public class TrainerController {
 
                 // placement
                 System.out.print("""
-                                    
+                        
                         PLACEMENT:
                         - placement           -> number
                         - Return to main menu -> Enter

@@ -28,7 +28,7 @@ public class FileHandlingMemberList {
     ArrayList<Competitive> competitors = new ArrayList<>();
     for (Member member : members) {
       if (member instanceof Motionist) motionists.add((Motionist) member);
-      else if (member instanceof Competitive) motionists.add((Motionist) member);
+      else if (member instanceof Competitive) competitors.add((Competitive) member);
     }
 
     if (!saveMotionists(motionists)) return false;
@@ -40,9 +40,6 @@ public class FileHandlingMemberList {
   public ArrayList<Motionist> loadMotionists() {
     ArrayList<Motionist> motionists = new ArrayList<>();
     Motionist motionist;
-    // todo add return or mutate directly?
-    // todo make controller catch and deal with exception
-
     try {
       Scanner fileScanner = new Scanner(new File(databaseFolder + motionistFile));
       while (fileScanner.hasNextLine()) {

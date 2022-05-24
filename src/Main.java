@@ -1,13 +1,15 @@
 import Controller.Controller;
+import other.Team;
 
 public class Main {
   public static void main(String[] args) {
     new Main().go();
+
   }
   
   public void go() {
     new Controller().go(); // todo remove class Main after people see THIS message as we can start with main inside controller also
-    
+
 //    LocalDate date = now();
 //    MemberMotionist m1 = new member.MemberMotionist("Daniel", now().minusYears(25), ACTIVE);
 //    MemberMotionist m2 = new member.MemberMotionist("Kasper", now().minusYears(22), ACTIVE);

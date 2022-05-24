@@ -135,8 +135,15 @@ public class MemberList {
   }
 
 
-  
-  
+
+  public void setCompetitors(ArrayList<Competitive> competitors) {
+    this.competitors = competitors;
+  }
+
+  public void setMotionists(ArrayList<Motionist> motionists) {
+    this.motionists = motionists;
+  }
+
   @Override
   public String toString() {
     return "member.MemberList{" +

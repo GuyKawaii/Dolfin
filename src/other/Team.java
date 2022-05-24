@@ -143,32 +143,66 @@ public class Team { //TODO maybe change name to TeamRecords?
   public ArrayList<RecordTraining> getCrawlTraining() {
     return crawlTraining;
   }
-  
+
+  public void setCrawlTraining(ArrayList<RecordTraining> crawlTraining) {
+    this.crawlTraining = crawlTraining;
+  }
+
   public ArrayList<RecordCompetition> getCrawlCompetition() {
     return crawlCompetition;
   }
-  
+
+  public void setCrawlCompetition(ArrayList<RecordCompetition> crawlCompetition) {
+    this.crawlCompetition = crawlCompetition;
+  }
+
   public ArrayList<RecordTraining> getBackCrawlTraining() {
     return backCrawlTraining;
+  }
+
+  public void setBackCrawlTraining(ArrayList<RecordTraining> backCrawlTraining) {
+    this.backCrawlTraining = backCrawlTraining;
   }
   
   public ArrayList<RecordCompetition> getBackCrawlCompetition() {
     return backCrawlCompetition;
   }
-  
+
+  public void setBackCrawlCompetition(ArrayList<RecordCompetition> backCrawlCompetition) {
+    this.backCrawlCompetition = backCrawlCompetition;
+  }
+
   public ArrayList<RecordTraining> getBreastStrokeTraining() {
     return breastStrokeTraining;
   }
-  
+
+  public void setBreastStrokeTraining(ArrayList<RecordTraining> breastStrokeTraining) {
+    this.breastStrokeTraining = breastStrokeTraining;
+  }
+
   public ArrayList<RecordCompetition> getBreastStrokeCompetition() {
     return breastStrokeCompetition;
   }
-  
+
+  public void setBreastStrokeCompetition(ArrayList<RecordCompetition> breastStrokeCompetition) {
+    this.breastStrokeCompetition = breastStrokeCompetition;
+  }
+
   public ArrayList<RecordTraining> getButterflyTraining() {
     return butterflyTraining;
   }
-  
+
+  public void setButterflyTraining(ArrayList<RecordTraining> butterflyTraining) {
+    this.butterflyTraining = butterflyTraining;
+  }
+
   public ArrayList<RecordCompetition> getButterflyCompetition() {
     return butterflyCompetition;
   }
+
+  public void setButterflyCompetition(ArrayList<RecordCompetition> butterflyCompetition) {
+    this.butterflyCompetition = butterflyCompetition;
+  }
+
+
 }
