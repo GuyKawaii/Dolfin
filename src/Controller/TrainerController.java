@@ -182,11 +182,14 @@ public class TrainerController {
         
         // competitive record
         switch (competitive.getAgeGroup()) {
-          case JUNIOR ->
-              controller.getTeamJunior().createCompetitiveRecord(discipline, name, timeInSeconds, date, placement, convention);
-          case SENIOR ->
-              controller.getTeamSenior().createCompetitiveRecord(discipline, name, timeInSeconds, date, placement, convention);
-          // todo update csv files
+          case JUNIOR -> {
+            controller.getTeamJunior().createCompetitiveRecord(discipline, name, timeInSeconds, date, placement, convention);
+            controller.getFileHandlingTeam().saveRecordCompetition(controller.getTeamJunior(), discipline);
+          }
+          case SENIOR -> {
+            controller.getTeamSenior().createCompetitiveRecord(discipline, name, timeInSeconds, date, placement, convention);
+            controller.getFileHandlingTeam().saveRecordCompetition(controller.getTeamSenior(), discipline);
+          }
         }
         
         
