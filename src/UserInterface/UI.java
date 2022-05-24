@@ -78,13 +78,22 @@ public class UI {
   
   public static String capitalizeStringInput() { // todo maybe make real nice
     String input;
-    Scanner scanner = new Scanner(System.in);
     input = scanner.nextLine();
     if (input.equals("")) {
       return "";
     }
     
     return input.substring(0, 1).toUpperCase() + input.substring(1);
+  }
+
+  public static  String uppercaseStringInput() {
+    String input;
+    input = scanner.nextLine();
+    if (input.equals("")) {
+      return "";
+    }
+
+    return input.toUpperCase();
   }
   
   public static Competitive findActiveCompetitive(MemberList memberList) {
@@ -202,7 +211,44 @@ public class UI {
     
     return discipline;
   }
-  
+
+  public static Discipline selectDiscipline() {
+    // todo hav valg af discipliner i en seperat hjælpemetode
+    // only get discipline if competitive has it
+    Discipline discipline = null;
+    String input;
+
+    System.out.print("""
+
+        DISCIPLINE SELECT
+        crawl -> c | back crawl -> bc | breast stroke -> bs | butterfly -> b
+        - Return to main menu -> Enter
+        SELECT:\040""");
+
+    getDiscipline:
+    while (discipline == null) {
+      input = scanner.nextLine();
+
+      switch (input) {
+        case "1", "crawl", "c" -> discipline = CRAWL;
+        case "2", "back crawl", "bc" -> discipline = BACK_CRAWL;
+        case "3", "breast stroke", "bs" -> discipline = BREAST_STROKE;
+        case "4", "butterfly", "b" -> discipline = BUTTERFLY;
+        case "" -> {
+          return null;
+        }
+        default -> {
+          System.out.printf("%sCANNOT SELECT BY \"%s\"%s - SELECT BY: crawl -> c | back crawl -> bc | breast stroke -> bs | butterfly -> b\n",
+                  Color.TEXT_RED,
+                  input,
+                  Color.TEXT_RESET);
+        }
+      }
+    }
+
+    return discipline;
+  }
+
   
   public static void printTopFiveDiscipline(Discipline discipline, Team team) {
     ArrayList<RecordTraining> records = team.topFiveForDiscipline(discipline);

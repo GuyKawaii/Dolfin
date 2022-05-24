@@ -148,6 +148,15 @@ public class Controller {
     teamJunior.createTrainingRecord(BUTTERFLY, "3", 3, LocalDate.now());
     teamJunior.createTrainingRecord(BUTTERFLY, "2", 2, LocalDate.now());
     teamJunior.createTrainingRecord(BUTTERFLY, "1", 1, LocalDate.now());
+
+    // competitive/convention
+    teamJunior.createCompetitiveRecord(BUTTERFLY, "1", 111, LocalDate.now(), 3, "A");
+    teamJunior.createCompetitiveRecord(BUTTERFLY, "1", 1, LocalDate.now(), 1, "A");
+    teamJunior.createCompetitiveRecord(BUTTERFLY, "1", 11, LocalDate.now(), 2, "A");
+    teamJunior.createCompetitiveRecord(BUTTERFLY, "1", 1, LocalDate.now(), 1, "B");
+    teamJunior.createCompetitiveRecord(BUTTERFLY, "1", 11, LocalDate.now(), 2, "B");
+    teamJunior.createCompetitiveRecord(BUTTERFLY, "1", 111, LocalDate.now(), 3, "B");
+
   }
   
   // program entry

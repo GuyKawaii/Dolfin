@@ -35,6 +35,8 @@ public class RecordCompetition extends Record implements Comparable<RecordCompet
     this.placement = placement;
   }
 
+
+
   @Override
   public String toString() {
     return String.format("%s, placement: %s, %s", super.toString(), placement, convention);
