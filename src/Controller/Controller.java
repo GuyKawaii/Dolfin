@@ -45,8 +45,8 @@ public class Controller {
     
     // program state
     memberList = new MemberList();
-    teamJunior = new Team(AgeGroup.JUNIOR, new Trainer("JUNIOR"));
-    teamSenior = new Team(AgeGroup.SENIOR, new Trainer("SENIOR"));
+    teamJunior = new Team(AgeGroup.JUNIOR, new Trainer("JUNIOR TRAINER"));
+    teamSenior = new Team(AgeGroup.SENIOR, new Trainer("SENIOR TRAINER"));
   }
   
   // getters
@@ -118,6 +118,7 @@ public class Controller {
   public void initDatabase() {
     // todo remove method later
     ArrayList<Discipline> disciplines = new ArrayList<>(Arrays.asList(CRAWL, BACK_CRAWL, BREAST_STROKE));
+
     
     memberList.addCompetitive(new Competitive("1", LocalDate.now(), PASSIVE, disciplines));
     memberList.addCompetitive(new Competitive("2", LocalDate.now(), PASSIVE, disciplines));

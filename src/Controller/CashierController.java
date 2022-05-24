@@ -101,6 +101,8 @@ public class CashierController {
     if (input.equals("Y")) {
       for (Member member : members) {
         member.addRestanceOnePeriod();
+        controller.getFileHandlingMemberList().saveMembers(members);
+
       }
       System.out.println("BILLED ALL MEMBERS");
       controller.getFileHandlingMemberList().saveMembers(controller.getMemberList().getMembers());

@@ -134,6 +134,20 @@ public class MemberList {
     return members;
   }
 
+  public void setMembers(ArrayList<Member> members) {
+    Motionist motionist;
+    Competitive competitive;
+    for (int i = 0; i < members.size(); i++) {
+      if (members.get(i) instanceof Competitive) {
+        competitive = (Competitive) members.get(i);
+        this.competitors.add(competitive);
+      }
+      if(members.get(i) instanceof Motionist) {
+        motionist = (Motionist) members.get(i);
+        this.motionists.add(motionist);
+      }
+    }
+  }
 
   
   
