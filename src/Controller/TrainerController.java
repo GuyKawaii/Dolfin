@@ -1,5 +1,6 @@
 package Controller;
 
+import UserInterface.Color;
 import UserInterface.UI;
 import enums.AgeGroup;
 import enums.Discipline;
@@ -15,6 +16,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import static UserInterface.Color.*;
 import static enums.AgeGroup.*;
 import static enums.Discipline.*;
 import static enums.MembershipStatus.*;
@@ -33,11 +35,10 @@ public class TrainerController {
     do {
       System.out.print("""
           
-          FORMAND:
+          TRAINER:
           - add record          -> 1
           - See top 5 junior    -> 2
           - See top 5 senior    -> 3
-         
           - see junior team     -> 4
           - see senior team     -> 5
           - Return to main menu -> Enter
@@ -151,10 +152,14 @@ public class TrainerController {
       // ### Competitive or training record ###
       if (!isCompetition) {
         switch (competitive.getAgeGroup()) {
-          case JUNIOR -> controller.getTeamJunior().createTrainingRecord(discipline, name, timeInSeconds, date);
-          case SENIOR -> controller.getTeamSenior().createTrainingRecord(discipline, name, timeInSeconds, date);
-          // todo update csv files
-          
+          case JUNIOR -> {
+            controller.getTeamJunior().createTrainingRecord(discipline, name, timeInSeconds, date);
+            controller.getFileHandlingTeam().saveRecordTraining(controller.getTeamJunior(), discipline);
+          }
+          case SENIOR -> {
+            controller.getTeamSenior().createTrainingRecord(discipline, name, timeInSeconds, date);
+            controller.getFileHandlingTeam().saveRecordTraining(controller.getTeamSenior(), discipline);
+          }
         }
         
         // competitive specific attributes
@@ -191,17 +196,34 @@ public class TrainerController {
             controller.getFileHandlingTeam().saveRecordCompetition(controller.getTeamSenior(), discipline);
           }
         }
-        
-        
-        // training record
       }
+      
     }
+    
   }
   
   public void printTeam(AgeGroup ageGroup, ArrayList<Competitive> competitors) {
+    // empty team
+    if (competitors.size() == 0) {
+      System.out.printf("\n%sTEAM: %s - ACTIVE MEMBERS%s [NA]\n", TEXT_GREEN, ageGroup, TEXT_RESET);
+      return;
+    }
+    
+    // header
+    System.out.printf("""
+        
+        %sTEAM: %s - ACTIVE MEMBERS%s
+        %-15s %s   | %5s | %10s | %13s | %9s |
+        """, TEXT_GREEN, ageGroup, TEXT_RESET , "NAME", "AGE", CRAWL, BACK_CRAWL, BREAST_STROKE, BUTTERFLY);
+    
+    // competitors
     for (Competitive competitive : competitors) {
       if (competitive.getAgeGroup() == ageGroup && competitive.getMembershipStatus() == ACTIVE)
-        UI.printCompetitive(competitive);
+        System.out.printf("%-15s %3s   | %5s | %10s | %13s | %9s |\n", competitive.getName(), competitive.getAge(),
+            competitive.hasDiscipline(CRAWL),
+            competitive.hasDiscipline(BACK_CRAWL),
+            competitive.hasDiscipline(BREAST_STROKE),
+            competitive.hasDiscipline(BUTTERFLY));
     }
   }
   
