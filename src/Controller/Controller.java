@@ -3,6 +3,7 @@ package Controller;
 import UserInterface.UI;
 import enums.AgeGroup;
 import enums.Discipline;
+import filehandling.FileHandlingTeam;
 import member.*;
 import filehandling.FileHandlingMemberList;
 import other.Team;
@@ -23,15 +24,13 @@ public class Controller {
   private FormandController formandController;
   private CashierController cashierController;
   private TrainerController trainerController;
-  
   // file
   private FileHandlingMemberList fileHandlingMemberList;
-  
+  private FileHandlingTeam fileHandlingTeam;
   // program state
   private MemberList memberList;
   private Team teamJunior;
   private Team teamSenior;
-
   
   // Constructor
   public Controller() {
@@ -42,6 +41,7 @@ public class Controller {
 
     // file
     fileHandlingMemberList = new FileHandlingMemberList();
+    fileHandlingTeam = new FileHandlingTeam();
     
     // program state
     memberList = new MemberList();
@@ -61,7 +61,11 @@ public class Controller {
   public Team getTeamSenior() {
     return teamSenior;
   }
-
+  
+  public FileHandlingTeam getFileHandlingTeam() {
+    return fileHandlingTeam;
+  }
+  
   // main loop
   public void go() {
 
