@@ -20,7 +20,7 @@ public class FileHandlingTeam {
   private final String crawlTrainingFile = "crawlTraining.csv";
   private final String crawlCompetitionFile = "crawlCompetition.csv";
   private final String backCrawlTrainingFile = "backCrawlTraining.csv";
-  private final String backCrawlCompetitionFile = "backCrawlCompetition.cvs";
+  private final String backCrawlCompetitionFile = "backCrawlCompetition.csv";
   private final String breastStrokeTrainingFile = "breastStrokeTrainingFile.csv";
   private final String breastStrokeCompetitionFile = "breastStrokeCompetition.csv";
   private final String butterflyTrainingFile = "butterflyTrainingFile.csv";
