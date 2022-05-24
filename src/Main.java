@@ -4,6 +4,7 @@ import other.Team;
 public class Main {
   public static void main(String[] args) {
     new Main().go();
+
   }
   
   public void go() {
