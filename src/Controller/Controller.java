@@ -8,8 +8,6 @@ import member.*;
 import filehandling.FileHandlingMemberList;
 import other.Team;
 import other.Trainer;
-import record.RecordCompetition;
-import record.RecordTraining;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -70,7 +68,7 @@ public class Controller {
   public void go() {
 
 
-    initDatabase();
+    initializeDatabase();
     initTeams();
 //    Competitive competitive1 = new member.Competitive("Mike", now().minusYears(21), ACTIVE);
 //    Competitive competitive2 = new member.Competitive("Mike", now().minusYears(21), ACTIVE);
@@ -92,7 +90,7 @@ public class Controller {
     //System.out.println(fileHandlingMemberList.stringDisciplines(memberList.getCompetitive("Mike").getDisciplines())); //virker ikke
 
     trainerController.mainMenu();
-//    mainMenu(); //starts the program
+    mainMenu(); //starts the program
   }
 
   public void mainMenu() {
@@ -115,7 +113,7 @@ public class Controller {
 
   }
 
-  public void initDatabase() {
+  public void initializeDatabase() {
     // todo remove method later
     ArrayList<Discipline> disciplines = new ArrayList<>(Arrays.asList(CRAWL, BACK_CRAWL, BREAST_STROKE));
 
@@ -128,7 +126,19 @@ public class Controller {
     memberList.addCompetitive(new Competitive("6", LocalDate.now().minusYears(30), PASSIVE, disciplines));
     memberList.addCompetitive(new Competitive("7", LocalDate.now().minusYears(30), ACTIVE, disciplines));
     memberList.addCompetitive(new Competitive("8", LocalDate.now().minusYears(30), ACTIVE, disciplines));
-    
+
+    // memberList
+    memberList.setMotionists(fileHandlingMemberList.loadMotionists());
+    memberList.setCompetitors(fileHandlingMemberList.loadCompetitors());
+
+    // recordsTraining
+    // fileHandlingTeam.loadTrainingRecords(teamJunior);
+    // fileHandlingTeam.loadTrainingRecords(teamSenior);
+
+    fileHandlingTeam.loadRecordTrainings("JUNIORCrawlTraining.csv");
+
+    // recordsCompetitive
+
   }
   
   public FileHandlingMemberList getFileHandlingMemberList() {
@@ -149,15 +159,6 @@ public class Controller {
     teamJunior.createTrainingRecord(BUTTERFLY, "3", 3, LocalDate.now());
     teamJunior.createTrainingRecord(BUTTERFLY, "2", 2, LocalDate.now());
     teamJunior.createTrainingRecord(BUTTERFLY, "1", 1, LocalDate.now());
-
-    // competitive/convention
-    teamJunior.createCompetitiveRecord(BUTTERFLY, "1", 111, LocalDate.now(), 3, "A");
-    teamJunior.createCompetitiveRecord(BUTTERFLY, "1", 1, LocalDate.now(), 1, "A");
-    teamJunior.createCompetitiveRecord(BUTTERFLY, "1", 11, LocalDate.now(), 2, "A");
-    teamJunior.createCompetitiveRecord(BUTTERFLY, "1", 1, LocalDate.now(), 1, "B");
-    teamJunior.createCompetitiveRecord(BUTTERFLY, "1", 11, LocalDate.now(), 2, "B");
-    teamJunior.createCompetitiveRecord(BUTTERFLY, "1", 111, LocalDate.now(), 3, "B");
-
   }
   
   // program entry

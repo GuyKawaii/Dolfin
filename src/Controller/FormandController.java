@@ -24,6 +24,7 @@ public class FormandController {
   }
 
   public void formandMenu() {
+
     boolean formandMenu = true;
     do {
       System.out.print("""
@@ -58,7 +59,7 @@ public class FormandController {
           INPUT DISCIPLINES
           crawl -> c | back crawl -> bc | breast stroke -> bs | butterfly -> b | retry -> r
           INPUT:\40""");
-      input = UI.capitalizeStringInput();
+      input = UI.stringInput();
 
       switch (input) {
         case "1", "crawl", "c" -> {
@@ -162,7 +163,8 @@ public class FormandController {
           disciplines = inputDisciplines();
           Competitive newCompetitive = new Competitive(name, birthday, membershipStatus, disciplines);
           controller.getMemberList().addCompetitive(newCompetitive);
-          fileHandlingMemberList.saveCompetitors(controller.getMemberList().getCompetitors());
+         // fileHandlingMemberList.saveCompetitors(controller.getMemberList().getCompetitors());
+          controller.getFileHandlingMemberList().saveCompetitors(controller.getMemberList().getCompetitors());
         }
 
       }

@@ -8,7 +8,7 @@ public class Main {
   
   public void go() {
     new Controller().go(); // todo remove class Main after people see THIS message as we can start with main inside controller also
-    
+
 //    LocalDate date = now();
 //    MemberMotionist m1 = new member.MemberMotionist("Daniel", now().minusYears(25), ACTIVE);
 //    MemberMotionist m2 = new member.MemberMotionist("Kasper", now().minusYears(22), ACTIVE);

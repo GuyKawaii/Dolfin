@@ -1,11 +1,25 @@
 package filehandling;
 
+import enums.AgeGroup;
 import enums.Discipline;
+import enums.MembershipStatus;
+import member.Competitive;
 import other.*;
 import record.*;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.PrintStream;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Locale;
+import java.util.Scanner;
+import java.io.File;
+import static enums.AgeGroup.*;
+import static enums.Discipline.*;
+import static enums.Discipline.BUTTERFLY;
+import static enums.MembershipStatus.ACTIVE;
+
 
 public class FileHandlingTeam {
   private final String databaseFolder = "database/";
@@ -17,8 +31,8 @@ public class FileHandlingTeam {
   private final String breastStrokeCompetitionFile = "breastStrokeCompetition.csv";
   private final String butterflyTrainingFile = "butterflyTrainingFile.csv";
   private final String butterflyCompetitionFile = "butterflyCompetitionFile.csv";
-  
-  
+
+
   //har fjernet trainer for nu
   public void saveRecordTraining(Team team, Discipline discipline) {
     //Discipline discipline = recordTrainings(0).getDisciple;
@@ -28,26 +42,22 @@ public class FileHandlingTeam {
     switch (discipline) {
       case CRAWL -> writeToFileTraining(team.getCrawlTraining(), (team.getAgeGroup() + crawlTrainingFile));
       case BACK_CRAWL -> writeToFileTraining(team.getBackCrawlTraining(), (team.getAgeGroup() + backCrawlTrainingFile));
-      case BREAST_STROKE ->
-          writeToFileTraining(team.getBreastStrokeTraining(), (team.getAgeGroup() + breastStrokeTrainingFile));
+      case BREAST_STROKE -> writeToFileTraining(team.getBreastStrokeTraining(), (team.getAgeGroup() + breastStrokeTrainingFile));
       case BUTTERFLY -> writeToFileTraining(team.getButterflyTraining(), (team.getAgeGroup() + butterflyTrainingFile));
       // TODO: 23/05/2022 add default?
     }
   }
-  
+
   public void saveRecordCompetition(Team team, Discipline discipline) {
     switch (discipline) {
       case CRAWL -> writeToFileCompetition(team.getCrawlCompetition(), (team.getAgeGroup() + crawlCompetitionFile));
-      case BACK_CRAWL ->
-          writeToFileCompetition(team.getBackCrawlCompetition(), (team.getAgeGroup() + backCrawlCompetitionFile));
-      case BREAST_STROKE ->
-          writeToFileCompetition(team.getBreastStrokeCompetition(), (team.getAgeGroup() + breastStrokeCompetitionFile));
-      case BUTTERFLY ->
-          writeToFileCompetition(team.getButterflyCompetition(), (team.getAgeGroup() + butterflyCompetitionFile));
+      case BACK_CRAWL -> writeToFileCompetition(team.getBackCrawlCompetition(), (team.getAgeGroup() + backCrawlCompetitionFile));
+      case BREAST_STROKE -> writeToFileCompetition(team.getBreastStrokeCompetition(), (team.getAgeGroup() + breastStrokeCompetitionFile));
+      case BUTTERFLY -> writeToFileCompetition(team.getButterflyCompetition(), (team.getAgeGroup() + butterflyCompetitionFile));
       // TODO: 23/05/2022 add default?
     }
   }
-  
+
   public void writeToFileTraining(ArrayList<RecordTraining> recordTrainings, String discipline) {
     try {
       PrintStream write = new PrintStream(databaseFolder + discipline);
@@ -59,12 +69,12 @@ public class FileHandlingTeam {
             recordTraining.getDate());
       }
       write.close();
-      
+
     } catch (Exception e) {
       System.err.println(e);
     }
   }
-  
+
   // todo maybe add folder for junior senior instead of filename
   // todo maybe add trainer as a parameter for each member added to the record
   public void writeToFileCompetition(ArrayList<RecordCompetition> recordCompetitions, String discipline) {
@@ -78,15 +88,15 @@ public class FileHandlingTeam {
             recordCompetition.getDate());
       }
       write.close();
-      
+
     } catch (Exception e) {
       System.err.println(e);
     }
   }
-  
-  
+
+
   public void saveTeam(Team team) {
-    
+
     // Tager en bestemt arrayliste af en discplin - den skal ligge den ind i filen som passer til den (16 gange)
     //
     // save team.getCrawlTraining() file crawltraning team.getAgeGrup
@@ -104,51 +114,195 @@ public class FileHandlingTeam {
     } catch (Exception e) {
       System.err.println(e);
     }
-    
-    
     // file naming -> ageGroup + training discipline
     // from array -> file
-    
-    
   }
 
+  public ArrayList<RecordTraining> loadRecordTrainings(String fileName) {
+    ArrayList<RecordTraining> recordTrainings = new ArrayList<>();
+    RecordTraining recordTraining;
 
-  
- /*
-  public ArrayList<Motionist> loadMotionists() {
-    ArrayList<Motionist> motionists = new ArrayList<>();
-    Motionist motionist;
-    // todo add return or mutate directly?
-    // todo make controller catch and deal with exception
-    
+
+    // RecordTraining(String name, AgeGroup ageGroup, int timeInSeconds, LocalDate date)
     try {
-      Scanner fileScanner = new Scanner(new File(databaseFolder + motionistFile));
+      // open file
+      Scanner fileScanner = new Scanner(databaseFolder + fileName);
+
       while (fileScanner.hasNextLine()) {
         String line = fileScanner.nextLine();
         Scanner token = new Scanner(line).useDelimiter(";").useLocale(Locale.ENGLISH);
-        
-        // all parameters for motionist
+
+        // parameters
+        String name = token.next();
+        AgeGroup ageGroup = setAgeGroup(token.next()); // todo gives error when reading file
+        int timeInSeconds = token.nextInt();
+        LocalDate date = LocalDate.parse(token.next());
+
+        // create
+        recordTraining = new RecordTraining(name, ageGroup, timeInSeconds, date);
+        recordTrainings.add(recordTraining);
+      }
+
+      // release file
+      fileScanner.close();
+
+    } catch (Exception e) {
+      System.err.println(e);
+      System.out.println(recordTrainings); // <---
+      System.out.println(databaseFolder + fileName);
+
+      // create empty file
+      try {
+        File file = new File(databaseFolder + fileName);
+        file.createNewFile();
+        System.out.println(file);
+      } catch(Exception ee) {
+        ee.printStackTrace();
+      }
+
+      return recordTrainings;
+    }
+
+    return recordTrainings;
+  }
+
+  public void loadTrainingRecords(Team team) {
+    AgeGroup ageGroup = team.getAgeGroup();
+    team.setCrawlTraining(loadRecordTrainings(ageGroup + crawlTrainingFile));
+    team.setCrawlTraining(loadRecordTrainings(ageGroup + backCrawlTrainingFile));
+    team.setCrawlTraining(loadRecordTrainings(ageGroup + breastStrokeTrainingFile));
+    team.setCrawlTraining(loadRecordTrainings(ageGroup + butterflyTrainingFile));
+
+
+    /*
+    // team splitter team arrays
+    ArrayList<RecordTraining> recordTrainings = new ArrayList<>();
+    RecordTraining recordTraining;
+    AgeGroup ageGroup;
+    try {
+      for (int i = 0; i < 3; i++) {
+        switch (i) {
+          case 0 -> {
+            Scanner fileScanner = new Scanner(databaseFolder + crawlTrainingFile);
+            while (fileScanner.hasNextLine()) {
+              String line = fileScanner.nextLine();
+              Scanner token = new Scanner(line).useDelimiter(";").useLocale(Locale.ENGLISH);
+
+              String name = token.next();
+              ageGroup = setAgeGroup(token.next());
+              int timeInSeconds = token.nextInt();
+              LocalDate date = LocalDate.parse(token.next());
+
+
+              recordTraining = new RecordTraining(name, ageGroup, timeInSeconds, date);
+              recordTrainings.add(recordTraining);
+            }
+          }
+          case 1 -> {
+            Scanner fileScanner = new Scanner(databaseFolder + backCrawlTrainingFile);
+            while (fileScanner.hasNextLine()) {
+              String line = fileScanner.nextLine();
+              Scanner token = new Scanner(line).useDelimiter(";").useLocale(Locale.ENGLISH);
+
+              String name = token.next();
+              ageGroup = setAgeGroup(token.next());
+              int timeInSeconds = token.nextInt();
+              LocalDate date = LocalDate.parse(token.next());
+
+
+              recordTraining = new RecordTraining(name, ageGroup, timeInSeconds, date);
+              recordTrainings.add(recordTraining);
+            }
+          }
+          case 2 -> {
+            Scanner fileScanner = new Scanner(databaseFolder + breastStrokeTrainingFile);
+            while (fileScanner.hasNextLine()) {
+              String line = fileScanner.nextLine();
+              Scanner token = new Scanner(line).useDelimiter(";").useLocale(Locale.ENGLISH);
+
+              String name = token.next();
+              ageGroup = setAgeGroup(token.next());
+              int timeInSeconds = token.nextInt();
+              LocalDate date = LocalDate.parse(token.next());
+
+
+              recordTraining = new RecordTraining(name, ageGroup, timeInSeconds, date);
+              recordTrainings.add(recordTraining);
+            }
+          }
+          case 3 -> {
+            Scanner fileScanner = new Scanner(databaseFolder + butterflyTrainingFile);
+            while (fileScanner.hasNextLine()) {
+              String line = fileScanner.nextLine();
+              Scanner token = new Scanner(line).useDelimiter(";").useLocale(Locale.ENGLISH);
+
+              String name = token.next();
+              ageGroup = setAgeGroup(token.next());
+              int timeInSeconds = token.nextInt();
+              LocalDate date = LocalDate.parse(token.next());
+
+
+              recordTraining = new RecordTraining(name, ageGroup, timeInSeconds, date);
+              recordTrainings.add(recordTraining);
+            }
+          }
+        }
+      }
+    } catch (Exception e) {
+      System.err.println(e);
+      return recordTrainings;
+    }
+    return recordTrainings;*/
+
+  }
+
+  public AgeGroup setAgeGroup(String ageGroupText) {
+    if (ageGroupText.equals("JUNIOR"))
+      return JUNIOR;
+    else if (ageGroupText.equals("SENIOR"))
+      return SENIOR;
+    else
+      return null;
+  }
+
+  /*
+  public ArrayList<Competitive> loadCompetitors() {
+    ArrayList<Competitive> competitors = new ArrayList<>();
+    Competitive competitive;
+    // todo add return or mutate directly?
+    // todo make controller catch and deal with exception
+    ArrayList<Discipline> disciplines = new ArrayList<>();
+
+    try {
+      Scanner fileScanner = new Scanner(new File(databaseFolder + competitiveFile));
+      while (fileScanner.hasNextLine()) {
+        String line = fileScanner.nextLine();
+        Scanner token = new Scanner(line).useDelimiter(";").useLocale(Locale.ENGLISH);
+
+        // all parameters for competitive
         String name = token.next();
         LocalDate birthday = LocalDate.parse(token.next());
         Double restance = Double.valueOf(token.next());
         MembershipStatus membershipStatus = setMembershipStatus(token.next());
-        
-        // create Motionist
-        motionist = new Motionist(name, birthday, membershipStatus);
-        motionist.setRestance(restance);
-        // add motionist
-        motionists.add(motionist);
+        disciplines = setDisciplines(token.next());
+
+
+        // create competitive
+        competitive = new Competitive(name, birthday, membershipStatus, disciplines);
+        competitive.setRestance(restance);
+        // add competitive
+        competitors.add(competitive);
       }
-      
+
     } catch (Exception e) {
       System.err.println(e);
-      return motionists;
+      return competitors;
     }
-    
-    return motionists;
-  }
 
-*/
+    return competitors;
+  }
+  */
+
 
 //  public void saveTrainingRecord (ArrayList<RecordTraining>) {
 //

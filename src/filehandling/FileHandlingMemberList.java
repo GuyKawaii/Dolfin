@@ -40,9 +40,6 @@ public class FileHandlingMemberList {
   public ArrayList<Motionist> loadMotionists() {
     ArrayList<Motionist> motionists = new ArrayList<>();
     Motionist motionist;
-    // todo add return or mutate directly?
-    // todo make controller catch and deal with exception
-
     try {
       Scanner fileScanner = new Scanner(new File(databaseFolder + motionistFile));
       while (fileScanner.hasNextLine()) {
