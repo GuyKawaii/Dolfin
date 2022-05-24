@@ -135,9 +135,10 @@ public class Controller {
     // recordsTraining
      fileHandlingTeam.loadTrainingRecords(teamJunior);
      fileHandlingTeam.loadTrainingRecords(teamSenior);
-
+  
     // recordsCompetitive
-
+    fileHandlingTeam.loadCompetitiveRecords(teamJunior);
+    fileHandlingTeam.loadCompetitiveRecords(teamSenior);
   }
   
   public FileHandlingMemberList getFileHandlingMemberList() {

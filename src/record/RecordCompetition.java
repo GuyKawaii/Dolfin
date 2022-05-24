@@ -4,19 +4,14 @@ import enums.AgeGroup;
 
 import java.time.LocalDate;
 
-public class RecordCompetition extends Record implements Comparable<RecordCompetition>{
-    private int placement;
+public class RecordCompetition extends Record implements Comparable<RecordCompetition> {
+  private int placement;
   private String convention;
   
-  // String name, int timeInSeconds, LocalDate date,
-  // int placement, String convention
-  
-
-  // String name, AgeGroup, int timeInSeconds, LocalDate date, int placement, String convention
   public RecordCompetition(String name, AgeGroup ageGroup, int timeInSeconds, LocalDate date, int placement, String convention) {
-   super(name, ageGroup, timeInSeconds, date);
-   setPlacement(placement);
-   setConvention(convention);
+    super(name, ageGroup, timeInSeconds, date);
+    setPlacement(placement);
+    setConvention(convention);
   }
   
   public String getConvention() {
@@ -34,7 +29,7 @@ public class RecordCompetition extends Record implements Comparable<RecordCompet
   public void setPlacement(int placement) {
     this.placement = placement;
   }
-
+  
   @Override
   public String toString() {
     return String.format("%s, placement: %s, %s", super.toString(), placement, convention);
@@ -42,6 +37,6 @@ public class RecordCompetition extends Record implements Comparable<RecordCompet
   
   @Override
   public int compareTo(RecordCompetition other) {
-    return this.placement-other.getPlacement();
+    return this.placement - other.getPlacement();
   }
 }

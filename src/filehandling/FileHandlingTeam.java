@@ -83,7 +83,9 @@ public class FileHandlingTeam {
             recordCompetition.getName(),
             recordCompetition.getAgeGroup(),
             recordCompetition.getTimeInSeconds(),
-            recordCompetition.getDate());
+            recordCompetition.getDate(),
+            recordCompetition.getPlacement(),
+            recordCompetition.getConvention());
       }
       write.close();
       
@@ -116,12 +118,59 @@ public class FileHandlingTeam {
     // from array -> file
   }
   
+  public void loadCompetitiveRecords(Team team) {
+    // load all disciplines
+    AgeGroup ageGroup = team.getAgeGroup();
+    team.setCrawlCompetition(loadRecordCompetitiveFile(databaseFolder + ageGroup + crawlCompetitionFile));
+    team.setBackCrawlCompetition(loadRecordCompetitiveFile(databaseFolder + ageGroup + backCrawlCompetitionFile));
+    team.setBreastStrokeCompetition(loadRecordCompetitiveFile(databaseFolder + ageGroup + breastStrokeCompetitionFile));
+    team.setButterflyCompetition(loadRecordCompetitiveFile(databaseFolder + ageGroup + butterflyCompetitionFile));
+  }
+  
+  // String name, AgeGroup, int timeInSeconds, LocalDate date, int placement, String convention
+  public ArrayList<RecordCompetition> loadRecordCompetitiveFile(String filePath) {
+    ArrayList<RecordCompetition> competitiveRecords = new ArrayList<>();
+    
+    try {
+      // open file
+      Scanner fileScanner = new Scanner(new File(filePath));
+      while (fileScanner.hasNextLine()) {
+        String line = fileScanner.nextLine();
+        Scanner token = new Scanner(line).useDelimiter(";").useLocale(Locale.ENGLISH);
+        
+        // parameters
+        String name = token.next();
+        AgeGroup ageGroup = setAgeGroup(token.next()); // todo gives error when reading file
+        int timeInSeconds = token.nextInt();
+        LocalDate date = LocalDate.parse(token.next());
+        int placement = Integer.parseInt(token.next());
+        String convention = token.next();
+        
+        // create
+        competitiveRecords.add(new RecordCompetition(name, ageGroup, timeInSeconds, date, placement, convention));
+      }
+      
+      // release file
+      fileScanner.close();
+      
+    } catch (Exception e) {
+      // create empty file if not found
+      createEmptyFile(filePath);
+      
+      // empty
+      return competitiveRecords;
+    }
+    
+    return competitiveRecords;
+  }
+  
   public void loadTrainingRecords(Team team) {
+    // load all disciplines
     AgeGroup ageGroup = team.getAgeGroup();
     team.setCrawlTraining(loadRecordTrainingFile(databaseFolder + ageGroup + crawlTrainingFile));
-    team.setCrawlTraining(loadRecordTrainingFile(databaseFolder + ageGroup + breastStrokeTrainingFile));
-    team.setCrawlTraining(loadRecordTrainingFile(databaseFolder + ageGroup + butterflyTrainingFile));
-    team.setCrawlTraining(loadRecordTrainingFile(databaseFolder + ageGroup + backCrawlTrainingFile));
+    team.setBackCrawlTraining(loadRecordTrainingFile(databaseFolder + ageGroup + backCrawlTrainingFile));
+    team.setBreastStrokeTraining(loadRecordTrainingFile(databaseFolder + ageGroup + breastStrokeTrainingFile));
+    team.setButterflyTraining(loadRecordTrainingFile(databaseFolder + ageGroup + butterflyTrainingFile));
   }
   
   public ArrayList<RecordTraining> loadRecordTrainingFile(String filePath) {
