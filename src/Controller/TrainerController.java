@@ -144,11 +144,11 @@ public class TrainerController {
         // parameters
         String name;
         Discipline discipline;
-        int timeInSeconds;
+        Integer timeInSeconds;
         LocalDate date;
         // competition specific
         boolean isCompetition;
-        int placement;
+        Integer placement;
         String convention;
 
         addingRecords:
@@ -164,11 +164,8 @@ public class TrainerController {
                     - Return to main menu -> Enter
                     SELECT:\040""");
             competitive = UI.findActiveCompetitive(controller.getMemberList());
-            // todo Check if member is passive.
             if (competitive == null) break addingRecords;
-            else {
-                name = competitive.getName();
-            }
+            else name = competitive.getName();
 
             System.out.println("\nMEMBER");
             UI.printMember(competitive);
@@ -185,7 +182,7 @@ public class TrainerController {
                     - Return to main menu -> Enter
                     SELECT:\040""");
             timeInSeconds = UI.inputPositiveNumber();
-            if (timeInSeconds == 0) break addingRecords;
+            if (timeInSeconds == null) break addingRecords;
 
 
             // date
@@ -236,7 +233,7 @@ public class TrainerController {
                         - Return to main menu -> Enter
                         SELECT:\040""");
                 placement = UI.inputPositiveNumber();
-                if (placement == 0) break addingRecords; // todo maybe change fail condition from 0 to something else
+                if (placement == null) break addingRecords;
 
                 // convention
                 System.out.print("""

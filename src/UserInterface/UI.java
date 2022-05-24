@@ -2,20 +2,16 @@ package UserInterface;
 
 import enums.AgeGroup;
 import enums.Discipline;
-import member.Competitive;
-import member.Member;
-import member.MemberList;
-import member.Motionist;
+import member.*;
 import other.Team;
 import record.RecordTraining;
-
 import java.time.LocalDate;
 import java.util.Scanner;
-
 import java.util.ArrayList;
 
 import static enums.Discipline.*;
 import static enums.Discipline.BUTTERFLY;
+import static enums.MembershipStatus.*;
 
 public class UI {
   static Scanner scanner = new Scanner(System.in);
@@ -35,14 +31,14 @@ public class UI {
         SELECT:\040""");
   }
   
-  public static int inputPositiveNumber() {
+  public static Integer inputPositiveNumber() {
     String input;
-    int num = 0;
+    Integer num = 0;
     
     while (num < 1) {
       // input
       input = scanner.nextLine();
-      if (input.isEmpty()) return 0;
+      if (input.isEmpty()) return null;
       
       // number
       try {
@@ -99,15 +95,22 @@ public class UI {
   public static Competitive findActiveCompetitive(MemberList memberList) {
     String name;
     Competitive competitive = null;
-    boolean found;
+    boolean foundActiveCompetitive = false;
     
-    while (competitive == null) {
+    while (!foundActiveCompetitive) {
+      // user input
       name = scanner.nextLine();
       if (name.isEmpty()) return null;
       
       competitive = memberList.getCompetitive(name);
+      
+      // tests
       if (competitive == null)
         System.out.printf(Color.TEXT_RED + "CANNOT FIND %s competitive member\n" + Color.TEXT_RESET, name);
+      else if (competitive.getMembershipStatus() == PASSIVE)
+        System.out.printf(Color.TEXT_RED + "%s - IS A PASSIVE MEMBER AND THEREFORE NOT ON A TEAM\n" + Color.TEXT_RESET, name);
+      else
+        foundActiveCompetitive = true;
     }
     
     return competitive;
@@ -166,7 +169,7 @@ public class UI {
   }
   
   public static Discipline selectCompetitorDiscipline(Competitive competitive) {
-    // TODO can we slpit this method up? If not where does it belong?
+    // TODO can we split this method up? If not where does it belong?
     // only get discipline if competitive has it
     Discipline discipline = null;
     String input;
