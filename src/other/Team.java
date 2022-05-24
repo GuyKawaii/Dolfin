@@ -167,15 +167,27 @@ public class Team { //TODO maybe change name to TeamRecords?
   public ArrayList<RecordCompetition> getBackCrawlCompetition() {
     return backCrawlCompetition;
   }
-  
+
+  public void setBackCrawlCompetition(ArrayList<RecordCompetition> backCrawlCompetition) {
+    this.backCrawlCompetition = backCrawlCompetition;
+  }
+
   public ArrayList<RecordTraining> getBreastStrokeTraining() {
     return breastStrokeTraining;
   }
-  
+
+  public void setBreastStrokeTraining(ArrayList<RecordTraining> breastStrokeTraining) {
+    this.breastStrokeTraining = breastStrokeTraining;
+  }
+
   public ArrayList<RecordCompetition> getBreastStrokeCompetition() {
     return breastStrokeCompetition;
   }
-  
+
+  public void setBreastStrokeCompetition(ArrayList<RecordCompetition> breastStrokeCompetition) {
+    this.breastStrokeCompetition = breastStrokeCompetition;
+  }
+
   public ArrayList<RecordTraining> getButterflyTraining() {
     return butterflyTraining;
   }

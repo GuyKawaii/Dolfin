@@ -101,7 +101,7 @@ public class FileHandlingTeam {
     //
     // save team.getCrawlTraining() file crawltraning team.getAgeGrup
     try {
-      PrintStream file = new PrintStream(databaseFolder + crawlTrainingFile);
+      PrintStream file = new PrintStream(databaseFolder + team.getAgeGroup() + crawlTrainingFile);
       for (RecordTraining recordTraining : team.getCrawlTraining()) {
         file.printf("%s;%s;%s;%s;%s\n",
             team.getAgeGroup(),
