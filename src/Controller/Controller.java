@@ -89,8 +89,9 @@ public class Controller {
     // extra
     //System.out.println(fileHandlingMemberList.stringDisciplines(memberList.getCompetitive("Mike").getDisciplines())); //virker ikke
 
-    trainerController.mainMenu();
-    mainMenu(); //starts the program
+//    trainerController.mainMenu();
+//    mainMenu(); //starts the program
+  
   }
 
   public void mainMenu() {
@@ -132,10 +133,8 @@ public class Controller {
     memberList.setCompetitors(fileHandlingMemberList.loadCompetitors());
 
     // recordsTraining
-    // fileHandlingTeam.loadTrainingRecords(teamJunior);
-    // fileHandlingTeam.loadTrainingRecords(teamSenior);
-
-    fileHandlingTeam.loadRecordTrainings("JUNIORCrawlTraining.csv");
+     fileHandlingTeam.loadTrainingRecords(teamJunior);
+     fileHandlingTeam.loadTrainingRecords(teamSenior);
 
     // recordsCompetitive
 
