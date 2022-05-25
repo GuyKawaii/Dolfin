@@ -3,15 +3,9 @@ package Controller;
 import UserInterface.*;
 import enums.Discipline;
 import enums.MembershipStatus;
-import filehandling.FileHandlingMemberList;
-import member.Competitive;
-import member.Member;
-import member.MemberList;
-import member.Motionist;
-
+import member.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
-
 import static enums.Discipline.*;
 import static enums.MembershipStatus.*;
 
@@ -85,7 +79,7 @@ public class FormandController {
   }
   
   
-  public void registerMembers() { // todo check if member already exists in memberList before adding more details
+  public void registerMembers() {
     // default input
     String input;
     
@@ -151,6 +145,7 @@ public class FormandController {
         case "1", "m", "motionist" -> {
           ID = controller.getMemberList().createID();
           Motionist newMotionist = new Motionist(ID, name, birthday, membershipStatus);
+          // file update
           controller.getMemberList().addMotionist(newMotionist);
           controller.getFileHandlingMemberList().saveMotionists(controller.getMemberList().getMotionists());
           controller.getFileHandlingMemberList().saveIdCounter(controller.getMemberList());
@@ -161,6 +156,7 @@ public class FormandController {
           disciplines = inputDisciplines();
           ID = controller.getMemberList().createID();
           Competitive newCompetitive = new Competitive(ID, name, birthday, membershipStatus, disciplines);
+          // file update
           controller.getMemberList().addCompetitive(newCompetitive);
           controller.getFileHandlingMemberList().saveCompetitors(controller.getMemberList().getCompetitors());
           controller.getFileHandlingMemberList().saveIdCounter(controller.getMemberList());
@@ -195,6 +191,7 @@ public class FormandController {
         UI.printMemberHeader();
         UI.printMember(removedMember);
         
+        // file update
         controller.getFileHandlingMemberList().saveMotionists(controller.getMemberList().getMotionists());
         controller.getFileHandlingMemberList().saveCompetitors(controller.getMemberList().getCompetitors());
       } else {
