@@ -5,7 +5,6 @@ import enums.Discipline;
 import member.*;
 import other.Team;
 import record.RecordTraining;
-
 import java.time.LocalDate;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -67,12 +66,12 @@ public class UI {
       } catch (Exception e) {
         System.out.println(input + " is not valid date format");
       }
-
+      
     } while (date == null);
-
+    
     return date;
   }
-
+  
   public static String capitalizeStringInput() { // todo maybe make real nice
     String input;
     Scanner scanner = new Scanner(System.in);
@@ -80,7 +79,7 @@ public class UI {
     if (input.equals("")) {
       return "";
     }
-
+    
     return input.substring(0, 1).toUpperCase() + input.substring(1);
   }
 
@@ -97,15 +96,16 @@ public class UI {
     if (input.equals("")) {
       return "";
     }
-
+    
     return input.toUpperCase();
   }
-
-
+  
+  
   public static AgeGroup selectAgeGroup() {
     AgeGroup ageGroup;
-
-
+    
+    
+    
     return null;
   }
 
@@ -113,14 +113,14 @@ public class UI {
     String name;
     Competitive competitive = null;
     boolean foundActiveCompetitive = false;
-
+    
     while (!foundActiveCompetitive) {
       // user input
       name = scanner.nextLine();
       if (name.isEmpty()) return null;
-
+      
       competitive = memberList.getCompetitive(name);
-
+      
       // tests
       if (competitive == null)
         System.out.printf(Color.TEXT_RED + "CANNOT FIND %s competitive member\n" + Color.TEXT_RESET, name);
@@ -129,17 +129,17 @@ public class UI {
       else
         foundActiveCompetitive = true;
     }
-
+    
     return competitive;
   }
-
-
+  
+  
   public static void printMembers(ArrayList<Member> members) {
     for (Member member : members) {
       printMember(member);
     }
   }
-
+  
   public static void printMember(Member member) {
     System.out.printf("%-15s %s, con:%7s, res:%7s, %7s, %s, ",
         member.getName(),
@@ -151,13 +151,13 @@ public class UI {
     if (member instanceof Motionist) System.out.println("MOTIONIST");
     if (member instanceof Competitive) System.out.println("COMPETITIVE " + ((Competitive) member).getDisciplines());
   }
-
+  
   public static void printCompetitors(ArrayList<Competitive> competitors) {
     for (Competitive competitive : competitors) {
       printCompetitive(competitive);
     }
   }
-
+  
   public static void printCompetitive(Competitive competitive) {
     System.out.printf("%-15s %s, con:%7s, res:%7s, %7s, %s, ",
         competitive.getName(),
@@ -168,7 +168,7 @@ public class UI {
         competitive.getAgeGroup());
     System.out.println("COMPETITIVE " + ((Competitive) competitive).getDisciplines());
   }
-
+  
   public static void printMotionist(Motionist motionist) {
     System.out.printf("%-15s %s, con:%7s, res:%7s, %7s, %s\n",
         motionist.getName(),
@@ -178,33 +178,33 @@ public class UI {
         motionist.getMembershipStatus(),
         motionist.getAgeGroup());
   }
-
+  
   public static void printMotionists(ArrayList<Motionist> motionists) {
     for (Motionist motionist : motionists) {
       printMotionist(motionist);
     }
   }
-
+  
   public static Discipline selectCompetitorDiscipline(Competitive competitive) {
     // TODO can we split this method up? If not where does it belong?
     // only get discipline if competitive has it
     Discipline discipline = null;
     String input;
-
+    
     System.out.printf("""
-                
+        
         CAN SELECT: %s
-                
+        
         DISCIPLINE
         crawl -> c | back crawl -> bc | breast stroke -> bs | butterfly -> b
         - Return to main menu -> Enter
         SELECT:\040""", competitive.getDisciplines());
-
+    
     getDiscipline:
     while (true) {
       input = scanner.nextLine();
       discipline = null;
-
+      
       switch (input) {
         case "1", "crawl", "c" -> discipline = CRAWL;
         case "2", "back crawl", "bc" -> discipline = BACK_CRAWL;
@@ -220,7 +220,7 @@ public class UI {
               Color.TEXT_RESET);
         }
       }
-
+      
       if (competitive.hasDiscipline(discipline)) break getDiscipline;
       else if (discipline != null) System.out.printf("%sMEMBER DOES NOT HAVE \"%s\"%s - MEMBER ONLY HAS: %S\n",
           Color.TEXT_RED,
@@ -228,30 +228,31 @@ public class UI {
           Color.TEXT_RESET,
           competitive.getDisciplines());
     }
-
+    
     return discipline;
   }
-
-
+  
+  
   public static void printTopFiveDiscipline(Discipline discipline, Team team) {
     ArrayList<RecordTraining> records = team.topFiveForDiscipline(discipline);
-
+    
     // heading
     System.out.printf("\n%s - %s", team.getAgeGroup().getString(), discipline.getString());
     if (records.size() == 0) System.out.printf(" [NA]\n");
     else {
       System.out.printf("\n%-15s  %-10s  %s\n", "NAME", "TIME (sec)", "DATE");
-
+      
       // records
       for (RecordTraining record : records)
         System.out.printf("%-15s  %-10s  %s\n", record.getName(), record.getTimeInSeconds(), record.getDate());
     }
   }
-
+  
   public static void printTeam(AgeGroup ageGroup, ArrayList<Competitive> competitors) {
     // todo name and parameters combined are incongruent
-
-
+    
+    
+    
   }
 
   public static void printMemberList(MemberList memberList) {
@@ -263,18 +264,18 @@ public class UI {
     // only get discipline if competitive has it
     Discipline discipline = null;
     String input;
-
+    
     System.out.print("""
 
         DISCIPLINE SELECT
         crawl -> c | back crawl -> bc | breast stroke -> bs | butterfly -> b
         - Return to main menu -> Enter
         SELECT:\040""");
-
+    
     getDiscipline:
     while (discipline == null) {
       input = scanner.nextLine();
-
+      
       switch (input) {
         case "1", "crawl", "c" -> discipline = CRAWL;
         case "2", "back crawl", "bc" -> discipline = BACK_CRAWL;
@@ -291,7 +292,7 @@ public class UI {
         }
       }
     }
-
+    
     return discipline;
   }
 
