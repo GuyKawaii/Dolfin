@@ -1,23 +1,15 @@
 package Controller;
 
-import UserInterface.Color;
 import UserInterface.UI;
 import enums.AgeGroup;
 import enums.Discipline;
-import enums.MembershipStatus;
 import member.Competitive;
-import filehandling.FileHandlingTeam;
 import other.Team;
-import other.Trainer;
-import record.Record;
 import record.RecordCompetition;
-import record.RecordTraining;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
-
 import static UserInterface.Color.*;
 import static enums.AgeGroup.*;
 import static enums.Discipline.*;
