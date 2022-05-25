@@ -39,13 +39,30 @@ public class Team { //TODO maybe change name to TeamRecords?
     butterflyCompetition = new ArrayList();
   }
   
-
+  public Team(AgeGroup ageGroup) {
+    this.ageGroup = ageGroup;
+    this.trainer = null;
+    
+    // discipline lists
+    crawlTraining = new ArrayList();
+    crawlCompetition = new ArrayList();
+    backCrawlTraining = new ArrayList();
+    backCrawlCompetition = new ArrayList();
+    breastStrokeTraining = new ArrayList();
+    breastStrokeCompetition = new ArrayList();
+    butterflyTraining = new ArrayList();
+    butterflyCompetition = new ArrayList();
+  }
   
   public AgeGroup getAgeGroup() {
     return ageGroup;
   }
 
   public Trainer getTrainer() {return trainer;}
+  
+  public void setTrainer(Trainer trainer) {
+    this.trainer = trainer;
+  }
   
   public boolean createTrainingRecord(Discipline discipline, String name, int timeInSeconds, LocalDate date) {
     // only create new if time is better
@@ -120,7 +137,7 @@ public class Team { //TODO maybe change name to TeamRecords?
     
     // find
     for (RecordTraining recordTraining : trainingRecords) {
-      if (recordTraining.getName() == name) {
+      if (recordTraining.getName().equals(name)) {
         oldRecord = recordTraining;
       }
     }

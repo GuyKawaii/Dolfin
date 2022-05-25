@@ -17,6 +17,8 @@ import static enums.AgeGroup.*;
 
 public class FileHandlingTeam {
   private final String databaseFolder = "database/";
+  private final String trainerFile = "trainer.csv";
+  // record-files
   private final String crawlTrainingFile = "crawlTraining.csv";
   private final String crawlCompetitionFile = "crawlCompetition.csv";
   private final String backCrawlTrainingFile = "backCrawlTraining.csv";
@@ -207,6 +209,53 @@ public class FileHandlingTeam {
     return recordTrainings;
   }
   
+  public void saveTrainer(Team team) {
+    String filePath = (databaseFolder + team.getAgeGroup() + trainerFile);
+    
+    try {
+      PrintStream write = new PrintStream(filePath);
+      
+      write.printf("%s\n",
+          team.getTrainer().getName());
+      
+      write.close();
+      
+    } catch (Exception e) {
+      System.err.println(e);
+    }
+    
+  }
+  
+  public void loadTrainerFile(Team team) {
+    String filePath = (databaseFolder + team.getAgeGroup() + trainerFile);
+    Trainer trainer = null;
+    
+    try {
+      // open file
+      Scanner fileScanner = new Scanner(new File(filePath));
+      while (fileScanner.hasNextLine()) {
+        String line = fileScanner.nextLine();
+        Scanner token = new Scanner(line).useDelimiter(";").useLocale(Locale.ENGLISH);
+        
+        // parameters
+        String name = token.next();
+        
+        // create
+        trainer = new Trainer(name);
+      }
+      
+      // release file
+      fileScanner.close();
+      
+    } catch (Exception e) {
+      // create empty file if not found
+      createEmptyFile(filePath);
+    }
+  
+    team.setTrainer(trainer);
+  }
+  
+  
   public void createEmptyFile(String filePath) {
     try {
       File newFile = new File(filePath);
@@ -217,7 +266,6 @@ public class FileHandlingTeam {
       ee.printStackTrace();
     }
   }
-  
   
   public AgeGroup setAgeGroup(String ageGroupText) {
     if (ageGroupText.equals("JUNIOR"))
