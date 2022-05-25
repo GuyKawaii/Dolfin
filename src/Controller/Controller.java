@@ -109,7 +109,7 @@ public class Controller {
     mainMenu(); //starts the program
     
   }
-  
+
   public void mainMenu() {
     boolean mainMenu = true;
     do {
@@ -120,16 +120,16 @@ public class Controller {
         case "2" -> trainerController.mainMenu();
         case "3" -> formandController.formandMenu();
         case "" -> {
-          
+
           mainMenu = false;
         }
         default -> UI.invalidInputMessage();
       }
-      
+
     } while (mainMenu);
-    
+
   }
-  
+
   public void initializeDatabase() {
     // memberList
     memberList.setMotionists(fileHandlingMemberList.loadMotionists());
@@ -165,7 +165,7 @@ public class Controller {
     teamJunior.createTrainingRecord(BACK_CRAWL, "3", 3, LocalDate.now());
     teamJunior.createTrainingRecord(BACK_CRAWL, "2", 2, LocalDate.now());
     teamJunior.createTrainingRecord(BACK_CRAWL, "1", 1, LocalDate.now());
-    
+  
     teamJunior.createTrainingRecord(BUTTERFLY, "3", 3, LocalDate.now());
     teamJunior.createTrainingRecord(BUTTERFLY, "2", 2, LocalDate.now());
     teamJunior.createTrainingRecord(BUTTERFLY, "1", 1, LocalDate.now());
