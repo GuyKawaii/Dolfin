@@ -90,10 +90,10 @@ public class Controller {
     //System.out.println(fileHandlingMemberList.stringDisciplines(memberList.getCompetitive("Mike").getDisciplines())); //virker ikke
 
 //    trainerController.mainMenu();
-    mainMenu(); //starts the program
-    
-  }
+//    mainMenu(); //starts the program
   
+  }
+
   public void mainMenu() {
     boolean mainMenu = true;
     do {
@@ -104,20 +104,20 @@ public class Controller {
         case "2" -> trainerController.mainMenu();
         case "3" -> formandController.formandMenu();
         case "" -> {
-          
+
           mainMenu = false;
         }
         default -> UI.invalidInputMessage();
       }
-      
+
     } while (mainMenu);
-    
+
   }
-  
+
   public void initializeDatabase() {
     // todo remove method later
     ArrayList<Discipline> disciplines = new ArrayList<>(Arrays.asList(CRAWL, BACK_CRAWL, BREAST_STROKE));
-    
+
     
     memberList.addCompetitive(new Competitive("1", LocalDate.now(), PASSIVE, disciplines));
     memberList.addCompetitive(new Competitive("2", LocalDate.now(), PASSIVE, disciplines));
@@ -127,19 +127,19 @@ public class Controller {
     memberList.addCompetitive(new Competitive("6", LocalDate.now().minusYears(30), PASSIVE, disciplines));
     memberList.addCompetitive(new Competitive("7", LocalDate.now().minusYears(30), ACTIVE, disciplines));
     memberList.addCompetitive(new Competitive("8", LocalDate.now().minusYears(30), ACTIVE, disciplines));
-    
+
     // memberList
     memberList.setMotionists(fileHandlingMemberList.loadMotionists());
     memberList.setCompetitors(fileHandlingMemberList.loadCompetitors());
-    
+
     // recordsTraining
     fileHandlingTeam.loadTrainingRecords(teamJunior);
     fileHandlingTeam.loadTrainingRecords(teamSenior);
-    
+
     // recordsCompetitive
     fileHandlingTeam.loadCompetitiveRecords(teamJunior);
     fileHandlingTeam.loadCompetitiveRecords(teamSenior);
-    
+
     // team trainers
     fileHandlingTeam.loadTrainerFile(teamJunior);
     fileHandlingTeam.loadTrainerFile(teamSenior);
@@ -159,7 +159,7 @@ public class Controller {
     teamJunior.createTrainingRecord(BACK_CRAWL, "3", 3, LocalDate.now());
     teamJunior.createTrainingRecord(BACK_CRAWL, "2", 2, LocalDate.now());
     teamJunior.createTrainingRecord(BACK_CRAWL, "1", 1, LocalDate.now());
-    
+  
     teamJunior.createTrainingRecord(BUTTERFLY, "3", 3, LocalDate.now());
     teamJunior.createTrainingRecord(BUTTERFLY, "2", 2, LocalDate.now());
     teamJunior.createTrainingRecord(BUTTERFLY, "1", 1, LocalDate.now());

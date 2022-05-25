@@ -254,7 +254,10 @@ public class UI {
     
     
   }
-  
+
+  public static void printMemberList(MemberList memberList) {
+    System.out.println(memberList);
+  }
   
   public static Discipline selectDiscipline() {
     // todo hav valg af discipliner i en seperat hjælpemetode
@@ -291,5 +294,9 @@ public class UI {
     }
     
     return discipline;
+  }
+
+  public static void printNumberInputError(String numberInput) {
+    System.out.println(numberInput + " is not a valid number");
   }
 }

@@ -1,7 +1,6 @@
 package Controller;
 
 import UserInterface.*;
-import UserInterface.Color;
 import member.*;
 
 import java.util.ArrayList;
@@ -20,23 +19,22 @@ public class CashierController {
       CashierUI.printCashierMenu();
       String userInput = UI.capitalizeStringInput();
       switch (userInput) {
-        case "1" -> UI.printMembers(controller.getMemberList().getMembers());
-        case "2" -> printRestanceMembers();
-        case "3" -> printExpeditedEarnings();
+        case "1" -> UI.printMemberList(controller.getMemberList());
+        case "2" -> showRestanceMembers();
+        case "3" -> showExpeditedEarnings();
         case "4" -> billAllMembers();
         case "5" -> changeMemberResistance();
         case "" -> cashierMenu = false;
         default -> UI.invalidInputMessage();
       }
     } while (cashierMenu);
-    
+
   }
-  
-  public void printMemberList() {
-    System.out.println(controller.getMemberList()); // todo add print method in THIS class NOT in memberList for printing
-  } //comment from Daniel
-  
-  public void printRestanceMembers() {
+
+ // UI.printMembers(controller.getMemberList().getMembers()); Til formanden
+
+
+  public void showRestanceMembers() {
     ArrayList<Member> memberArrayList = controller.getMemberList().getMembers();
     int amountRestance = 0;
     int amountNoRestance = 0;
@@ -67,35 +65,37 @@ public class CashierController {
     
   }
   
-  public void printExpeditedEarnings() {
+  public void showExpeditedEarnings() {
     ArrayList<Member> memberArrayList = controller.getMemberList().getMembers();
     StringBuilder restanceMembers = new StringBuilder();
     StringBuilder contingentMembers = new StringBuilder();
     
     double expectedEarnings = 0;
     
-    restanceMembers.append("\nMISSING PAYMENT\n");
-    contingentMembers.append("CONTINGENT PAYED\n");
+   // restanceMembers.append("\nMISSING PAYMENT\n");
+    restanceMembers.append(CashierUI.printMissingPayment()); //replaces line above.
+   // contingentMembers.append("CONTINGENT PAYED\n");
+    contingentMembers.append(CashierUI.printContingentPayed());
     
     for (Member member : memberArrayList) {
       if (member.getRestance() == 0) {
-        contingentMembers.append(String.format(Color.TEXT_GREEN + "con:%8.2f %s\n" + Color.TEXT_RESET, member.getContingent(), member.getName()));
+        contingentMembers.append(CashierUI.printMemberContingentAppend(member.getContingent(), member.getName()));
         expectedEarnings += member.getContingent();
         
       } else {
-        restanceMembers.append(String.format(Color.TEXT_RED + "res:%8.2f %s\n" + Color.TEXT_RESET, member.getRestance(), member.getName()));
+        restanceMembers.append(CashierUI.printMemberRestanceAppend(member.getRestance(), member.getName()));
       }
     }
-    
-    System.out.println(restanceMembers);
-    System.out.println(contingentMembers);
-    System.out.printf("EXPECTED EARNINGS: %.2f\n", expectedEarnings);
+
+    CashierUI.printRestanceMemberStringBuilder(restanceMembers);
+    CashierUI.printContingentStringBuilder(contingentMembers);
+    CashierUI.printExpectedEarnings(expectedEarnings);
   }
   
   public void billAllMembers() {
     ArrayList<Member> members = controller.getMemberList().getMembers();
     
-    System.out.print("Are you sure Y/N ");
+    CashierUI.printBillMembersConfirmationAskForConfirmation();
     String input = UI.capitalizeStringInput();
     
     if (input.equals("Y")) {
@@ -104,7 +104,7 @@ public class CashierController {
         controller.getFileHandlingMemberList().saveMembers(members);
 
       }
-      System.out.println("BILLED ALL MEMBERS");
+      CashierUI.printBillAllMembersConfirmed();
       controller.getFileHandlingMemberList().saveMembers(controller.getMemberList().getMembers());
     }
   }
@@ -122,15 +122,10 @@ public class CashierController {
       do {
         
         // to help input correct information
-        printMemberList();
+
         if (member != null) System.out.println(member);
-        
-        System.out.print("""
-                        
-            CHANGE MEMBER RESISTANCE
-            abort at any time -> Enter
-            select member     -> name
-            INPUT:\40""");
+        UI.printMemberList(controller.getMemberList());
+       CashierUI.printChangeRestanceAskForName();
         name = UI.capitalizeStringInput();
         if ("".equals(name)) return;
         else {
@@ -141,14 +136,7 @@ public class CashierController {
       
       System.out.println(member);
       
-      System.out.print("""
-                    
-          CHANGE MEMBER RESISTANCE
-          add    restance for one period -> 1
-          remove restance for one period -> 2
-          add    amount of restance      -> a amount
-          remove amount of restance      -> r amount
-          INPUT:\40""");
+      CashierUI.printAskForChoiceChangeRestance();
       String[] inputs = inputActionAndNumber();
       amount = Double.parseDouble(inputs[1]);
       
@@ -196,7 +184,7 @@ public class CashierController {
       try {
         number = Double.parseDouble(inputs[1]);
       } catch (Exception e) {
-        System.out.println(inputs[1] + " is not a valid number");
+        UI.printNumberInputError(inputs[1]);
       }
     } while (number == null);
     
