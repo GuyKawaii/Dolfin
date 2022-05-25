@@ -5,6 +5,8 @@ import enums.Discipline;
 import enums.MembershipStatus;
 import filehandling.FileHandlingMemberList;
 import member.Competitive;
+import member.Member;
+import member.MemberList;
 import member.Motionist;
 
 import java.time.LocalDate;
@@ -15,16 +17,13 @@ import static enums.MembershipStatus.*;
 
 public class FormandController {
   Controller controller;
-  FileHandlingMemberList fileHandlingMemberList;
-
-
-
+  
   public FormandController(Controller controller) {
+    // controller
     this.controller = controller;
   }
-
+  
   public void formandMenu() {
-
     boolean formandMenu = true;
     do {
       System.out.print("""
@@ -45,13 +44,12 @@ public class FormandController {
       }
     } while (formandMenu);
   }
-
-
-
+  
+  
   public ArrayList<Discipline> inputDisciplines() {
     ArrayList<Discipline> disciplines = new ArrayList<>();
     String input;
-
+    
     addDiscipline:
     while (disciplines.size() < 4) {
       System.out.println("""
@@ -60,7 +58,7 @@ public class FormandController {
           crawl -> c | back crawl -> bc | breast stroke -> bs | butterfly -> b | retry -> r
           INPUT:\40""");
       input = UI.stringInput();
-
+      
       switch (input) {
         case "1", "crawl", "c" -> {
           if (!disciplines.contains(CRAWL)) disciplines.add(CRAWL);
@@ -79,49 +77,47 @@ public class FormandController {
           break addDiscipline;
         }
       }
-
+      
       System.out.println(disciplines);
     }
-
+    
     return disciplines;
   }
-
-
+  
+  
   public void registerMembers() { // todo check if member already exists in memberList before adding more details
     // default input
     String input;
-
+    
     // member parameters
+    int ID;
     String name;
     LocalDate birthday;
     MembershipStatus membershipStatus;
     ArrayList<Discipline> disciplines;
-
+    
     System.out.print("""
                 
         REGISTERING MEMBERS
         abort at any time -> Enter
         """);
-
+    
     registering:
-    while (true) { // todo add user input validation and abort ability
-
+    while (true) {
+      
       // name
       System.out.print("""
                     
           INPUT name:\40""");
       name = UI.capitalizeStringInput();
-
+      
       if (name.isBlank()) break registering;
-
-
-      if(controller.getMemberList().getMember(name) != null) break registering;
-
+      
       // birthday
       System.out.print("\nINPUT birthday (yyyy-mm-dd): ");
       birthday = UI.inputDate();
       if (birthday == null) break registering;
-
+      
       // membership status
       System.out.print("""
                     
@@ -138,10 +134,10 @@ public class FormandController {
           break registering;
         }
       }
-
+  
       // member type
       System.out.print("""
-                    
+          
           MEMBER TYPE
           motionist   -> 1
           competitive -> 2
@@ -153,54 +149,60 @@ public class FormandController {
         }
         // motionist
         case "1", "m", "motionist" -> {
-          Motionist newMotionist = new Motionist(name, birthday, membershipStatus);
+          ID = controller.getMemberList().createID();
+          Motionist newMotionist = new Motionist(ID, name, birthday, membershipStatus);
           controller.getMemberList().addMotionist(newMotionist);
-          fileHandlingMemberList.saveMotionists(controller.getMemberList().getMotionists());
+          controller.getFileHandlingMemberList().saveMotionists(controller.getMemberList().getMotionists());
+          controller.getFileHandlingMemberList().saveIdCounter(controller.getMemberList());
         }
-
+  
         // competitive
         case "2", "c", "competitive" -> {
           disciplines = inputDisciplines();
-          Competitive newCompetitive = new Competitive(name, birthday, membershipStatus, disciplines);
+          ID = controller.getMemberList().createID();
+          Competitive newCompetitive = new Competitive(ID, name, birthday, membershipStatus, disciplines);
           controller.getMemberList().addCompetitive(newCompetitive);
-         // fileHandlingMemberList.saveCompetitors(controller.getMemberList().getCompetitors());
           controller.getFileHandlingMemberList().saveCompetitors(controller.getMemberList().getCompetitors());
+          controller.getFileHandlingMemberList().saveIdCounter(controller.getMemberList());
         }
-
+        
       }
-
+      
       System.out.println("MEMBER CREATED");
-      UI.printMember(controller.getMemberList().getMember(name));
+      UI.printMemberHeader();
+      UI.printMember(controller.getMemberList().getMember(ID));
     }
   }
-
+  
   public void deleteMembers() {
-    // boolean selectingMember = true;
-    boolean removedMember;
-
+    Member removedMember;
+    
     selectingMember:
     while (true) {
       System.out.print("""
                     
           DELETE MEMBER
-          - delete member -> name of given member
+          - delete member -> ID of given member
           - abort         -> [Enter]
           SELECT:\040""");
-      String name = UI.capitalizeStringInput();
-      if (name.isBlank()) break selectingMember;
+      Integer ID = UI.inputPositiveNumber();
+      if (ID == null) break selectingMember;
+      
       // try removing
-      removedMember = controller.getMemberList().removeMember(name);
-      if (removedMember) {
-        System.out.printf("%s - REMOVED\n", name);
-      fileHandlingMemberList.saveMotionists(controller.getMemberList().getMotionists());
-      fileHandlingMemberList.saveCompetitors(controller.getMemberList().getCompetitors());
-      }
-      else {
-        System.out.printf(Color.TEXT_RED + "%s - MEMBER NOT FOUND" + Color.TEXT_RED + "\n", name);
+      removedMember = controller.getMemberList().removeMember(ID);
+      if (removedMember != null) {
+        System.out.println("\nREMOVED");
+        UI.printMemberHeader();
+        UI.printMember(removedMember);
+        
+        controller.getFileHandlingMemberList().saveMotionists(controller.getMemberList().getMotionists());
+        controller.getFileHandlingMemberList().saveCompetitors(controller.getMemberList().getCompetitors());
+      } else {
+        System.out.printf(Color.TEXT_RED + "%s - MEMBER NOT FOUND" + Color.TEXT_RESET + "\n", ID);
       }
     }
-
+    
   }
-
-
+  
+  
 }

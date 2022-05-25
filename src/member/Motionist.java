@@ -11,10 +11,10 @@ public class Motionist extends Member {
   public Motionist(long ID, String name, LocalDate birthday, MembershipStatus membershipStatus) {
     super(ID, name, birthday, membershipStatus);
   }
-  // constructor without ID
-  public Motionist(String name, LocalDate birthday, MembershipStatus membershipStatus) {
-    super(name, birthday, membershipStatus);
-  }
+//  // constructor without ID
+//  public Motionist(String name, LocalDate birthday, MembershipStatus membershipStatus) {
+//    super(name, birthday, membershipStatus);
+//  }
   // ### constructors###
   
   

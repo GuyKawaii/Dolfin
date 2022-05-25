@@ -22,18 +22,19 @@ public class Competitive extends Member {
     
     disciplines = new ArrayList<>();
   }
-  // constructors without ID
-  public Competitive(String name, LocalDate birthDay, MembershipStatus membershipStatus, ArrayList<Discipline> disciplines) {
-    super(name, birthDay, membershipStatus);
-    
-    setDisciplines(disciplines);
-  }
   
-  public Competitive(String name, LocalDate birthDay, MembershipStatus membershipStatus) {
-    super(name, birthDay, membershipStatus);
-    
-    disciplines = new ArrayList<>();
-  }
+//  // constructors without ID
+//  public Competitive(String name, LocalDate birthDay, MembershipStatus membershipStatus, ArrayList<Discipline> disciplines) {
+//    super(name, birthDay, membershipStatus);
+//
+//    setDisciplines(disciplines);
+//  }
+//
+//  public Competitive(String name, LocalDate birthDay, MembershipStatus membershipStatus) {
+//    super(name, birthDay, membershipStatus);
+//
+//    disciplines = new ArrayList<>();
+//  }
   // ### constructors ###
   
   

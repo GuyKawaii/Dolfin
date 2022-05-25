@@ -3,8 +3,6 @@ package filehandling;
 import enums.Discipline;
 import enums.MembershipStatus;
 import member.*;
-import other.Trainer;
-
 import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -48,13 +46,14 @@ public class FileHandlingMemberList {
         Scanner token = new Scanner(line).useDelimiter(";").useLocale(Locale.ENGLISH);
         
         // all parameters for motionist
+        int ID = Integer.parseInt(token.next());
         String name = token.next();
         LocalDate birthday = LocalDate.parse(token.next());
-        Double restance = Double.valueOf(token.next());
+        double restance = Double.parseDouble(token.next());
         MembershipStatus membershipStatus = setMembershipStatus(token.next());
         
         // create Motionist
-        motionist = new Motionist(name, birthday, membershipStatus);
+        motionist = new Motionist(ID, name, birthday, membershipStatus);
         motionist.setRestance(restance);
         // add motionist
         motionists.add(motionist);
@@ -76,7 +75,8 @@ public class FileHandlingMemberList {
     try {
       PrintStream file = new PrintStream(databaseFolder + motionistFile);
       for (Motionist motionist : motionists) {
-        file.printf("%s;%s;%s;%s\n",
+        file.printf("%s;%s;%s;%s;%s\n",
+            motionist.getID(),
             motionist.getName(),
             motionist.getBirthday(),
             motionist.getRestance(),
@@ -102,7 +102,8 @@ public class FileHandlingMemberList {
       // block of code that can throw
       FileWriter file = new FileWriter(databaseFolder + motionistFile, true);
       
-      file.write(String.format("%s;%s;%s;%s\n",
+      file.write(String.format("%s;%s;%s;%s;%s\n",
+          motionist.getID(),
           motionist.getName(),
           motionist.getBirthday(),
           motionist.getRestance(),
@@ -133,15 +134,16 @@ public class FileHandlingMemberList {
         Scanner token = new Scanner(line).useDelimiter(";").useLocale(Locale.ENGLISH);
         
         // all parameters for competitive
+        int ID = Integer.parseInt(token.next());
         String name = token.next();
         LocalDate birthday = LocalDate.parse(token.next());
-        Double restance = Double.valueOf(token.next());
+        double restance = Double.parseDouble(token.next());
         MembershipStatus membershipStatus = setMembershipStatus(token.next());
         disciplines = setDisciplines(token.next());
         
         
         // create competitive
-        competitive = new Competitive(name, birthday, membershipStatus, disciplines);
+        competitive = new Competitive(ID, name, birthday, membershipStatus, disciplines);
         competitive.setRestance(restance);
         // add competitive
         competitors.add(competitive);
@@ -163,7 +165,8 @@ public class FileHandlingMemberList {
     try {
       PrintStream file = new PrintStream(databaseFolder + competitiveFile);
       for (Competitive competitive : competitors) {
-        file.printf("%s;%s;%s;%s;%s\n",
+        file.printf("%s;%s;%s;%s;%s;%s\n",
+            competitive.getID(),
             competitive.getName(),
             competitive.getBirthday(),
             competitive.getRestance(),
@@ -185,7 +188,8 @@ public class FileHandlingMemberList {
     if (competitive == null) return false;
     try {
       FileWriter file = new FileWriter(databaseFolder + competitiveFile, true);
-      file.write(String.format("%s;%s;%s;%s;%s\n",
+      file.write(String.format("%s;%s;%s;%s;%s;%s\n",
+          competitive.getID(),
           competitive.getName(),
           competitive.getBirthday(),
           competitive.getRestance(),
@@ -214,7 +218,7 @@ public class FileHandlingMemberList {
         Scanner token = new Scanner(line).useDelimiter(";").useLocale(Locale.ENGLISH);
         
         // parameter
-        long idCounter = Long.parseLong(token.next());
+        int idCounter = Integer.parseInt(token.next());
         
         // reassign
         memberList.setIdCounter(idCounter);
@@ -228,7 +232,7 @@ public class FileHandlingMemberList {
       // create empty file if not found
       createEmptyFile(filePath);
     }
-  
+    
     return false;
   }
   

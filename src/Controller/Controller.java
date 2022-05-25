@@ -9,6 +9,7 @@ import filehandling.FileHandlingMemberList;
 import other.Team;
 import other.Trainer;
 
+import java.awt.image.AreaAveragingScaleFilter;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -68,30 +69,31 @@ public class Controller {
   public void go() {
     initializeDatabase();
     initTeams();
-//    Competitive competitive1 = new member.Competitive("Mike", now().minusYears(21), ACTIVE);
-//    Competitive competitive2 = new member.Competitive("Mike", now().minusYears(21), ACTIVE);
-//
-//    fileHandlingMemberList.saveMotionists(memberList.getMotionists());        // save whole database as csv
-//    System.out.println("Original database motionist arraylist");
-//    UI.printMotionists(memberList.getMotionists());
-//    System.out.println("Loaded database motionist.csv");
-//    UI.printMotionists(fileHandlingMemberList.loadMotionists());
-//
-//
-//    fileHandlingMemberList.saveCompetitors(memberList.getCompetitors());
-//    System.out.println("Original database competitive from arrayList");
-//    UI.printCompetitors(memberList.getCompetitors());
-//    System.out.println("Loaded database competitive.csv");
-//    UI.printCompetitors(fileHandlingMemberList.loadCompetitors());
     
-    // extra
-    //System.out.println(fileHandlingMemberList.stringDisciplines(memberList.getCompetitive("Mike").getDisciplines())); //virker ikke
-
-//    trainerController.mainMenu();
+    ArrayList<Member> f= new ArrayList<Member>();
+    UI.printMembers(f);
+//    // todo remove method later
+//    ArrayList<Discipline> disciplines = new ArrayList<>(Arrays.asList(CRAWL, BACK_CRAWL, BREAST_STROKE));
+//    memberList.addCompetitive(new Competitive(memberList.createID(), "1a", LocalDate.now(), PASSIVE, disciplines));
+//    memberList.addCompetitive(new Competitive(memberList.createID(), "2a", LocalDate.now(), PASSIVE, disciplines));
+//    memberList.addCompetitive(new Competitive(memberList.createID(), "3a", LocalDate.now(), ACTIVE, disciplines));
+//    memberList.addCompetitive(new Competitive(memberList.createID(), "4a", LocalDate.now(), ACTIVE, disciplines));
+//    memberList.addCompetitive(new Competitive(memberList.createID(), "5a", LocalDate.now().minusYears(30), PASSIVE, disciplines));
+//    memberList.addCompetitive(new Competitive(memberList.createID(), "6a", LocalDate.now().minusYears(30), PASSIVE, disciplines));
+//    memberList.addCompetitive(new Competitive(memberList.createID(), "7a", LocalDate.now().minusYears(30), ACTIVE, disciplines));
+//    memberList.addCompetitive(new Competitive(memberList.createID(), "8a", LocalDate.now().minusYears(30), ACTIVE, disciplines));
+//    fileHandlingMemberList.saveIdCounter(memberList);
+//
+//
+//
+//
+//    System.out.println(memberList.getMember("1"));
+//    System.out.println(memberList.getMember("2a"));
+//    System.out.println(memberList.getMember("3a"));
     mainMenu(); //starts the program
-
+    
   }
-  
+
   public void mainMenu() {
     boolean mainMenu = true;
     do {
@@ -102,16 +104,16 @@ public class Controller {
         case "2" -> trainerController.mainMenu();
         case "3" -> formandController.formandMenu();
         case "" -> {
-          
+
           mainMenu = false;
         }
         default -> UI.invalidInputMessage();
       }
-      
+
     } while (mainMenu);
-    
+
   }
-  
+
   public void initializeDatabase() {
     // memberList
     memberList.setMotionists(fileHandlingMemberList.loadMotionists());
