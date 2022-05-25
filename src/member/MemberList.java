@@ -41,7 +41,7 @@ public class MemberList {
   public Motionist getMotionist(String name) {
     for (Motionist motionist : motionists)
       if (motionist.getName().equals(name)) return motionist;
-    
+
     // not found
     return null;
   }
@@ -64,13 +64,13 @@ public class MemberList {
   
   public Member getMember(String name) {
     Member member;
-    
+
     member = (Member) getMotionist(name);
     if (member != null) return member;
-    
+
     member = (Member) getCompetitive(name);
     if (member != null) return member;
-    
+
     return null;
   }
   
@@ -122,38 +122,38 @@ public class MemberList {
     return null;
   }
   
-  public boolean removeMotionist(String name) {
-    for (Motionist motionist : motionists)
-      if (motionist.getName().equals(name)) {
-        motionists.remove(motionist);
-        return true;
-      }
-    
-    // not found
-    return false;
-  }
-  
+//  public boolean removeMotionist(String name) {
+//    for (Motionist motionist : motionists)
+//      if (motionist.getName().equals(name)) {
+//        motionists.remove(motionist);
+//        return true;
+//      }
+//
+//    // not found
+//    return false;
+//  }
+//
   public Competitive removeCompetitive(int ID) {
     for (Competitive competitive : competitors)
       if (competitive.getID() == ID) {
         competitors.remove(competitive);
         return competitive;
       }
-    
+
     // not found
     return null;
   }
   
-  public Member removeCompetitive(String name) {
-    for (Competitive competitive : competitors)
-      if (competitive.getName().equals(name)) {
-        competitors.remove(competitive);
-        return competitive;
-      }
-    
-    // not found
-    return null;
-  }
+//  public Member removeCompetitive(String name) {
+//    for (Competitive competitive : competitors)
+//      if (competitive.getName().equals(name)) {
+//        competitors.remove(competitive);
+//        return competitive;
+//      }
+//
+//    // not found
+//    return null;
+//  }
   
   public Member removeMember(int ID) {
     Member removed;

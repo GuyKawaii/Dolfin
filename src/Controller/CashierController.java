@@ -19,8 +19,8 @@ public class CashierController {
       CashierUI.printCashierMenu();
       String userInput = UI.capitalizeStringInput();
       switch (userInput) {
-        case "1" -> UI.printMemberList(controller.getMemberList());
-        case "2" -> showRestanceMembers();
+        case "1" -> UI.printMembers(controller.getMemberList().getMembers());
+        case "2" -> showRestanceMembers(); // todo change print to match other prints
         case "3" -> showExpeditedEarnings();
         case "4" -> billAllMembers();
         case "5" -> changeMemberResistance();
@@ -28,67 +28,60 @@ public class CashierController {
         default -> UI.invalidInputMessage();
       }
     } while (cashierMenu);
-
+    
   }
-
- // UI.printMembers(controller.getMemberList().getMembers()); Til formanden
-
-
+  
+  // UI.printMembers(controller.getMemberList().getMembers()); Til formanden
+  
+  
   public void showRestanceMembers() {
     ArrayList<Member> memberArrayList = controller.getMemberList().getMembers();
-    int amountRestance = 0;
-    int amountNoRestance = 0;
+    int restanceMembers = 0;
+    int noRestanceMembers = 0;
     double totalRestance = 0;
+    
+    // header
+    CashierUI.printMemberRestanceHeader();
     
     // for each member
     for (Member member : memberArrayList) {
-      if (member.getRestance() > 0) {
-        CashierUI.printMemberRestance(member.getRestance(), member.getName());
-        //System.out.printf(Color.TEXT_RED + "res:%8.2f %s" + Color.TEXT_RESET + "\n", member.getRestance(), member.getName());
-        //replaced the above and put it in CashierUI
+      if (0 < member.getRestance()) {
+        CashierUI.printMemberRestance(member);
         totalRestance += member.getRestance();
-        amountRestance++;
+        restanceMembers++;
       } else {
-        amountNoRestance++;
+        noRestanceMembers++;
       }
     }
     
-    if (amountRestance == 0) CashierUI.printNoMembersWithRestance();
-    else {
-      CashierUI.printTotalRestance(amountRestance, amountNoRestance, totalRestance);
-      /* System.out.printf("""
-        RESTANCE TOTAL: %.2f
-        %3d RESTANCE     MEMBERS
-        %3d NON-RESTANCE MEMBERS
-        """, totalRestance, amountRestance, amountNoRestance); */
-    }
-    
+    if (restanceMembers == 0) CashierUI.printNoMembersWithRestance();
+    else CashierUI.printTotalRestance(restanceMembers, noRestanceMembers, totalRestance);
   }
   
   public void showExpeditedEarnings() {
     ArrayList<Member> memberArrayList = controller.getMemberList().getMembers();
-    StringBuilder restanceMembers = new StringBuilder();
-    StringBuilder contingentMembers = new StringBuilder();
-    
+    StringBuilder restanceList = new StringBuilder();
+    StringBuilder contingentList = new StringBuilder();
     double expectedEarnings = 0;
     
-   // restanceMembers.append("\nMISSING PAYMENT\n");
-    restanceMembers.append(CashierUI.printMissingPayment()); //replaces line above.
-   // contingentMembers.append("CONTINGENT PAYED\n");
-    contingentMembers.append(CashierUI.printContingentPayed());
+    // headers
+    restanceList.append(CashierUI.printMissingPayment());
+    contingentList.append(CashierUI.printContingentPayed());
     
+    // add members to lists
     for (Member member : memberArrayList) {
       if (member.getRestance() == 0) {
-        contingentMembers.append(CashierUI.printMemberContingentAppend(member.getContingent(), member.getName()));
+        contingentList.append(CashierUI.stringMemberWithNoRestance(member));
         expectedEarnings += member.getContingent();
         
       } else {
-        restanceMembers.append(CashierUI.printMemberRestanceAppend(member.getRestance(), member.getName()));
+        restanceList.append(CashierUI.stringMemberWithRestance(member));
       }
     }
-
-    CashierUI.printRestanceMemberStringBuilder(restanceMembers);
-    CashierUI.printContingentStringBuilder(contingentMembers);
+    
+    // print build lists
+    CashierUI.printStringBuilderList(restanceList);
+    CashierUI.printStringBuilderList(contingentList);
     CashierUI.printExpectedEarnings(expectedEarnings);
   }
   
@@ -102,7 +95,7 @@ public class CashierController {
       for (Member member : members) {
         member.addRestanceOnePeriod();
         controller.getFileHandlingMemberList().saveMembers(members);
-
+        
       }
       CashierUI.printBillAllMembersConfirmed();
       controller.getFileHandlingMemberList().saveMembers(controller.getMemberList().getMembers());
@@ -113,28 +106,27 @@ public class CashierController {
     MemberList memberList = controller.getMemberList();
     Member member = null;
     double amount;
-    String name;
+    Integer ID;
     
     do {
       
-      
       getMember:
       do {
-        
         // to help input correct information
-
-        if (member != null) System.out.println(member);
-        UI.printMemberList(controller.getMemberList());
-       CashierUI.printChangeRestanceAskForName();
-        name = UI.capitalizeStringInput();
-        if ("".equals(name)) return;
+        if (member == null) UI.printMembers(controller.getMemberList().getMembers());
+        
+        CashierUI.printChangeRestanceAskForID();
+        ID = UI.inputPositiveNumber();
+        if (ID == null) return;
         else {
-          member = memberList.getMember(name);
-          if (member != null) break getMember;
+          member = memberList.getMember(ID);
+          if (member == null) UI.cannotFindID();
+          else break getMember;
         }
       } while (true);
-      
-      System.out.println(member);
+  
+      UI.printMemberHeader();
+      UI.printMember(member);
       
       CashierUI.printAskForChoiceChangeRestance();
       String[] inputs = inputActionAndNumber();
@@ -162,7 +154,7 @@ public class CashierController {
         }
       }
       
-      System.out.println(member);
+      CashierUI.printChangedRestance(member);
       
     } while (true);
   }

@@ -69,9 +69,6 @@ public class Controller {
   public void go() {
     initializeDatabase();
     initTeams();
-    
-    ArrayList<Member> f= new ArrayList<Member>();
-    UI.printMembers(f);
 //    // todo remove method later
 //    ArrayList<Discipline> disciplines = new ArrayList<>(Arrays.asList(CRAWL, BACK_CRAWL, BREAST_STROKE));
 //    memberList.addCompetitive(new Competitive(memberList.createID(), "1a", LocalDate.now(), PASSIVE, disciplines));

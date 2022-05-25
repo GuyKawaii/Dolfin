@@ -272,10 +272,6 @@ public class UI {
     
   }
   
-  public static void printMemberList(MemberList memberList) {
-    System.out.println(memberList);
-  }
-  
   public static Discipline selectDiscipline() {
     // todo hav valg af discipliner i en seperat hjælpemetode
     // only get discipline if competitive has it
@@ -317,4 +313,7 @@ public class UI {
     System.out.println(numberInput + " is not a valid number");
   }
   
+  public static void cannotFindID() {
+    System.out.println("CANNOT FIND MEMBER WITH ID");
+  }
 }
