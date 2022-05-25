@@ -10,11 +10,10 @@ import static enums.Discipline.*;
 import static enums.MembershipStatus.*;
 
 public class FormandController {
-  Controller controller;
+  MainController mainController;
   
-  public FormandController(Controller controller) {
-    // controller
-    this.controller = controller;
+  public FormandController(MainController mainController) {
+    this.mainController = mainController;
   }
   
   public void formandMenu() {
@@ -30,7 +29,7 @@ public class FormandController {
           SELECT:\040""");
       String userInput = UI.capitalizeStringInput();
       switch (userInput) {
-        case "1", "see", "s" -> UI.printMembers(controller.getMemberList().getMembers());
+        case "1", "see", "s" -> UI.printMembers(mainController.getMemberList().getMembers());
         case "2", "register", "r" -> registerMembers();
         case "3", "delete", "d" -> deleteMembers();
         case "" -> formandMenu = false;
@@ -143,30 +142,30 @@ public class FormandController {
         }
         // motionist
         case "1", "m", "motionist" -> {
-          ID = controller.getMemberList().createID();
+          ID = mainController.getMemberList().createID();
           Motionist newMotionist = new Motionist(ID, name, birthday, membershipStatus);
           // file update
-          controller.getMemberList().addMotionist(newMotionist);
-          controller.getFileHandlingMemberList().saveMotionists(controller.getMemberList().getMotionists());
-          controller.getFileHandlingMemberList().saveIdCounter(controller.getMemberList());
+          mainController.getMemberList().addMotionist(newMotionist);
+          mainController.getFileHandlingMemberList().saveMotionists(mainController.getMemberList().getMotionists());
+          mainController.getFileHandlingMemberList().saveIdCounter(mainController.getMemberList());
         }
   
         // competitive
         case "2", "c", "competitive" -> {
           disciplines = inputDisciplines();
-          ID = controller.getMemberList().createID();
+          ID = mainController.getMemberList().createID();
           Competitive newCompetitive = new Competitive(ID, name, birthday, membershipStatus, disciplines);
           // file update
-          controller.getMemberList().addCompetitive(newCompetitive);
-          controller.getFileHandlingMemberList().saveCompetitors(controller.getMemberList().getCompetitors());
-          controller.getFileHandlingMemberList().saveIdCounter(controller.getMemberList());
+          mainController.getMemberList().addCompetitive(newCompetitive);
+          mainController.getFileHandlingMemberList().saveCompetitors(mainController.getMemberList().getCompetitors());
+          mainController.getFileHandlingMemberList().saveIdCounter(mainController.getMemberList());
         }
         
       }
       
       System.out.println("MEMBER CREATED");
       UI.printMemberHeader();
-      UI.printMember(controller.getMemberList().getMember(ID));
+      UI.printMember(mainController.getMemberList().getMember(ID));
     }
   }
   
@@ -185,15 +184,15 @@ public class FormandController {
       if (ID == null) break selectingMember;
       
       // try removing
-      removedMember = controller.getMemberList().removeMember(ID);
+      removedMember = mainController.getMemberList().removeMember(ID);
       if (removedMember != null) {
         System.out.println("\nREMOVED");
         UI.printMemberHeader();
         UI.printMember(removedMember);
         
         // file update
-        controller.getFileHandlingMemberList().saveMotionists(controller.getMemberList().getMotionists());
-        controller.getFileHandlingMemberList().saveCompetitors(controller.getMemberList().getCompetitors());
+        mainController.getFileHandlingMemberList().saveMotionists(mainController.getMemberList().getMotionists());
+        mainController.getFileHandlingMemberList().saveCompetitors(mainController.getMemberList().getCompetitors());
       } else {
         System.out.printf(Color.TEXT_RED + "%s - MEMBER NOT FOUND" + Color.TEXT_RESET + "\n", ID);
       }

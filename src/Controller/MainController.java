@@ -2,23 +2,17 @@ package Controller;
 
 import UserInterface.UI;
 import enums.AgeGroup;
-import enums.Discipline;
 import filehandling.FileHandlingTeam;
 import member.*;
 import filehandling.FileHandlingMemberList;
 import other.Team;
-import other.Trainer;
 
-import java.awt.image.AreaAveragingScaleFilter;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 import static enums.Discipline.*;
-import static enums.MembershipStatus.*;
 import static java.time.LocalDate.now;
 
-public class Controller {
+public class MainController {
   // other controllers
   private FormandController formandController;
   private CashierController cashierController;
@@ -32,7 +26,7 @@ public class Controller {
   private Team teamSenior;
   
   // Constructor
-  public Controller() {
+  public MainController() {
     // other controllers
     formandController = new FormandController(this);
     cashierController = new CashierController(this);
@@ -69,26 +63,7 @@ public class Controller {
   public void go() {
     initializeDatabase();
     initTeams();
-//    // todo remove method later
-//    ArrayList<Discipline> disciplines = new ArrayList<>(Arrays.asList(CRAWL, BACK_CRAWL, BREAST_STROKE));
-//    memberList.addCompetitive(new Competitive(memberList.createID(), "1a", LocalDate.now(), PASSIVE, disciplines));
-//    memberList.addCompetitive(new Competitive(memberList.createID(), "2a", LocalDate.now(), PASSIVE, disciplines));
-//    memberList.addCompetitive(new Competitive(memberList.createID(), "3a", LocalDate.now(), ACTIVE, disciplines));
-//    memberList.addCompetitive(new Competitive(memberList.createID(), "4a", LocalDate.now(), ACTIVE, disciplines));
-//    memberList.addCompetitive(new Competitive(memberList.createID(), "5a", LocalDate.now().minusYears(30), PASSIVE, disciplines));
-//    memberList.addCompetitive(new Competitive(memberList.createID(), "6a", LocalDate.now().minusYears(30), PASSIVE, disciplines));
-//    memberList.addCompetitive(new Competitive(memberList.createID(), "7a", LocalDate.now().minusYears(30), ACTIVE, disciplines));
-//    memberList.addCompetitive(new Competitive(memberList.createID(), "8a", LocalDate.now().minusYears(30), ACTIVE, disciplines));
-//    fileHandlingMemberList.saveIdCounter(memberList);
-//
-//
-//
-//
-//    System.out.println(memberList.getMember("1"));
-//    System.out.println(memberList.getMember("2a"));
-//    System.out.println(memberList.getMember("3a"));
     mainMenu(); //starts the program
-    
   }
 
   public void mainMenu() {
@@ -155,6 +130,6 @@ public class Controller {
   // program entry
   public static void main(String[] args) {
 //    new FormandController().mainMenu();
-    new Controller().go();
+    new MainController().go();
   }
 }

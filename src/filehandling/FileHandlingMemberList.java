@@ -17,7 +17,6 @@ public class FileHandlingMemberList {
   private final String idCounterFile = "idCounter.csv";
   private final String competitiveFile = "competitive.csv";
   private final String motionistFile = "motionist.csv";
-  // todo make this class singleton
   
   public boolean saveMembers(ArrayList<Member> members) {
     boolean saved;
@@ -97,7 +96,6 @@ public class FileHandlingMemberList {
     // append to end of file
     if (motionist == null) return false;
     
-    // todo what happens if motionist = null?
     try {
       // block of code that can throw
       FileWriter file = new FileWriter(databaseFolder + motionistFile, true);
@@ -124,7 +122,6 @@ public class FileHandlingMemberList {
     String filePath = (databaseFolder + competitiveFile);
     ArrayList<Competitive> competitors = new ArrayList<>();
     Competitive competitive;
-    // todo make controller catch and deal with exception
     ArrayList<Discipline> disciplines = new ArrayList<>();
     
     try {

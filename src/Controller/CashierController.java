@@ -6,10 +6,10 @@ import member.*;
 import java.util.ArrayList;
 
 public class CashierController {
-  Controller controller;
+  MainController mainController;
   
-  public CashierController(Controller controller) {
-    this.controller = controller;
+  public CashierController(MainController mainController) {
+    this.mainController = mainController;
   }
   
   
@@ -19,8 +19,8 @@ public class CashierController {
       CashierUI.printCashierMenu();
       String userInput = UI.capitalizeStringInput();
       switch (userInput) {
-        case "1" -> UI.printMembers(controller.getMemberList().getMembers());
-        case "2" -> showRestanceMembers(); // todo change print to match other prints
+        case "1" -> UI.printMembers(mainController.getMemberList().getMembers());
+        case "2" -> showRestanceMembers();
         case "3" -> showExpeditedEarnings();
         case "4" -> billAllMembers();
         case "5" -> changeMemberResistance();
@@ -35,7 +35,7 @@ public class CashierController {
   
   
   public void showRestanceMembers() {
-    ArrayList<Member> memberArrayList = controller.getMemberList().getMembers();
+    ArrayList<Member> memberArrayList = mainController.getMemberList().getMembers();
     int restanceMembers = 0;
     int noRestanceMembers = 0;
     double totalRestance = 0;
@@ -59,7 +59,7 @@ public class CashierController {
   }
   
   public void showExpeditedEarnings() {
-    ArrayList<Member> memberArrayList = controller.getMemberList().getMembers();
+    ArrayList<Member> memberArrayList = mainController.getMemberList().getMembers();
     StringBuilder restanceList = new StringBuilder();
     StringBuilder contingentList = new StringBuilder();
     double expectedEarnings = 0;
@@ -86,7 +86,7 @@ public class CashierController {
   }
   
   public void billAllMembers() {
-    ArrayList<Member> members = controller.getMemberList().getMembers();
+    ArrayList<Member> members = mainController.getMemberList().getMembers();
     
     CashierUI.printBillMembersConfirmationAskForConfirmation();
     String input = UI.capitalizeStringInput();
@@ -94,16 +94,16 @@ public class CashierController {
     if (input.equals("Y")) {
       for (Member member : members) {
         member.addRestanceOnePeriod();
-        controller.getFileHandlingMemberList().saveMembers(members);
+        mainController.getFileHandlingMemberList().saveMembers(members);
         
       }
       CashierUI.printBillAllMembersConfirmed();
-      controller.getFileHandlingMemberList().saveMembers(controller.getMemberList().getMembers());
+      mainController.getFileHandlingMemberList().saveMembers(mainController.getMemberList().getMembers());
     }
   }
   
   public void changeMemberResistance() {
-    MemberList memberList = controller.getMemberList();
+    MemberList memberList = mainController.getMemberList();
     Member member = null;
     double amount;
     Integer ID;
@@ -113,7 +113,7 @@ public class CashierController {
       getMember:
       do {
         // to help input correct information
-        if (member == null) UI.printMembers(controller.getMemberList().getMembers());
+        if (member == null) UI.printMembers(mainController.getMemberList().getMembers());
         
         CashierUI.printChangeRestanceAskForID();
         ID = UI.inputPositiveNumber();
@@ -135,19 +135,19 @@ public class CashierController {
       switch (inputs[0]) {
         case "1" -> {
           member.addRestanceOnePeriod();
-          controller.getFileHandlingMemberList().saveMembers(controller.getMemberList().getMembers());
+          mainController.getFileHandlingMemberList().saveMembers(mainController.getMemberList().getMembers());
         }
         case "2" -> {
           member.removeRestanceOnePeriod();
-          controller.getFileHandlingMemberList().saveMembers(controller.getMemberList().getMembers());
+          mainController.getFileHandlingMemberList().saveMembers(mainController.getMemberList().getMembers());
         }
         case "add", "a" -> {
           member.addRestance(amount);
-          controller.getFileHandlingMemberList().saveMembers(controller.getMemberList().getMembers());
+          mainController.getFileHandlingMemberList().saveMembers(mainController.getMemberList().getMembers());
         }
         case "remove", "r" -> {
           member.removeRestance(amount);
-          controller.getFileHandlingMemberList().saveMembers(controller.getMemberList().getMembers());
+          mainController.getFileHandlingMemberList().saveMembers(mainController.getMemberList().getMembers());
         }
         default -> {
           return;

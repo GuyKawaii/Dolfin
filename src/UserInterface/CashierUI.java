@@ -106,7 +106,7 @@ public class CashierUI {
     if (0 < expectedEarnings) color = Color.TEXT_GREEN;
     else color = Color.TEXT_RED;
     
-    System.out.printf("EXPECTED EARNINGS: %s%.2f%s\n",
+    System.out.printf("EXPECTED EARNINGS: %s%18.2f%s\n",
         color,
         expectedEarnings,
         Color.TEXT_RESET);

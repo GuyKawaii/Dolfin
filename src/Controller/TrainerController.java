@@ -16,12 +16,11 @@ import static enums.Discipline.*;
 import static enums.MembershipStatus.*;
 
 public class TrainerController {
-  Controller controller;
+  MainController mainController;
   Scanner scanner;
   
-  public TrainerController(Controller controller) {
-    this.controller = controller;
-    scanner = new Scanner(System.in);
+  public TrainerController(MainController mainController) {
+    this.mainController = mainController;
   }
   
   public void mainMenu() { // todo missing visual for competition
@@ -44,10 +43,10 @@ public class TrainerController {
         case "1" -> addRecord();
         case "2" -> seeTopFive(JUNIOR);
         case "3" -> seeTopFive(SENIOR);
-        case "4" -> printTeam(JUNIOR, controller.getMemberList().getCompetitors());
-        case "5" -> printTeam(SENIOR, controller.getMemberList().getCompetitors());
-        case "6" -> selectConvention(JUNIOR, controller.getTeamJunior());
-        case "7" -> selectConvention(JUNIOR, controller.getTeamSenior());
+        case "4" -> printTeam(JUNIOR, mainController.getMemberList().getCompetitors());
+        case "5" -> printTeam(SENIOR, mainController.getMemberList().getCompetitors());
+        case "6" -> selectConvention(JUNIOR, mainController.getTeamJunior());
+        case "7" -> selectConvention(JUNIOR, mainController.getTeamSenior());
         case "" -> trainerMenu = false;
         default -> UI.invalidInputMessage();
       }
@@ -59,16 +58,16 @@ public class TrainerController {
     
     switch (ageGroup) {
       case JUNIOR -> {
-        UI.printTopFiveDiscipline(CRAWL, controller.getTeamJunior());
-        UI.printTopFiveDiscipline(BACK_CRAWL, controller.getTeamJunior());
-        UI.printTopFiveDiscipline(BREAST_STROKE, controller.getTeamJunior());
-        UI.printTopFiveDiscipline(BUTTERFLY, controller.getTeamJunior());
+        UI.printTopFiveDiscipline(CRAWL, mainController.getTeamJunior());
+        UI.printTopFiveDiscipline(BACK_CRAWL, mainController.getTeamJunior());
+        UI.printTopFiveDiscipline(BREAST_STROKE, mainController.getTeamJunior());
+        UI.printTopFiveDiscipline(BUTTERFLY, mainController.getTeamJunior());
       }
       case SENIOR -> {
-        UI.printTopFiveDiscipline(CRAWL, controller.getTeamSenior());
-        UI.printTopFiveDiscipline(BACK_CRAWL, controller.getTeamSenior());
-        UI.printTopFiveDiscipline(BREAST_STROKE, controller.getTeamSenior());
-        UI.printTopFiveDiscipline(BUTTERFLY, controller.getTeamSenior());
+        UI.printTopFiveDiscipline(CRAWL, mainController.getTeamSenior());
+        UI.printTopFiveDiscipline(BACK_CRAWL, mainController.getTeamSenior());
+        UI.printTopFiveDiscipline(BREAST_STROKE, mainController.getTeamSenior());
+        UI.printTopFiveDiscipline(BUTTERFLY, mainController.getTeamSenior());
       }
     }
   }
@@ -157,7 +156,7 @@ public class TrainerController {
           - name of person      -> name
           - Return to main menu -> Enter
           SELECT:\040""");
-      competitive = UI.findActiveCompetitive(controller.getMemberList());
+      competitive = UI.findActiveCompetitive(mainController.getMemberList());
       if (competitive == null) break addingRecords;
       else name = competitive.getName();
       
@@ -207,12 +206,12 @@ public class TrainerController {
       if (!isCompetition) {
         switch (competitive.getAgeGroup()) {
           case JUNIOR -> {
-            controller.getTeamJunior().createTrainingRecord(discipline, name, timeInSeconds, date);
-            controller.getFileHandlingTeam().saveRecordTraining(controller.getTeamJunior(), discipline);
+            mainController.getTeamJunior().createTrainingRecord(discipline, name, timeInSeconds, date);
+            mainController.getFileHandlingTeam().saveRecordTraining(mainController.getTeamJunior(), discipline);
           }
           case SENIOR -> {
-            controller.getTeamSenior().createTrainingRecord(discipline, name, timeInSeconds, date);
-            controller.getFileHandlingTeam().saveRecordTraining(controller.getTeamSenior(), discipline);
+            mainController.getTeamSenior().createTrainingRecord(discipline, name, timeInSeconds, date);
+            mainController.getFileHandlingTeam().saveRecordTraining(mainController.getTeamSenior(), discipline);
           }
         }
         
@@ -242,12 +241,12 @@ public class TrainerController {
         // competitive record
         switch (competitive.getAgeGroup()) {
           case JUNIOR -> {
-            controller.getTeamJunior().createCompetitiveRecord(discipline, name, timeInSeconds, date, placement, convention);
-            controller.getFileHandlingTeam().saveRecordCompetition(controller.getTeamJunior(), discipline);
+            mainController.getTeamJunior().createCompetitiveRecord(discipline, name, timeInSeconds, date, placement, convention);
+            mainController.getFileHandlingTeam().saveRecordCompetition(mainController.getTeamJunior(), discipline);
           }
           case SENIOR -> {
-            controller.getTeamSenior().createCompetitiveRecord(discipline, name, timeInSeconds, date, placement, convention);
-            controller.getFileHandlingTeam().saveRecordCompetition(controller.getTeamSenior(), discipline);
+            mainController.getTeamSenior().createCompetitiveRecord(discipline, name, timeInSeconds, date, placement, convention);
+            mainController.getFileHandlingTeam().saveRecordCompetition(mainController.getTeamSenior(), discipline);
           }
         }
       }

@@ -80,7 +80,7 @@ public class Team { //TODO maybe change name to TeamRecords?
         return replaceTrainingRecord(butterflyTraining, name, timeInSeconds, date);
       }
       default -> {
-        return false;// todo maybe add boolean for success
+        return false;
       }
     }
   }
@@ -97,7 +97,6 @@ public class Team { //TODO maybe change name to TeamRecords?
       case BUTTERFLY ->
           butterflyCompetition.add(new RecordCompetition(name, ageGroup, timeInSeconds, date, placement, convention));
       default -> {
-        // todo maybe add boolean for success
       }
     }
   }
