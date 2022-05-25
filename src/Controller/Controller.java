@@ -36,7 +36,7 @@ public class Controller {
     formandController = new FormandController(this);
     cashierController = new CashierController(this);
     trainerController = new TrainerController(this);
-
+    
     // file
     fileHandlingMemberList = new FileHandlingMemberList();
     fileHandlingTeam = new FileHandlingTeam();
@@ -51,11 +51,11 @@ public class Controller {
   public MemberList getMemberList() {
     return memberList;
   }
-
+  
   public Team getTeamJunior() {
     return teamJunior;
   }
-
+  
   public Team getTeamSenior() {
     return teamSenior;
   }
@@ -66,10 +66,26 @@ public class Controller {
   
   // main loop
   public void go() {
-
-
     initializeDatabase();
     initTeams();
+    // todo remove method later
+    ArrayList<Discipline> disciplines = new ArrayList<>(Arrays.asList(CRAWL, BACK_CRAWL, BREAST_STROKE));
+    memberList.addCompetitive(new Competitive(memberList.createID(), "1a", LocalDate.now(), PASSIVE, disciplines));
+    memberList.addCompetitive(new Competitive(memberList.createID(), "2a", LocalDate.now(), PASSIVE, disciplines));
+    memberList.addCompetitive(new Competitive(memberList.createID(), "3a", LocalDate.now(), ACTIVE, disciplines));
+    memberList.addCompetitive(new Competitive(memberList.createID(), "4a", LocalDate.now(), ACTIVE, disciplines));
+    memberList.addCompetitive(new Competitive(memberList.createID(), "5a", LocalDate.now().minusYears(30), PASSIVE, disciplines));
+    memberList.addCompetitive(new Competitive(memberList.createID(), "6a", LocalDate.now().minusYears(30), PASSIVE, disciplines));
+    memberList.addCompetitive(new Competitive(memberList.createID(), "7a", LocalDate.now().minusYears(30), ACTIVE, disciplines));
+    memberList.addCompetitive(new Competitive(memberList.createID(), "8a", LocalDate.now().minusYears(30), ACTIVE, disciplines));
+    fileHandlingMemberList.saveIdCounter(memberList);
+    
+    
+    
+    
+    System.out.println(memberList.getMember("1"));
+    System.out.println(memberList.getMember("2a"));
+    System.out.println(memberList.getMember("3a"));
 //    Competitive competitive1 = new member.Competitive("Mike", now().minusYears(21), ACTIVE);
 //    Competitive competitive2 = new member.Competitive("Mike", now().minusYears(21), ACTIVE);
 //
@@ -115,34 +131,24 @@ public class Controller {
   }
   
   public void initializeDatabase() {
-    // todo remove method later
-    ArrayList<Discipline> disciplines = new ArrayList<>(Arrays.asList(CRAWL, BACK_CRAWL, BREAST_STROKE));
-    
-    
-    memberList.addCompetitive(new Competitive("1", LocalDate.now(), PASSIVE, disciplines));
-    memberList.addCompetitive(new Competitive("2", LocalDate.now(), PASSIVE, disciplines));
-    memberList.addCompetitive(new Competitive("3", LocalDate.now(), ACTIVE, disciplines));
-    memberList.addCompetitive(new Competitive("4", LocalDate.now(), ACTIVE, disciplines));
-    memberList.addCompetitive(new Competitive("5", LocalDate.now().minusYears(30), PASSIVE, disciplines));
-    memberList.addCompetitive(new Competitive("6", LocalDate.now().minusYears(30), PASSIVE, disciplines));
-    memberList.addCompetitive(new Competitive("7", LocalDate.now().minusYears(30), ACTIVE, disciplines));
-    memberList.addCompetitive(new Competitive("8", LocalDate.now().minusYears(30), ACTIVE, disciplines));
-    
     // memberList
     memberList.setMotionists(fileHandlingMemberList.loadMotionists());
     memberList.setCompetitors(fileHandlingMemberList.loadCompetitors());
-    
+  
     // recordsTraining
     fileHandlingTeam.loadTrainingRecords(teamJunior);
     fileHandlingTeam.loadTrainingRecords(teamSenior);
-    
+  
     // recordsCompetitive
     fileHandlingTeam.loadCompetitiveRecords(teamJunior);
     fileHandlingTeam.loadCompetitiveRecords(teamSenior);
-    
+  
     // team trainers
     fileHandlingTeam.loadTrainerFile(teamJunior);
     fileHandlingTeam.loadTrainerFile(teamSenior);
+    
+    // idCounter
+    fileHandlingMemberList.loadIdCounter(memberList);
   }
   
   public FileHandlingMemberList getFileHandlingMemberList() {

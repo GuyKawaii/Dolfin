@@ -1,14 +1,18 @@
 package member;
 
 import enums.AgeGroup;
+
 import static enums.AgeGroup.*;
+
 import enums.MembershipStatus;
+
 import static enums.MembershipStatus.*;
 
 import java.time.LocalDate; // (yyyy-MM-dd)
 import java.time.Period;
 
 public abstract class Member {
+  private long ID;
   private String name;
   private LocalDate birthday;
   private int age;
@@ -17,7 +21,10 @@ public abstract class Member {
   private double contingent;
   private double restance;
   
-  public Member(String name, LocalDate birthday, MembershipStatus membershipStatus) {
+  // ### constructors ###
+  // constructor with ID
+  public Member(long ID, String name, LocalDate birthday, MembershipStatus membershipStatus) {
+    setID(ID);
     setName(name);
     setBirthday(birthday);
     setMembershipStatus(membershipStatus);
@@ -26,6 +33,28 @@ public abstract class Member {
     // calculate after all setters (based on setter values)
     calculateAgeAndAgeGroup();  // 1
     calculateContingent();      // 2
+  }
+  
+  // constructor without ID
+  public Member(String name, LocalDate birthday, MembershipStatus membershipStatus) {
+    setID(22);
+    setName(name);
+    setBirthday(birthday);
+    setMembershipStatus(membershipStatus);
+    setRestance(0);
+    
+    // calculate after all setters (based on setter values)
+    calculateAgeAndAgeGroup();  // 1
+    calculateContingent();      // 2
+  }
+  // ### constructors ###
+  
+  public void setID(long ID) {
+    this.ID = ID;
+  }
+  
+  public long getID() {
+    return ID;
   }
   
   public void setName(String name) {
@@ -119,26 +148,16 @@ public abstract class Member {
     return isSameName;
   }
   
-  
-  /*
-  new obj m1 -> cat mette 11år
-  new obj m2 -> cat mette 8år
-  if (m2.equals(m2)) false
-  if (m2.equals(m2)) true
-  
-   */
-  
-  
   @Override
   public String toString() {
-    return String.format("%s %s %s %s con:%.2f res:%.2f\n",
-        name,
-        birthday,
-        ageGroup,
-        membershipStatus,
-        contingent,
-        restance);
+    return String.format("%4s %-15s %s, con:%7s, res:%7s, %7s, %s, ",
+        this.getID(),
+        this.getName(),
+        this.getBirthday(),
+        this.getContingent(),
+        this.getRestance(),
+        this.getMembershipStatus(),
+        this.getAgeGroup());
   }
   
-
 }

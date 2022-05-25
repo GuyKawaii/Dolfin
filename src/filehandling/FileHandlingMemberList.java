@@ -3,6 +3,7 @@ package filehandling;
 import enums.Discipline;
 import enums.MembershipStatus;
 import member.*;
+import other.Trainer;
 
 import java.io.*;
 import java.time.LocalDate;
@@ -15,9 +16,9 @@ import static enums.MembershipStatus.*;
 
 public class FileHandlingMemberList {
   private final String databaseFolder = "database/";
+  private final String idCounterFile = "idCounter.csv";
   private final String competitiveFile = "competitive.csv";
   private final String motionistFile = "motionist.csv";
-  
   // todo make this class singleton
   
   public boolean saveMembers(ArrayList<Member> members) {
@@ -62,7 +63,7 @@ public class FileHandlingMemberList {
     } catch (Exception e) {
       // create empty file if not found
       createEmptyFile(filePath);
-  
+      
       // empty
       return motionists;
     }
@@ -149,7 +150,7 @@ public class FileHandlingMemberList {
     } catch (Exception e) {
       // create empty file if not found
       createEmptyFile(filePath);
-  
+      
       // empty
       return competitors;
     }
@@ -201,8 +202,56 @@ public class FileHandlingMemberList {
     }
   }
   
+  // idCounter
+  public boolean loadIdCounter(MemberList memberList) {
+    String filePath = (databaseFolder + idCounterFile);
+    
+    try {
+      // open file
+      Scanner fileScanner = new Scanner(new File(filePath));
+      while (fileScanner.hasNextLine()) {
+        String line = fileScanner.nextLine();
+        Scanner token = new Scanner(line).useDelimiter(";").useLocale(Locale.ENGLISH);
+        
+        // parameter
+        long idCounter = Long.parseLong(token.next());
+        
+        // reassign
+        memberList.setIdCounter(idCounter);
+        return true;
+      }
+      
+      // release file
+      fileScanner.close();
+      
+    } catch (Exception e) {
+      // create empty file if not found
+      createEmptyFile(filePath);
+    }
+  
+    return false;
+  }
+  
+  public boolean saveIdCounter(MemberList memberList) {
+    String filePath = (databaseFolder + idCounterFile);
+    
+    try {
+      PrintStream write = new PrintStream(filePath);
+      
+      write.printf("%s\n",
+          memberList.getIdCounter());
+      
+      write.close();
+      return true;
+      
+    } catch (Exception e) {
+      System.err.println(e);
+      return false;
+    }
+  }
+  
   // helper methods
-  public String stringDisciplines(ArrayList<Discipline> disciplines) {
+  private String stringDisciplines(ArrayList<Discipline> disciplines) {
     StringBuilder stringDisciplines = new StringBuilder();
     int amountDisciplines = disciplines.size();
     
@@ -217,7 +266,7 @@ public class FileHandlingMemberList {
     return stringDisciplines.toString();
   }
   
-  public ArrayList<Discipline> setDisciplines(String disciplinesText) {
+  private ArrayList<Discipline> setDisciplines(String disciplinesText) {
     // Mike;2001-05-19;0.0;ACTIVE;BACK_CRAWL;CRAWL;NULL;NULL  <- saved right now
     // Mike;2001-05-19;0.0;ACTIVE;BACK_CRAWL:CRAWL:NULL:NULL: <- saved after now
     ArrayList<Discipline> disciplines = new ArrayList<>();
@@ -247,7 +296,7 @@ public class FileHandlingMemberList {
     return disciplines;
   }
   
-  public MembershipStatus setMembershipStatus(String membershipStatusText) {
+  private MembershipStatus setMembershipStatus(String membershipStatusText) {
     if (membershipStatusText.equals("ACTIVE"))
       return ACTIVE;
     else if (membershipStatusText.equals("PASSIVE"))
@@ -256,7 +305,7 @@ public class FileHandlingMemberList {
       return null;
   }
   
-  public void createEmptyFile(String filePath) {
+  private void createEmptyFile(String filePath) {
     try {
       File newFile = new File(filePath);
       if (newFile.createNewFile()) System.out.println("File created: " + newFile.getName());
