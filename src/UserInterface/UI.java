@@ -15,14 +15,14 @@ import static enums.MembershipStatus.*;
 
 public class UI {
   static Scanner scanner = new Scanner(System.in);
-  
+
   public static void invalidInputMessage() {
     System.out.println(Color.TEXT_RED + "Invalid input" + Color.TEXT_RESET);
   }
-  
+
   public static void printMainMenu() {
     System.out.print("""
-        
+                
         MAIN MENU:
         - Cashier Menu                      -> 1
         - Trainer Menu                      -> 2
@@ -30,37 +30,37 @@ public class UI {
         - Exit                              -> Enter
         SELECT:\040""");
   }
-  
+
   public static Integer inputPositiveNumber() {
     String input;
     Integer num = 0;
-    
+
     while (num < 1) {
       // input
       input = scanner.nextLine();
       if (input.isEmpty()) return null;
-      
+
       // number
       try {
         num = Integer.parseInt(input);
-        
+
         if (num < 1) System.out.println(Color.TEXT_RED + "smallest valid number is 1" + Color.TEXT_RESET);
       } catch (Exception e) {
         System.out.println(Color.TEXT_RED + input + " is not valid" + Color.TEXT_RESET);
       }
     }
-    
+
     return num;
   }
-  
+
   public static LocalDate inputDate() {
     String input;
     LocalDate date = null;
-    
+
     do {
       input = UI.capitalizeStringInput();
       if (input.isEmpty()) return null;
-      
+
       try {
         date = LocalDate.parse(input);
       } catch (Exception e) {
@@ -89,8 +89,8 @@ public class UI {
     input = scanner.nextLine();
     return input;
   }
-  
-  public static  String uppercaseStringInput() {
+
+  public static String uppercaseStringInput() {
     String input;
     input = scanner.nextLine();
     if (input.equals("")) {
@@ -108,7 +108,7 @@ public class UI {
     
     return null;
   }
-  
+
   public static Competitive findActiveCompetitive(MemberList memberList) {
     String name;
     Competitive competitive = null;
@@ -258,7 +258,7 @@ public class UI {
   public static void printMemberList(MemberList memberList) {
     System.out.println(memberList);
   }
-  
+
   public static Discipline selectDiscipline() {
     // todo hav valg af discipliner i en seperat hjælpemetode
     // only get discipline if competitive has it
@@ -299,4 +299,5 @@ public class UI {
   public static void printNumberInputError(String numberInput) {
     System.out.println(numberInput + " is not a valid number");
   }
+
 }
