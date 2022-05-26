@@ -6,6 +6,7 @@ import enums.MembershipStatus;
 import member.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+
 import static enums.Discipline.*;
 import static enums.MembershipStatus.*;
 
@@ -19,14 +20,7 @@ public class FormandController {
   public void formandMenu() {
     boolean formandMenu = true;
     do {
-      System.out.print("""
-                    
-          FORMAND:
-          - See all members     -> 1
-          - Register members    -> 2
-          - Delete members      -> 3
-          - Return to main menu -> Enter
-          SELECT:\040""");
+      FormandUI.printFormandMenu();
       String userInput = UI.capitalizeStringInput();
       switch (userInput) {
         case "1", "see", "s" -> UI.printMembers(mainController.getMemberList().getMembers());
@@ -45,11 +39,7 @@ public class FormandController {
     
     addDiscipline:
     while (disciplines.size() < 4) {
-      System.out.println("""
-                    
-          INPUT DISCIPLINES
-          crawl -> c | back crawl -> bc | breast stroke -> bs | butterfly -> b | retry -> r
-          INPUT:\40""");
+     FormandUI.printInputDisciplineInstructions();
       input = UI.stringInput();
       
       switch (input) {
@@ -71,7 +61,7 @@ public class FormandController {
         }
       }
       
-      System.out.println(disciplines);
+      FormandUI.printDisciplines(disciplines);
     }
     
     return disciplines;
@@ -88,37 +78,25 @@ public class FormandController {
     LocalDate birthday;
     MembershipStatus membershipStatus;
     ArrayList<Discipline> disciplines;
-    
-    System.out.print("""
-                
-        REGISTERING MEMBERS
-        abort at any time -> Enter
-        """);
-    
+
+    FormandUI.printRegisteringMembers();
+
     registering:
     while (true) {
       
       // name
-      System.out.print("""
-                    
-          INPUT name:\40""");
+      FormandUI.printInputNameInstructions();
       name = UI.capitalizeStringInput();
       
       if (name.isBlank()) break registering;
       
       // birthday
-      System.out.print("\nINPUT birthday (yyyy-mm-dd): ");
+      FormandUI.printInputBirthdayInstructions();
       birthday = UI.inputDate();
       if (birthday == null) break registering;
       
       // membership status
-      System.out.print("""
-                    
-          MEMBERSHIP STATUS
-          active  -> 1
-          passive -> 2
-          abort   -> Enter
-          SELECT:\40""");
+     FormandUI.printInputMembershipStatusInstructions();
       input = UI.capitalizeStringInput();
       switch (input) {
         case "1", "active", "a" -> membershipStatus = ACTIVE;
@@ -129,12 +107,7 @@ public class FormandController {
       }
   
       // member type
-      System.out.print("""
-          
-          MEMBER TYPE
-          motionist   -> 1
-          competitive -> 2
-          SELECT:\40""");
+     FormandUI.printInputMemberTypeInstructions();
       input = UI.capitalizeStringInput();
       switch (input) {
         default -> {
@@ -163,7 +136,7 @@ public class FormandController {
         
       }
       
-      System.out.println("MEMBER CREATED");
+      FormandUI.printMemberCreatedConfirmation();
       UI.printMemberHeader();
       UI.printMember(mainController.getMemberList().getMember(ID));
     }
@@ -174,19 +147,14 @@ public class FormandController {
     
     selectingMember:
     while (true) {
-      System.out.print("""
-                    
-          DELETE MEMBER
-          - delete member -> ID of given member
-          - abort         -> [Enter]
-          SELECT:\040""");
+     FormandUI.printInputDeleteMemberInstructions();
       Integer ID = UI.inputPositiveNumber();
       if (ID == null) break selectingMember;
       
       // try removing
       removedMember = mainController.getMemberList().removeMember(ID);
       if (removedMember != null) {
-        System.out.println("\nREMOVED");
+       FormandUI.printMemberRemovedConfirmation();
         UI.printMemberHeader();
         UI.printMember(removedMember);
         
@@ -194,7 +162,7 @@ public class FormandController {
         mainController.getFileHandlingMemberList().saveMotionists(mainController.getMemberList().getMotionists());
         mainController.getFileHandlingMemberList().saveCompetitors(mainController.getMemberList().getCompetitors());
       } else {
-        System.out.printf(Color.TEXT_RED + "%s - MEMBER NOT FOUND" + Color.TEXT_RESET + "\n", ID);
+        FormandUI.printMemberNotFoundError(ID);
       }
     }
     
