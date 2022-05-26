@@ -101,14 +101,6 @@ public class UI {
     return input.toUpperCase();
   }
   
-  
-  public static AgeGroup selectAgeGroup() {
-    AgeGroup ageGroup;
-    
-    
-    return null;
-  }
-  
   public static Competitive findActiveCompetitive(MemberList memberList) {
     String stringID;
     int ID;
@@ -136,6 +128,10 @@ public class UI {
     }
     
     return competitive;
+  }
+  
+  public static void printWordMember() {
+    System.out.println("\nMEMBER");
   }
   
   public static void printMemberHeader() {
@@ -204,45 +200,11 @@ public class UI {
     
     return arguments;
   }
-
-//  public static void printCompetitors(ArrayList<Competitive> competitors) {
-//    for (Competitive competitive : competitors) {
-//      printCompetitive(competitive);
-//    }
-//  }
-//
-//  public static void printCompetitive(Competitive competitive) {
-//    System.out.printf("%4s %-15s %s, con:%7s, res:%7s, %7s, %s, ",
-//        competitive.getID(),
-//        competitive.getName(),
-//        competitive.getBirthday(),
-//        competitive.getContingent(),
-//        competitive.getRestance(),
-//        competitive.getMembershipStatus(),
-//        competitive.getAgeGroup());
-//    System.out.println("COMPETITIVE " + ((Competitive) competitive).getDisciplines());
-//  }
-
-//  public static void printMotionist(Motionist motionist) {
-//    System.out.printf("%4s %-15s %s, con:%7s, res:%7s, %7s, %s\n",
-//        motionist.getID(),
-//        motionist.getName(),
-//        motionist.getBirthday(),
-//        motionist.getContingent(),
-//        motionist.getRestance(),
-//        motionist.getMembershipStatus(),
-//        motionist.getAgeGroup());
-//  }
-
-//  public static void printMotionists(ArrayList<Motionist> motionists) {
-//    for (Motionist motionist : motionists) {
-//      printMotionist(motionist);
-//    }
-//  }
+  
   
   public static Discipline selectCompetitorDiscipline(Competitive competitive) {
     // only get discipline if competitive has it
-    Discipline discipline = null;
+    Discipline discipline;
     String input;
     
     System.out.printf("""

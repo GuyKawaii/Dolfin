@@ -163,10 +163,7 @@ public class TrainerController {
     
     // no contestants
     if (conventionRecords.size() == 0) {
-      System.out.printf("""
-          
-          %sCONVENTION: %s - DISCIPLINE: %s%s [NA]
-          """, TEXT_BLUE, convention, discipline, TEXT_RESET);
+      TrainerUI.printConventionHasNoMembers(convention, discipline);
       return;
     }
     
@@ -174,15 +171,11 @@ public class TrainerController {
     Collections.sort(conventionRecords);
     
     // header
-    System.out.printf("""
-        
-        %sCONVENTION: %s - DISCIPLINE: %s%s
-        %-15s PLACEMENT  TIME  DATE
-        """, TEXT_BLUE, convention, discipline, TEXT_RESET, "NAME");
+    TrainerUI.printConventionInfo(convention, discipline);
     
     // print convention records
     for (RecordCompetition record : conventionRecords) {
-      System.out.printf("%-15s %9s  %-4s  %s\n", record.getName(), record.getPlacement(), record.getTimeInSeconds(), record.getDate());
+      TrainerUI.printMemberRecordInfo(record.getName(), record.getPlacement(), record.getTimeInSeconds(), record.getDate());
     }
   }
   
@@ -209,12 +202,7 @@ public class TrainerController {
       UI.printCompetitors(mainController.getMemberList().getCompetitors()); // todo change method
       
       // competitive, name, ageGroup
-      System.out.print("""
-          
-          ADDING RECORDS:
-          - ID for person       -> ID of person
-          - Return to main menu -> Enter
-          SELECT:\040""");
+      TrainerUI.printInputNameInRecordInstructions();
       competitive = UI.findActiveCompetitive(mainController.getMemberList());
       if (competitive == null) break addingRecords;
       else {
@@ -222,7 +210,7 @@ public class TrainerController {
         name = competitive.getName();
       }
       
-      System.out.println("\nMEMBER");
+      UI.printWordMember();
       UI.printMemberHeader();
       UI.printMember(competitive);
       
@@ -231,30 +219,19 @@ public class TrainerController {
       if (discipline == null) break addingRecords;
       
       // timeInSeconds
-      System.out.print("""
-          
-          TIME:
-          - time (sec)          -> number
-          - Return to main menu -> Enter
-          SELECT:\040""");
+      TrainerUI.printInputTimeInRecordInstructions();
       timeInSeconds = UI.inputPositiveNumber();
       if (timeInSeconds == null) break addingRecords;
       
       
       // date
-      System.out.print("\nINPUT date (yyyy-mm-dd): ");
+      TrainerUI.printInputDateInRecordInstructions();
       date = UI.inputDate();
       if (date == null) break addingRecords;
       
       
       // record type
-      System.out.print("""
-          
-          TYPE:
-          - training            -> 1
-          - competition         -> 2
-          - Return to main menu -> Enter
-          SELECT:\040""");
+      TrainerUI.printInputRecordTypeInstructions();
       userInput = UI.capitalizeStringInput();
       switch (userInput) {
         default -> UI.invalidInputMessage();
@@ -282,22 +259,12 @@ public class TrainerController {
       } else {
         
         // placement
-        System.out.print("""
-            
-            PLACEMENT:
-            - placement           -> number
-            - Return to main menu -> Enter
-            SELECT:\040""");
+        TrainerUI.printInputPlacementInRecordCompetitionInstructions();
         placement = UI.inputPositiveNumber();
         if (placement == null) break addingRecords;
         
         // convention
-        System.out.print("""
-            
-            TYPE:
-            - convention          -> convention-name
-            - Return to main menu -> Enter
-            SELECT:\040""");
+        TrainerUI.printInputPlaceInRecordCompetitionInstructions();
         convention = UI.uppercaseStringInput();
         if (convention.isEmpty()) break addingRecords;
         

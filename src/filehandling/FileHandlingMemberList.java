@@ -92,31 +92,6 @@ public class FileHandlingMemberList {
     }
   }
   
-  public boolean appendMotionistFile(Motionist motionist) {
-    // append to end of file
-    if (motionist == null) return false;
-    
-    try {
-      // block of code that can throw
-      FileWriter file = new FileWriter(databaseFolder + motionistFile, true);
-      
-      file.write(String.format("%s;%s;%s;%s;%s\n",
-          motionist.getID(),
-          motionist.getName(),
-          motionist.getBirthday(),
-          motionist.getRestance(),
-          motionist.getMembershipStatus()));
-      
-      // release file
-      file.close();
-      return true;
-      
-    } catch (Exception e) {
-      System.err.println(e);
-      return false;
-    }
-  }
-  
   // competitive
   public ArrayList<Competitive> loadCompetitors() {
     String filePath = (databaseFolder + competitiveFile);
@@ -175,29 +150,6 @@ public class FileHandlingMemberList {
       file.close();
       return true;
     } catch (FileNotFoundException e) {
-      System.err.println(e);
-      return false;
-    }
-  }
-  
-  public boolean appendCompetitive(Competitive competitive) {
-    // append to end of file
-    if (competitive == null) return false;
-    try {
-      FileWriter file = new FileWriter(databaseFolder + competitiveFile, true);
-      file.write(String.format("%s;%s;%s;%s;%s;%s\n",
-          competitive.getID(),
-          competitive.getName(),
-          competitive.getBirthday(),
-          competitive.getRestance(),
-          competitive.getMembershipStatus(),
-          stringDisciplines(competitive.getDisciplines())));
-      
-      // release file
-      file.close();
-      return true;
-      
-    } catch (Exception e) {
       System.err.println(e);
       return false;
     }

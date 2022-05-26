@@ -28,30 +28,6 @@ public class FileHandlingTeam {
   private final String butterflyTrainingFile = "butterflyTrainingFile.csv";
   private final String butterflyCompetitionFile = "butterflyCompetitionFile.csv";
   
-  // whole team // todo not implemented or used remove later?
-  public void saveTeam(Team team) {
-    
-    // Tager en bestemt arrayliste af en discplin - den skal ligge den ind i filen som passer til den (16 gange)
-    //
-    // save team.getCrawlTraining() file crawltraning team.getAgeGrup
-    try {
-      PrintStream file = new PrintStream(databaseFolder + team.getAgeGroup() + crawlTrainingFile);
-      for (RecordTraining recordTraining : team.getCrawlTraining()) {
-        file.printf("%s;%s;%s;%s;%s\n",
-            team.getAgeGroup(),
-            team.getTrainer(),
-            recordTraining.getName(),
-            recordTraining.getTimeInSeconds(),
-            recordTraining.getDate());
-      }
-      file.close();
-    } catch (Exception e) {
-      System.err.println(e);
-    }
-    // file naming -> ageGroup + training discipline
-    // from array -> file
-  }
-  
   // training records
   public void loadTrainingRecords(TeamRecords teamRecords) {
     // load all disciplines
