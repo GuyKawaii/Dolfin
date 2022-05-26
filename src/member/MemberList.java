@@ -14,7 +14,7 @@ public class MemberList {
     idCounter = 1;
   }
   
-  // ID specific
+  // ID specific // todo assing id to +1 over max when setting competitive and motionist as well as adding just one
   public void setIdCounter(int idCounter) {
     this.idCounter = idCounter;
   }
@@ -38,13 +38,13 @@ public class MemberList {
     return null;
   }
   
-  public Motionist getMotionist(String name) {
-    for (Motionist motionist : motionists)
-      if (motionist.getName().equals(name)) return motionist;
-
-    // not found
-    return null;
-  }
+//  public Motionist getMotionist(String name) {
+//    for (Motionist motionist : motionists)
+//      if (motionist.getName().equals(name)) return motionist;
+//
+//    // not found
+//    return null;
+//  }
   
   public Competitive getCompetitive(int ID) {
     for (Competitive competitors : competitors)
@@ -54,25 +54,25 @@ public class MemberList {
     return null;
   }
   
-  public Competitive getCompetitive(String name) {
-    for (Competitive competitors : competitors)
-      if (competitors.getName().equals(name)) return competitors;
-    
-    // not found
-    return null;
-  }
+//  public Competitive getCompetitive(String name) {
+//    for (Competitive competitors : competitors)
+//      if (competitors.getName().equals(name)) return competitors;
+//
+//    // not found
+//    return null;
+//  }
   
-  public Member getMember(String name) {
-    Member member;
-
-    member = (Member) getMotionist(name);
-    if (member != null) return member;
-
-    member = (Member) getCompetitive(name);
-    if (member != null) return member;
-
-    return null;
-  }
+//  public Member getMember(String name) {
+//    Member member;
+//
+//    member = (Member) getMotionist(name);
+//    if (member != null) return member;
+//
+//    member = (Member) getCompetitive(name);
+//    if (member != null) return member;
+//
+//    return null;
+//  }
   
   public Member getMember(int ID) {
     Member member;

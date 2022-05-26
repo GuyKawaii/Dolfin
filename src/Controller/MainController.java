@@ -62,10 +62,10 @@ public class MainController {
   // main loop
   public void go() {
     initializeDatabase();
-    initTeams();
+//    initTeams();
     mainMenu(); //starts the program
   }
-
+  
   public void mainMenu() {
     boolean mainMenu = true;
     do {
@@ -76,29 +76,29 @@ public class MainController {
         case "2" -> trainerController.mainMenu();
         case "3" -> formandController.formandMenu();
         case "" -> {
-
+          
           mainMenu = false;
         }
         default -> UI.invalidInputMessage();
       }
-
+      
     } while (mainMenu);
-
+    
   }
-
+  
   public void initializeDatabase() {
     // memberList
     memberList.setMotionists(fileHandlingMemberList.loadMotionists());
     memberList.setCompetitors(fileHandlingMemberList.loadCompetitors());
-  
+    
     // recordsTraining
     fileHandlingTeam.loadTrainingRecords(teamJunior);
     fileHandlingTeam.loadTrainingRecords(teamSenior);
-  
+    
     // recordsCompetitive
     fileHandlingTeam.loadCompetitiveRecords(teamJunior);
     fileHandlingTeam.loadCompetitiveRecords(teamSenior);
-  
+    
     // team trainers
     fileHandlingTeam.loadTrainerFile(teamJunior);
     fileHandlingTeam.loadTrainerFile(teamSenior);
@@ -114,17 +114,17 @@ public class MainController {
   public void initTeams() {
     // todo remove method later
     // Team setup
-    teamJunior.createTrainingRecord(BACK_CRAWL, "7", 7, LocalDate.now());
-    teamJunior.createTrainingRecord(BACK_CRAWL, "6", 6, LocalDate.now());
-    teamJunior.createTrainingRecord(BACK_CRAWL, "5", 5, LocalDate.now());
-    teamJunior.createTrainingRecord(BACK_CRAWL, "4", 4, LocalDate.now());
-    teamJunior.createTrainingRecord(BACK_CRAWL, "3", 3, LocalDate.now());
-    teamJunior.createTrainingRecord(BACK_CRAWL, "2", 2, LocalDate.now());
-    teamJunior.createTrainingRecord(BACK_CRAWL, "1", 1, LocalDate.now());
-  
-    teamJunior.createTrainingRecord(BUTTERFLY, "3", 3, LocalDate.now());
-    teamJunior.createTrainingRecord(BUTTERFLY, "2", 2, LocalDate.now());
-    teamJunior.createTrainingRecord(BUTTERFLY, "1", 1, LocalDate.now());
+    teamJunior.createTrainingRecord(BACK_CRAWL, 7, "7", 7, LocalDate.now());
+    teamJunior.createTrainingRecord(BACK_CRAWL, 6, "6", 6, LocalDate.now());
+    teamJunior.createTrainingRecord(BACK_CRAWL, 5, "5", 5, LocalDate.now());
+    teamJunior.createTrainingRecord(BACK_CRAWL, 4, "4", 4, LocalDate.now());
+    teamJunior.createTrainingRecord(BACK_CRAWL, 3, "3", 3, LocalDate.now());
+    teamJunior.createTrainingRecord(BACK_CRAWL, 2, "2", 2, LocalDate.now());
+    teamJunior.createTrainingRecord(BACK_CRAWL, 1, "1", 1, LocalDate.now());
+    
+    teamJunior.createTrainingRecord(BUTTERFLY, 3, "3", 3, LocalDate.now());
+    teamJunior.createTrainingRecord(BUTTERFLY, 2, "2", 2, LocalDate.now());
+    teamJunior.createTrainingRecord(BUTTERFLY, 1, "1", 1, LocalDate.now());
   }
   
   // program entry

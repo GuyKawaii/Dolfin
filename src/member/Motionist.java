@@ -8,7 +8,7 @@ public class Motionist extends Member {
   
   // ### constructors###
   // constructor with ID
-  public Motionist(long ID, String name, LocalDate birthday, MembershipStatus membershipStatus) {
+  public Motionist(int ID, String name, LocalDate birthday, MembershipStatus membershipStatus) {
     super(ID, name, birthday, membershipStatus);
   }
 //  // constructor without ID

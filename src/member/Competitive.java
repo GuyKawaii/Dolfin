@@ -11,13 +11,13 @@ public class Competitive extends Member {
   
   // ### constructors ###
   // constructors with ID
-  public Competitive(long ID, String name, LocalDate birthDay, MembershipStatus membershipStatus, ArrayList<Discipline> disciplines) {
+  public Competitive(int ID, String name, LocalDate birthDay, MembershipStatus membershipStatus, ArrayList<Discipline> disciplines) {
     super(ID, name, birthDay, membershipStatus);
     
     setDisciplines(disciplines);
   }
   
-  public Competitive(long ID, String name, LocalDate birthDay, MembershipStatus membershipStatus) {
+  public Competitive(int ID, String name, LocalDate birthDay, MembershipStatus membershipStatus) {
     super(ID, name, birthDay, membershipStatus);
     
     disciplines = new ArrayList<>();

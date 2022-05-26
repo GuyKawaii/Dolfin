@@ -7,8 +7,8 @@ import java.time.LocalDate;
 public class RecordTraining extends Record implements Comparable<RecordTraining> {
   
   
-  public RecordTraining(String name, AgeGroup ageGroup, int timeInSeconds, LocalDate date) {
-    super(name, ageGroup, timeInSeconds, date);
+  public RecordTraining(int ID, String name, AgeGroup ageGroup, int timeInSeconds, LocalDate date) {
+    super(ID, name, ageGroup, timeInSeconds, date);
   }
 
 

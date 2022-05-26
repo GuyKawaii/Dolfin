@@ -8,8 +8,8 @@ public class RecordCompetition extends Record implements Comparable<RecordCompet
   private int placement;
   private String convention;
   
-  public RecordCompetition(String name, AgeGroup ageGroup, int timeInSeconds, LocalDate date, int placement, String convention) {
-    super(name, ageGroup, timeInSeconds, date);
+  public RecordCompetition(int ID, String name, AgeGroup ageGroup, int timeInSeconds, LocalDate date, int placement, String convention) {
+    super(ID, name, ageGroup, timeInSeconds, date);
     setPlacement(placement);
     setConvention(convention);
   }

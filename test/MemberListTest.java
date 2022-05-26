@@ -21,19 +21,19 @@ class MemberListTest {
   void topFiveUnderFiveTraineesTest() {
     Team team = new Team(JUNIOR, new Trainer("Bubba"));
     // 1
-    team.createTrainingRecord(Discipline.CRAWL, "name1", 10, LocalDate.now());
+    team.createTrainingRecord(Discipline.CRAWL, 1, "name1", 10, LocalDate.now());
     // 2
-    team.createTrainingRecord(Discipline.BACK_CRAWL, "name1", 10, LocalDate.now());
-    team.createTrainingRecord(Discipline.BACK_CRAWL, "name2", 10, LocalDate.now());
+    team.createTrainingRecord(Discipline.BACK_CRAWL, 1, "name1", 10, LocalDate.now());
+    team.createTrainingRecord(Discipline.BACK_CRAWL, 2, "name2", 10, LocalDate.now());
     // 3
-    team.createTrainingRecord(Discipline.BREAST_STROKE, "name2", 10, LocalDate.now());
-    team.createTrainingRecord(Discipline.BREAST_STROKE, "name2", 10, LocalDate.now());
-    team.createTrainingRecord(Discipline.BREAST_STROKE, "name2", 10, LocalDate.now());
+    team.createTrainingRecord(Discipline.BREAST_STROKE, 2, "name2", 10, LocalDate.now());
+    team.createTrainingRecord(Discipline.BREAST_STROKE, 2, "name2", 10, LocalDate.now());
+    team.createTrainingRecord(Discipline.BREAST_STROKE, 2, "name2", 10, LocalDate.now());
     // 4
-    team.createTrainingRecord(Discipline.BUTTERFLY, "name2", 10, LocalDate.now());
-    team.createTrainingRecord(Discipline.BUTTERFLY, "name2", 10, LocalDate.now());
-    team.createTrainingRecord(Discipline.BUTTERFLY, "name2", 10, LocalDate.now());
-    team.createTrainingRecord(Discipline.BUTTERFLY, "name2", 10, LocalDate.now());
+    team.createTrainingRecord(Discipline.BUTTERFLY, 2, "name2", 10, LocalDate.now());
+    team.createTrainingRecord(Discipline.BUTTERFLY, 2, "name2", 10, LocalDate.now());
+    team.createTrainingRecord(Discipline.BUTTERFLY, 2, "name2", 10, LocalDate.now());
+    team.createTrainingRecord(Discipline.BUTTERFLY, 2, "name2", 10, LocalDate.now());
     
     // top five less than 5 trainees
     assertEquals(1, team.topFiveForDiscipline(Discipline.CRAWL).size());
@@ -46,7 +46,7 @@ class MemberListTest {
     // get 5 exactly
   void fiveTraineesTest() {
     Team team = new Team(JUNIOR, new Trainer("Bubba"));
-    team.createTrainingRecord(Discipline.CRAWL, "name", 10, LocalDate.now());
+    team.createTrainingRecord(Discipline.CRAWL, 1, "name", 10, LocalDate.now());
     
     // top five less than 5 trainees
     assertEquals(1, team.topFiveForDiscipline(Discipline.CRAWL).size());
@@ -55,13 +55,13 @@ class MemberListTest {
   @Test
   void aboveFiveTraineesTest() {
     Team team = new Team(JUNIOR, new Trainer("Bubba"));
-    team.createTrainingRecord(Discipline.CRAWL, "name1", 10, LocalDate.now());
-    team.createTrainingRecord(Discipline.CRAWL, "name2", 10, LocalDate.now());
-    team.createTrainingRecord(Discipline.CRAWL, "name3", 10, LocalDate.now());
-    team.createTrainingRecord(Discipline.CRAWL, "name4", 10, LocalDate.now());
-    team.createTrainingRecord(Discipline.CRAWL, "name5", 10, LocalDate.now());
-    team.createTrainingRecord(Discipline.CRAWL, "name6", 10, LocalDate.now());
-    team.createTrainingRecord(Discipline.CRAWL, "name7", 10, LocalDate.now());
+    team.createTrainingRecord(Discipline.CRAWL, 1, "name1", 10, LocalDate.now());
+    team.createTrainingRecord(Discipline.CRAWL, 2, "name2", 10, LocalDate.now());
+    team.createTrainingRecord(Discipline.CRAWL, 3, "name3", 10, LocalDate.now());
+    team.createTrainingRecord(Discipline.CRAWL, 4, "name4", 10, LocalDate.now());
+    team.createTrainingRecord(Discipline.CRAWL, 5, "name5", 10, LocalDate.now());
+    team.createTrainingRecord(Discipline.CRAWL, 6, "name6", 10, LocalDate.now());
+    team.createTrainingRecord(Discipline.CRAWL, 7, "name7", 10, LocalDate.now());
     
     assertEquals(5, team.topFiveForDiscipline(Discipline.CRAWL).size());
   }

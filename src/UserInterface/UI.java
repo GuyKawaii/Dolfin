@@ -110,22 +110,27 @@ public class UI {
   }
   
   public static Competitive findActiveCompetitive(MemberList memberList) {
-    String name;
+    String stringID;
+    int ID;
     Competitive competitive = null;
     boolean foundActiveCompetitive = false;
     
     while (!foundActiveCompetitive) {
       // user input
-      name = scanner.nextLine();
-      if (name.isEmpty()) return null;
+      stringID = scanner.nextLine();
+      if (stringID.isEmpty()) return null;
       
-      competitive = memberList.getCompetitive(name);
+      try {
+        ID = Integer.parseInt(stringID);
+        competitive = memberList.getCompetitive(ID);
+      } catch (Exception e) {
+      }
       
       // tests
       if (competitive == null)
-        System.out.printf(Color.TEXT_RED + "CANNOT FIND %s competitive member\n" + Color.TEXT_RESET, name);
+        System.out.printf(Color.TEXT_RED + "%s ID DOES NOT BELONG TO ANY COMPETITIVE MEMBER\n" + Color.TEXT_RESET, stringID);
       else if (competitive.getMembershipStatus() == PASSIVE)
-        System.out.printf(Color.TEXT_RED + "%s - IS A PASSIVE MEMBER AND THEREFORE NOT ON A TEAM\n" + Color.TEXT_RESET, name);
+        System.out.printf(Color.TEXT_RED + "%s - IS A PASSIVE MEMBER AND THEREFORE NOT ON A TEAM\n" + Color.TEXT_RESET, stringID);
       else
         foundActiveCompetitive = true;
     }
@@ -155,6 +160,24 @@ public class UI {
     }
   }
   
+  public static void printCompetitors(ArrayList<Competitive> competitors) {
+    if (competitors.size() == 0) {
+      System.out.printf("%s%4s | %-15s | %-10s | %-11s | %-11s | %-7s | %-6s | %-11s%s[NA]\n",
+          Color.TEXT_BLUE,
+          "ID", "NAME", "BIRTHDAY", "CONTINGENT", "RESTANCE", "STATUS", "GROUP", "ACTIVITY",
+          Color.TEXT_RESET);
+      return;
+    }
+    
+    // header
+    printMemberHeader();
+    
+    // members
+    for (Member member : competitors) {
+      printMember(member);
+    }
+  }
+  
   public static void printMember(Member member) {
     System.out.printf("%4s | %-15s , %s , con:%7s , res:%7s , %-7s , %S , ",
         member.getID(),
@@ -166,6 +189,20 @@ public class UI {
         member.getAgeGroup());
     if (member instanceof Motionist) System.out.println("MOTIONIST");
     if (member instanceof Competitive) System.out.println("COMPETITIVE " + ((Competitive) member).getDisciplines());
+  }
+  
+  
+  public static String[] twoStingsArguments() {
+    // get 2 strings as a return
+    String[] arguments;
+    
+    arguments = scanner.nextLine().toLowerCase().split(" ", 2);
+  
+    if (arguments.length == 1) {
+      return new String[] {arguments[0], ""};
+    }
+    
+    return arguments;
   }
 
 //  public static void printCompetitors(ArrayList<Competitive> competitors) {

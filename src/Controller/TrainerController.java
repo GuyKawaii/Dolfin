@@ -1,15 +1,19 @@
 package Controller;
 
+import UserInterface.Color;
+import UserInterface.TrainerUI;
 import UserInterface.UI;
 import enums.AgeGroup;
 import enums.Discipline;
 import member.Competitive;
 import other.Team;
 import record.RecordCompetition;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
+
 import static UserInterface.Color.*;
 import static enums.AgeGroup.*;
 import static enums.Discipline.*;
@@ -23,38 +27,41 @@ public class TrainerController {
     this.mainController = mainController;
   }
   
+  // todo take 2 parameters to reduce options in menu
   public void mainMenu() { // todo missing visual for competition
     boolean trainerMenu = true;
     do {
       System.out.print("""
           
           TRAINER:
-          - add record          -> 1
-          - See top 5 junior    -> 2
-          - See top 5 senior    -> 3
-          - see junior team     -> 4
-          - see senior team     -> 5
-          - see junior competition records -> 6
-          - see senior competition records -> 7
-          - Return to main menu -> Enter
+          - add record                               -> 1
+          - See Junior or Senior top 5               -> 2 [J/S]
+          - see Junior or Senior team                -> 3 [J/S]
+          - see junior or Senior competition records -> 4 [J/S]
+          - Return to main menu                      -> Enter
           SELECT:\040""");
-      String userInput = UI.capitalizeStringInput();
-      switch (userInput) {
+      String[] userInputs = UI.twoStingsArguments();;
+      switch (userInputs[0]) {
         case "1" -> addRecord();
-        case "2" -> seeTopFive(JUNIOR);
-        case "3" -> seeTopFive(SENIOR);
-        case "4" -> printTeam(JUNIOR, mainController.getMemberList().getCompetitors());
-        case "5" -> printTeam(SENIOR, mainController.getMemberList().getCompetitors());
-        case "6" -> selectConvention(JUNIOR, mainController.getTeamJunior());
-        case "7" -> selectConvention(JUNIOR, mainController.getTeamSenior());
+        case "2" -> seeTopFive(userInputs[1]);
+        case "3" -> printTeam(userInputs[1], mainController.getMemberList().getCompetitors()); // todo can give error if there is no trainer loaded
+        case "4" -> selectConvention(userInputs[1]);
         case "" -> trainerMenu = false;
         default -> UI.invalidInputMessage();
       }
     } while (trainerMenu);
   }
   
-  public void seeTopFive(AgeGroup ageGroup) {
-    
+  public void seeTopFive(String userInput) {
+    AgeGroup ageGroup;
+    switch (userInput) {
+      case "j" -> ageGroup = JUNIOR;
+      case "s" -> ageGroup = SENIOR;
+      default -> {
+        UI.invalidInputMessage();
+        return;
+      }
+    }
     
     switch (ageGroup) {
       case JUNIOR -> {
@@ -73,8 +80,24 @@ public class TrainerController {
   }
   
   
-  public void selectConvention(AgeGroup ageGroup, Team team) {
+  public void selectConvention(String userInput) {
+    Team team;
+    AgeGroup ageGroup;
     Discipline discipline;
+    switch (userInput) {
+      case "j" -> {
+        ageGroup = JUNIOR;
+        team = mainController.getTeamJunior();
+      }
+      case "s" -> {
+        ageGroup = SENIOR;
+        team = mainController.getTeamSenior();
+      }
+      default -> {
+        UI.invalidInputMessage();
+        return;
+      }
+    }
     
     // select discipline
     discipline = UI.selectDiscipline();
@@ -135,6 +158,7 @@ public class TrainerController {
     Competitive competitive;
     
     // parameters
+    int ID;
     String name;
     Discipline discipline;
     Integer timeInSeconds;
@@ -149,18 +173,24 @@ public class TrainerController {
       // loop reset
       isCompetition = false;
       
+      UI.printCompetitors(mainController.getMemberList().getCompetitors()); // todo change method
+      
       // competitive, name, ageGroup
       System.out.print("""
           
           ADDING RECORDS:
-          - name of person      -> name
+          - ID for person       -> ID of person
           - Return to main menu -> Enter
           SELECT:\040""");
       competitive = UI.findActiveCompetitive(mainController.getMemberList());
       if (competitive == null) break addingRecords;
-      else name = competitive.getName();
+      else {
+        ID = competitive.getID();
+        name = competitive.getName();
+      }
       
       System.out.println("\nMEMBER");
+      UI.printMemberHeader();
       UI.printMember(competitive);
       
       // discipline
@@ -206,11 +236,11 @@ public class TrainerController {
       if (!isCompetition) {
         switch (competitive.getAgeGroup()) {
           case JUNIOR -> {
-            mainController.getTeamJunior().createTrainingRecord(discipline, name, timeInSeconds, date);
+            mainController.getTeamJunior().createTrainingRecord(discipline, ID, name, timeInSeconds, date);
             mainController.getFileHandlingTeam().saveRecordTraining(mainController.getTeamJunior(), discipline);
           }
           case SENIOR -> {
-            mainController.getTeamSenior().createTrainingRecord(discipline, name, timeInSeconds, date);
+            mainController.getTeamSenior().createTrainingRecord(discipline, ID, name, timeInSeconds, date);
             mainController.getFileHandlingTeam().saveRecordTraining(mainController.getTeamSenior(), discipline);
           }
         }
@@ -241,37 +271,50 @@ public class TrainerController {
         // competitive record
         switch (competitive.getAgeGroup()) {
           case JUNIOR -> {
-            mainController.getTeamJunior().createCompetitiveRecord(discipline, name, timeInSeconds, date, placement, convention);
+            mainController.getTeamJunior().createCompetitiveRecord(discipline, ID, name, timeInSeconds, date, placement, convention);
             mainController.getFileHandlingTeam().saveRecordCompetition(mainController.getTeamJunior(), discipline);
           }
           case SENIOR -> {
-            mainController.getTeamSenior().createCompetitiveRecord(discipline, name, timeInSeconds, date, placement, convention);
+            mainController.getTeamSenior().createCompetitiveRecord(discipline, ID, name, timeInSeconds, date, placement, convention);
             mainController.getFileHandlingTeam().saveRecordCompetition(mainController.getTeamSenior(), discipline);
           }
         }
       }
       
+      TrainerUI.printAddRecord();
     }
     
   }
   
-  public void printTeam(AgeGroup ageGroup, ArrayList<Competitive> competitors) {
+  public void printTeam(String userInput, ArrayList<Competitive> competitors) {
+    Team team;
+    switch (userInput) {
+      case "j" -> team = mainController.getTeamJunior();
+      case "s" -> team = mainController.getTeamSenior();
+      default -> {
+        UI.invalidInputMessage();
+        return;
+      }
+    }
+    
     // empty team
-    if (competitors.size() == 0) {
-      System.out.printf("\n%sTEAM: %s - ACTIVE MEMBERS%s [NA]\n", TEXT_GREEN, ageGroup, TEXT_RESET);
+    if (competitors == null) { // todo WRONG takes all competitive members from the whole database will always be false
+      System.out.printf("\n%sTEAM: %s | TRAINER: %s - ACTIVE MEMBERS%s [NA]\n", TEXT_GREEN, team.getAgeGroup(), team.getTrainer().getName(), TEXT_RESET);
       return;
     }
     
     // header
     System.out.printf("""
-        
-        %sTEAM: %s - ACTIVE MEMBERS%s
-        %-15s %s   | %5s | %10s | %13s | %9s |
-        """, TEXT_GREEN, ageGroup, TEXT_RESET, "NAME", "AGE", CRAWL, BACK_CRAWL, BREAST_STROKE, BUTTERFLY);
+            
+            %sTEAM: %s | TRAINER: %s - ACTIVE MEMBERS%s
+            %-15s %s   | %5s | %10s | %13s | %9s |
+            """, TEXT_GREEN,
+        team.getAgeGroup(), team.getTrainer().getName(), TEXT_RESET,
+        "NAME", "AGE", CRAWL, BACK_CRAWL, BREAST_STROKE, BUTTERFLY);
     
     // competitors
     for (Competitive competitive : competitors) {
-      if (competitive.getAgeGroup() == ageGroup && competitive.getMembershipStatus() == ACTIVE)
+      if (competitive.getAgeGroup() == team.getAgeGroup() && competitive.getMembershipStatus() == ACTIVE)
         System.out.printf("%-15s %3s   | %5s | %10s | %13s | %9s |\n", competitive.getName(), competitive.getAge(),
             competitive.hasDiscipline(CRAWL),
             competitive.hasDiscipline(BACK_CRAWL),

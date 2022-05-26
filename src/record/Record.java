@@ -5,16 +5,26 @@ import enums.AgeGroup;
 import java.time.LocalDate;
 
   public class Record {
+    private int ID;
     private String name;
     private AgeGroup ageGroup;
     private int timeInSeconds;
     private LocalDate date;
     
-    public Record(String name, AgeGroup ageGroup, int timeInSeconds, LocalDate date) {
+    public Record(int ID, String name, AgeGroup ageGroup, int timeInSeconds, LocalDate date) {
+      setID(ID);
       setName(name);
       setAgeGroup(ageGroup);
       setTimeInSeconds(timeInSeconds);
       setDate(date);
+    }
+  
+    public void setID(int ID) {
+      this.ID = ID;
+    }
+  
+    public int getID() {
+      return ID;
     }
   
     public void setAgeGroup(AgeGroup ageGroup) {

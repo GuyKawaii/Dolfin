@@ -12,7 +12,7 @@ import java.time.LocalDate; // (yyyy-MM-dd)
 import java.time.Period;
 
 public abstract class Member {
-  private long ID;
+  private int ID;
   private String name;
   private LocalDate birthday;
   private int age;
@@ -23,7 +23,7 @@ public abstract class Member {
   
   // ### constructors ###
   // constructor with ID
-  public Member(long ID, String name, LocalDate birthday, MembershipStatus membershipStatus) {
+  public Member(int ID, String name, LocalDate birthday, MembershipStatus membershipStatus) {
     setID(ID);
     setName(name);
     setBirthday(birthday);
@@ -49,11 +49,11 @@ public abstract class Member {
   }
   // ### constructors ###
   
-  public void setID(long ID) {
+  public void setID(int ID) {
     this.ID = ID;
   }
   
-  public long getID() {
+  public int getID() {
     return ID;
   }
   

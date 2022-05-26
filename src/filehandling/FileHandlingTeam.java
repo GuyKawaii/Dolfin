@@ -83,13 +83,14 @@ public class FileHandlingTeam {
         Scanner token = new Scanner(line).useDelimiter(";").useLocale(Locale.ENGLISH);
         
         // parameters
+        int ID = Integer.parseInt(token.next());
         String name = token.next();
         AgeGroup ageGroup = setAgeGroup(token.next()); // todo gives error when reading file
         int timeInSeconds = token.nextInt();
         LocalDate date = LocalDate.parse(token.next());
         
         // create
-        recordTrainings.add(new RecordTraining(name, ageGroup, timeInSeconds, date));
+        recordTrainings.add(new RecordTraining(ID, name, ageGroup, timeInSeconds, date));
       }
       
       // release file
@@ -110,7 +111,8 @@ public class FileHandlingTeam {
     try {
       PrintStream write = new PrintStream(databaseFolder + discipline);
       for (RecordTraining recordTraining : recordTrainings) {
-        write.printf("%s;%s;%s;%s\n",
+        write.printf("%s;%s;%s;%s;%s\n",
+            recordTraining.getID(),
             recordTraining.getName(),
             recordTraining.getAgeGroup(),
             recordTraining.getTimeInSeconds(),
@@ -157,6 +159,7 @@ public class FileHandlingTeam {
         Scanner token = new Scanner(line).useDelimiter(";").useLocale(Locale.ENGLISH);
         
         // parameters
+        int ID = Integer.parseInt(token.next());
         String name = token.next();
         AgeGroup ageGroup = setAgeGroup(token.next()); // todo gives error when reading file
         int timeInSeconds = token.nextInt();
@@ -165,7 +168,7 @@ public class FileHandlingTeam {
         String convention = token.next();
         
         // create
-        competitiveRecords.add(new RecordCompetition(name, ageGroup, timeInSeconds, date, placement, convention));
+        competitiveRecords.add(new RecordCompetition(ID, name, ageGroup, timeInSeconds, date, placement, convention));
       }
       
       // release file
@@ -186,7 +189,8 @@ public class FileHandlingTeam {
     try {
       PrintStream write = new PrintStream(databaseFolder + discipline);
       for (RecordCompetition recordCompetition : recordCompetitions) {
-        write.printf("%s;%s;%s;%s;%s;%s\n",
+        write.printf("%s;%s;%s;%s;%s;%s;%s\n",
+            recordCompetition.getID(),
             recordCompetition.getName(),
             recordCompetition.getAgeGroup(),
             recordCompetition.getTimeInSeconds(),
@@ -245,6 +249,8 @@ public class FileHandlingTeam {
     } catch (Exception e) {
       // create empty file if not found
       createEmptyFile(filePath);
+      // default
+      team.setTrainer(new Trainer(String.format("%s TRAINER", team.getAgeGroup())));
     }
     
     team.setTrainer(trainer);
@@ -260,7 +266,7 @@ public class FileHandlingTeam {
       return null;
   }
   
-  public void createEmptyFile(String filePath) {
+  public void createEmptyFile(String filePath) { // todo make it write TRAINER for TRAINER LOAD
     try {
       File newFile = new File(filePath);
       if (newFile.createNewFile()) System.out.println("File created: " + newFile.getName());

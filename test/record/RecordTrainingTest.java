@@ -13,10 +13,10 @@ class RecordTrainingTest {
   
   @Test
   void comparableSmallFirst() {
-    RecordTraining recordTraining1 = new RecordTraining("r1", AgeGroup.JUNIOR, 1, LocalDate.now());
-    RecordTraining recordTraining2 = new RecordTraining("r2", AgeGroup.JUNIOR, 2, LocalDate.now());
-    RecordTraining recordTraining3 = new RecordTraining("r2", AgeGroup.JUNIOR, 3, LocalDate.now());
-    RecordTraining recordTraining4 = new RecordTraining("r2", AgeGroup.JUNIOR, 4, LocalDate.now());
+    RecordTraining recordTraining1 = new RecordTraining(1,"r1", AgeGroup.JUNIOR, 1, LocalDate.now());
+    RecordTraining recordTraining2 = new RecordTraining(2,"r2", AgeGroup.JUNIOR, 2, LocalDate.now());
+    RecordTraining recordTraining3 = new RecordTraining(2,"r2", AgeGroup.JUNIOR, 3, LocalDate.now());
+    RecordTraining recordTraining4 = new RecordTraining(2,"r2", AgeGroup.JUNIOR, 4, LocalDate.now());
     
     // small number first
     ArrayList<RecordTraining> trainingsSmallTOBig = new ArrayList<>();
