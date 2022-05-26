@@ -101,9 +101,4 @@ public class MainController {
   public FileHandlingMemberList getFileHandlingMemberList() {
     return fileHandlingMemberList;
   }
-  
-  // program entry
-  public static void main(String[] args) {
-    new MainController().go();
-  }
 }
