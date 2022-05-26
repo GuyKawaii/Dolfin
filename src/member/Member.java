@@ -106,7 +106,7 @@ public abstract class Member {
     else if (ageGroup == JUNIOR) contingent = 1000;
     else if (ageGroup == SENIOR && age < 60) contingent = 1600;
     else if (ageGroup == SENIOR && age >= 60) contingent = 1600 * (1 - 0.25);
-    else contingent = 0; // todo maybe throw exception?
+    else contingent = 0;
   }
   
   public double getContingent() {
@@ -140,12 +140,8 @@ public abstract class Member {
     return restance;
   }
   
-  // todo add equality by name first and maybe more parameters later
   public boolean equals(Member other) {
-    boolean isSameName = this.getName().equalsIgnoreCase(other.getName());
-//    boolean isSameBirthday = this.getBirthday().equals(other.getBirthday()); // todo maybe add?
-    
-    return isSameName;
+    return this.ID == other.ID;
   }
   
   @Override

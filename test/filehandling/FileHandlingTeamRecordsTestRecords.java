@@ -6,7 +6,7 @@ import record.RecordTraining;
 
 import java.util.ArrayList;
 
-class FileHandlingTeamTest {
+class FileHandlingTeamRecordsTestRecords {
   FileHandlingTeam fileHandlingTeam;
   
   @BeforeEach

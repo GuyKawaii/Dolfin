@@ -5,13 +5,11 @@ import UserInterface.UI;
 import enums.AgeGroup;
 import enums.Discipline;
 import member.Competitive;
-import other.Team;
+import other.TeamRecords;
 import record.RecordCompetition;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Scanner;
+import java.util.*;
 
 import static UserInterface.Color.*;
 import static enums.AgeGroup.*;
@@ -20,34 +18,78 @@ import static enums.MembershipStatus.*;
 
 public class TrainerController {
   MainController mainController;
-  Scanner scanner;
   
   public TrainerController(MainController mainController) {
     this.mainController = mainController;
   }
   
-  public void TrainerMenu() { // todo missing visual for competition
+  public void TrainerMenu() {
     boolean trainerMenu = true;
     do {
-      System.out.print("""
-          
-          TRAINER:
-          - add record                               -> 1
-          - See Junior or Senior top 5               -> 2 [J/S]
-          - see Junior or Senior team                -> 3 [J/S]
-          - see junior or Senior competition records -> 4 [J/S]
-          - Return to main menu                      -> Enter
-          SELECT:\040""");
-      String[] userInputs = UI.twoStingsArguments();;
+      TrainerUI.printTrainerMenu();
+      String[] userInputs = UI.twoStingsArguments();
       switch (userInputs[0]) {
         case "1" -> addRecord();
         case "2" -> seeTopFive(userInputs[1]);
-        case "3" -> printTeam(userInputs[1], mainController.getMemberList().getCompetitors()); // todo can give error if there is no trainer loaded
+        case "3" ->
+            writeTeam(userInputs[1], mainController.getMemberList().getCompetitors()); // todo can give error if there is no trainer loaded
         case "4" -> selectConvention(userInputs[1]);
+        case "5" -> showConventions(userInputs[1]);
         case "" -> trainerMenu = false;
         default -> UI.invalidInputMessage();
       }
     } while (trainerMenu);
+  }
+  
+  private void showConventions(String userInput) {
+    ArrayList<String> conventions = new ArrayList<>();
+    AgeGroup ageGroup;
+    TeamRecords teamRecords;
+    
+    switch (userInput) {
+      case "j" -> {
+        ageGroup = JUNIOR;
+        teamRecords = mainController.getTeamJunior();
+      }
+      case "s" -> {
+        ageGroup = SENIOR;
+        teamRecords = mainController.getTeamSenior();
+      }
+      default -> {
+        UI.invalidInputMessage();
+        return;
+      }
+    }
+    
+    
+    for (RecordCompetition recordCompetition : teamRecords.getCrawlCompetition())
+      if (!conventions.contains(recordCompetition.getConvention()))
+        conventions.add(String.format("discipline: %-13s | convention: %s", CRAWL, recordCompetition.getConvention()));
+    
+    for (RecordCompetition recordCompetition : teamRecords.getBackCrawlCompetition())
+      if (!conventions.contains(recordCompetition.getConvention()))
+        conventions.add(String.format("discipline: %-13s | convention: %s", BACK_CRAWL, recordCompetition.getConvention()));
+    
+    for (RecordCompetition recordCompetition : teamRecords.getBreastStrokeCompetition())
+      if (!conventions.contains(recordCompetition.getConvention()))
+        conventions.add(String.format("discipline: %-13s | convention: %s", BREAST_STROKE, recordCompetition.getConvention()));
+    
+    for (RecordCompetition recordCompetition : teamRecords.getButterflyCompetition())
+      if (!conventions.contains(recordCompetition.getConvention()))
+        conventions.add(String.format("discipline: %-13s | convention: %s", BUTTERFLY, recordCompetition.getConvention()));
+    
+    if (conventions.size() == 0) {
+      TrainerUI.printEmptyConventionHeader(ageGroup);
+      return;
+    }
+    
+    
+    // header
+    TrainerUI.printConventionHeader(ageGroup);
+    // write conventions
+    for (String convention : conventions) {
+      UI.printString(convention);
+    }
   }
   
   public void seeTopFive(String userInput) {
@@ -79,18 +121,12 @@ public class TrainerController {
   
   
   public void selectConvention(String userInput) {
-    Team team;
+    TeamRecords teamRecords;
     AgeGroup ageGroup;
     Discipline discipline;
     switch (userInput) {
-      case "j" -> {
-        ageGroup = JUNIOR;
-        team = mainController.getTeamJunior();
-      }
-      case "s" -> {
-        ageGroup = SENIOR;
-        team = mainController.getTeamSenior();
-      }
+      case "j" -> teamRecords = mainController.getTeamJunior();
+      case "s" -> teamRecords = mainController.getTeamSenior();
       default -> {
         UI.invalidInputMessage();
         return;
@@ -103,20 +139,20 @@ public class TrainerController {
     
     // apply discipline
     switch (discipline) {
-      case CRAWL -> seeCompetitiveRecords(ageGroup, discipline, team.getCrawlCompetition());
-      case BACK_CRAWL -> seeCompetitiveRecords(ageGroup, discipline, team.getBackCrawlCompetition());
-      case BREAST_STROKE -> seeCompetitiveRecords(ageGroup, discipline, team.getBreastStrokeCompetition());
-      case BUTTERFLY -> seeCompetitiveRecords(ageGroup, discipline, team.getButterflyCompetition());
+      case CRAWL -> seeCompetitiveRecords(discipline, teamRecords.getCrawlCompetition());
+      case BACK_CRAWL -> seeCompetitiveRecords(discipline, teamRecords.getBackCrawlCompetition());
+      case BREAST_STROKE -> seeCompetitiveRecords(discipline, teamRecords.getBreastStrokeCompetition());
+      case BUTTERFLY -> seeCompetitiveRecords(discipline, teamRecords.getButterflyCompetition());
     }
   }
   
-  public void seeCompetitiveRecords(AgeGroup ageGroup, Discipline discipline, ArrayList<RecordCompetition> records) { // todo maybe change CompetitiveRecord to ConventionRecord?
+  public void seeCompetitiveRecords(Discipline discipline, ArrayList<RecordCompetition> records) {
     ArrayList<RecordCompetition> conventionRecords = new ArrayList<>();
     String convention;
     
     // select convention
-    System.out.print("Choose convention by name: ");
-    convention = scanner.nextLine().toUpperCase();
+    TrainerUI.printInputConventionInstructions();
+    convention = UI.UpperCaseInput();
     if (convention.isEmpty()) return;
     
     // select convention records
@@ -283,40 +319,38 @@ public class TrainerController {
     
   }
   
-  public void printTeam(String userInput, ArrayList<Competitive> competitors) {
-    Team team;
+  public void writeTeam(String userInput, ArrayList<Competitive> competitors) {
+    ArrayList<Competitive> ageGroupCompetitors = new ArrayList<>();
+    TeamRecords teamRecords;
     switch (userInput) {
-      case "j" -> team = mainController.getTeamJunior();
-      case "s" -> team = mainController.getTeamSenior();
+      case "j" -> teamRecords = mainController.getTeamJunior();
+      case "s" -> teamRecords = mainController.getTeamSenior();
       default -> {
         UI.invalidInputMessage();
         return;
       }
     }
     
-    // empty team
-    if (competitors == null) { // todo WRONG takes all competitive members from the whole database will always be false
-      System.out.printf("\n%sTEAM: %s | TRAINER: %s - ACTIVE MEMBERS%s [NA]\n", TEXT_GREEN, team.getAgeGroup(), team.getTrainer().getName(), TEXT_RESET);
+    // Get TEAM members
+    for (Competitive competitive : competitors)
+      if ((competitive.getAgeGroup() == teamRecords.getAgeGroup()) && (competitive.getMembershipStatus() == ACTIVE))
+        ageGroupCompetitors.add(competitive);
+    
+    // header
+    if (ageGroupCompetitors.isEmpty()) {
+      TrainerUI.printNoMembersInTeam(teamRecords.getAgeGroup(), teamRecords.getTrainer().getName());
       return;
     }
     
-    // header
-    System.out.printf("""
-            
-            %sTEAM: %s | TRAINER: %s - ACTIVE MEMBERS%s
-            %-15s %s   | %5s | %10s | %13s | %9s |
-            """, TEXT_GREEN,
-        team.getAgeGroup(), team.getTrainer().getName(), TEXT_RESET,
-        "NAME", "AGE", CRAWL, BACK_CRAWL, BREAST_STROKE, BUTTERFLY);
+    TrainerUI.printTeam(teamRecords.getAgeGroup(), teamRecords.getTrainer().getName());
     
     // competitors
-    for (Competitive competitive : competitors) {
-      if (competitive.getAgeGroup() == team.getAgeGroup() && competitive.getMembershipStatus() == ACTIVE)
-        System.out.printf("%-15s %3s   | %5s | %10s | %13s | %9s |\n", competitive.getName(), competitive.getAge(),
-            competitive.hasDiscipline(CRAWL),
-            competitive.hasDiscipline(BACK_CRAWL),
-            competitive.hasDiscipline(BREAST_STROKE),
-            competitive.hasDiscipline(BUTTERFLY));
+    for (Competitive competitive : ageGroupCompetitors) {
+      System.out.printf("%-15s %3s   | %5s | %10s | %13s | %9s |\n", competitive.getName(), competitive.getAge(),
+          competitive.hasDiscipline(CRAWL),
+          competitive.hasDiscipline(BACK_CRAWL),
+          competitive.hasDiscipline(BREAST_STROKE),
+          competitive.hasDiscipline(BUTTERFLY));
     }
   }
   

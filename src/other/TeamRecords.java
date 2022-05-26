@@ -1,7 +1,6 @@
 package other;
 
 import enums.Discipline;
-import record.Record;
 import record.RecordCompetition;
 import record.RecordTraining;
 import enums.AgeGroup;
@@ -10,11 +9,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Team { //TODO maybe change name to TeamRecords?
+public class TeamRecords {
   private AgeGroup ageGroup;
   private Trainer trainer;
   
-  private ArrayList<Record> allRecords;
   private ArrayList<RecordTraining> crawlTraining;
   private ArrayList<RecordCompetition> crawlCompetition;
   private ArrayList<RecordTraining> backCrawlTraining;
@@ -24,7 +22,7 @@ public class Team { //TODO maybe change name to TeamRecords?
   private ArrayList<RecordTraining> butterflyTraining;
   private ArrayList<RecordCompetition> butterflyCompetition;
   
-  public Team(AgeGroup ageGroup, Trainer trainer) {
+  public TeamRecords(AgeGroup ageGroup, Trainer trainer) {
     this.ageGroup = ageGroup;
     this.trainer = trainer;
     
@@ -39,7 +37,7 @@ public class Team { //TODO maybe change name to TeamRecords?
     butterflyCompetition = new ArrayList();
   }
   
-  public Team(AgeGroup ageGroup) {
+  public TeamRecords(AgeGroup ageGroup) {
     this.ageGroup = ageGroup;
     this.trainer = null;
     

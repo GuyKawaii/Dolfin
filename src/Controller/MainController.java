@@ -5,11 +5,8 @@ import enums.AgeGroup;
 import filehandling.FileHandlingTeam;
 import member.*;
 import filehandling.FileHandlingMemberList;
-import other.Team;
+import other.TeamRecords;
 
-import java.time.LocalDate;
-
-import static enums.Discipline.*;
 import static java.time.LocalDate.now;
 
 public class MainController {
@@ -22,8 +19,8 @@ public class MainController {
   private FileHandlingTeam fileHandlingTeam;
   // program state
   private MemberList memberList;
-  private Team teamJunior;
-  private Team teamSenior;
+  private TeamRecords teamRecordsJunior;
+  private TeamRecords teamRecordsSenior;
   
   // Constructor
   public MainController() {
@@ -38,8 +35,8 @@ public class MainController {
     
     // program state
     memberList = new MemberList();
-    teamJunior = new Team(AgeGroup.JUNIOR);
-    teamSenior = new Team(AgeGroup.SENIOR);
+    teamRecordsJunior = new TeamRecords(AgeGroup.JUNIOR);
+    teamRecordsSenior = new TeamRecords(AgeGroup.SENIOR);
   }
   
   // getters
@@ -47,12 +44,12 @@ public class MainController {
     return memberList;
   }
   
-  public Team getTeamJunior() {
-    return teamJunior;
+  public TeamRecords getTeamJunior() {
+    return teamRecordsJunior;
   }
   
-  public Team getTeamSenior() {
-    return teamSenior;
+  public TeamRecords getTeamSenior() {
+    return teamRecordsSenior;
   }
   
   public FileHandlingTeam getFileHandlingTeam() {
@@ -92,16 +89,16 @@ public class MainController {
     memberList.setCompetitors(fileHandlingMemberList.loadCompetitors());
     
     // recordsTraining
-    fileHandlingTeam.loadTrainingRecords(teamJunior);
-    fileHandlingTeam.loadTrainingRecords(teamSenior);
+    fileHandlingTeam.loadTrainingRecords(teamRecordsJunior);
+    fileHandlingTeam.loadTrainingRecords(teamRecordsSenior);
     
     // recordsCompetitive
-    fileHandlingTeam.loadCompetitiveRecords(teamJunior);
-    fileHandlingTeam.loadCompetitiveRecords(teamSenior);
+    fileHandlingTeam.loadCompetitiveRecords(teamRecordsJunior);
+    fileHandlingTeam.loadCompetitiveRecords(teamRecordsSenior);
     
     // team trainers
-    fileHandlingTeam.loadTrainerFile(teamJunior);
-    fileHandlingTeam.loadTrainerFile(teamSenior);
+    fileHandlingTeam.loadTrainerFile(teamRecordsJunior);
+    fileHandlingTeam.loadTrainerFile(teamRecordsSenior);
     
     // idCounter
     fileHandlingMemberList.loadIdCounter(memberList);
@@ -129,7 +126,6 @@ public class MainController {
   
   // program entry
   public static void main(String[] args) {
-//    new FormandController().mainMenu();
     new MainController().go();
   }
 }

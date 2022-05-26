@@ -3,7 +3,7 @@ package UserInterface;
 import enums.AgeGroup;
 import enums.Discipline;
 import member.*;
-import other.Team;
+import other.TeamRecords;
 import record.RecordTraining;
 
 import java.time.LocalDate;
@@ -73,7 +73,7 @@ public class UI {
     return date;
   }
   
-  public static String capitalizeStringInput() { // todo maybe make real nice
+  public static String capitalizeStringInput() {
     String input;
     Scanner scanner = new Scanner(System.in);
     input = scanner.nextLine();
@@ -84,7 +84,7 @@ public class UI {
     return input.substring(0, 1).toUpperCase() + input.substring(1);
   }
   
-  public static String stringInput() { // todo maybe make real nice
+  public static String stringInput() {
     String input;
     Scanner scanner = new Scanner(System.in);
     input = scanner.nextLine();
@@ -241,7 +241,6 @@ public class UI {
 //  }
   
   public static Discipline selectCompetitorDiscipline(Competitive competitive) {
-    // TODO can we split this method up? If not where does it belong?
     // only get discipline if competitive has it
     Discipline discipline = null;
     String input;
@@ -288,11 +287,11 @@ public class UI {
   }
   
   
-  public static void printTopFiveDiscipline(Discipline discipline, Team team) {
-    ArrayList<RecordTraining> records = team.topFiveForDiscipline(discipline);
+  public static void printTopFiveDiscipline(Discipline discipline, TeamRecords teamRecords) {
+    ArrayList<RecordTraining> records = teamRecords.topFiveForDiscipline(discipline);
     
     // heading
-    System.out.printf("\n%s - %s", team.getAgeGroup().getString(), discipline.getString());
+    System.out.printf("\n%s - %s", teamRecords.getAgeGroup().getString(), discipline.getString());
     if (records.size() == 0) System.out.printf(" [NA]\n");
     else {
       System.out.printf("\n%-15s  %-10s  %s\n", "NAME", "TIME (sec)", "DATE");
@@ -303,14 +302,7 @@ public class UI {
     }
   }
   
-  public static void printTeam(AgeGroup ageGroup, ArrayList<Competitive> competitors) {
-    // todo name and parameters combined are incongruent
-    
-    
-  }
-  
   public static Discipline selectDiscipline() {
-    // todo hav valg af discipliner i en seperat hjælpemetode
     // only get discipline if competitive has it
     Discipline discipline = null;
     String input;
@@ -352,5 +344,13 @@ public class UI {
   
   public static void cannotFindID() {
     System.out.println("CANNOT FIND MEMBER WITH ID");
+  }
+  
+  public static void printString(String string) {
+    System.out.println(string);
+  }
+  
+  public static String UpperCaseInput() {
+    return scanner.nextLine().toUpperCase();
   }
 }

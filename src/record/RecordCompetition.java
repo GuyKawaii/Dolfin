@@ -23,7 +23,7 @@ public class RecordCompetition extends Record implements Comparable<RecordCompet
   }
   
   public int getPlacement() {
-    return placement; // TODO: 22/05/2022 til sidst så fjern alle ubrugte gettere og settere
+    return placement;
   }
   
   public void setPlacement(int placement) {

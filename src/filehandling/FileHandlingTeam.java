@@ -53,22 +53,22 @@ public class FileHandlingTeam {
   }
   
   // training records
-  public void loadTrainingRecords(Team team) {
+  public void loadTrainingRecords(TeamRecords teamRecords) {
     // load all disciplines
-    AgeGroup ageGroup = team.getAgeGroup();
-    team.setCrawlTraining(loadRecordTrainingFile(databaseFolder + ageGroup + crawlTrainingFile));
-    team.setBackCrawlTraining(loadRecordTrainingFile(databaseFolder + ageGroup + backCrawlTrainingFile));
-    team.setBreastStrokeTraining(loadRecordTrainingFile(databaseFolder + ageGroup + breastStrokeTrainingFile));
-    team.setButterflyTraining(loadRecordTrainingFile(databaseFolder + ageGroup + butterflyTrainingFile));
+    AgeGroup ageGroup = teamRecords.getAgeGroup();
+    teamRecords.setCrawlTraining(loadRecordTrainingFile(databaseFolder + ageGroup + crawlTrainingFile));
+    teamRecords.setBackCrawlTraining(loadRecordTrainingFile(databaseFolder + ageGroup + backCrawlTrainingFile));
+    teamRecords.setBreastStrokeTraining(loadRecordTrainingFile(databaseFolder + ageGroup + breastStrokeTrainingFile));
+    teamRecords.setButterflyTraining(loadRecordTrainingFile(databaseFolder + ageGroup + butterflyTrainingFile));
   }
   
-  public void saveRecordTraining(Team team, Discipline discipline) {
+  public void saveRecordTraining(TeamRecords teamRecords, Discipline discipline) {
     switch (discipline) {
-      case CRAWL -> writeToFileTraining(team.getCrawlTraining(), (team.getAgeGroup() + crawlTrainingFile));
-      case BACK_CRAWL -> writeToFileTraining(team.getBackCrawlTraining(), (team.getAgeGroup() + backCrawlTrainingFile));
+      case CRAWL -> writeToFileTraining(teamRecords.getCrawlTraining(), (teamRecords.getAgeGroup() + crawlTrainingFile));
+      case BACK_CRAWL -> writeToFileTraining(teamRecords.getBackCrawlTraining(), (teamRecords.getAgeGroup() + backCrawlTrainingFile));
       case BREAST_STROKE ->
-          writeToFileTraining(team.getBreastStrokeTraining(), (team.getAgeGroup() + breastStrokeTrainingFile));
-      case BUTTERFLY -> writeToFileTraining(team.getButterflyTraining(), (team.getAgeGroup() + butterflyTrainingFile));
+          writeToFileTraining(teamRecords.getBreastStrokeTraining(), (teamRecords.getAgeGroup() + breastStrokeTrainingFile));
+      case BUTTERFLY -> writeToFileTraining(teamRecords.getButterflyTraining(), (teamRecords.getAgeGroup() + butterflyTrainingFile));
     }
   }
   
@@ -85,7 +85,7 @@ public class FileHandlingTeam {
         // parameters
         int ID = Integer.parseInt(token.next());
         String name = token.next();
-        AgeGroup ageGroup = setAgeGroup(token.next()); // todo gives error when reading file
+        AgeGroup ageGroup = setAgeGroup(token.next());
         int timeInSeconds = token.nextInt();
         LocalDate date = LocalDate.parse(token.next());
         
@@ -126,25 +126,24 @@ public class FileHandlingTeam {
   }
   
   // competitive records
-  public void loadCompetitiveRecords(Team team) {
+  public void loadCompetitiveRecords(TeamRecords teamRecords) {
     // load all disciplines
-    AgeGroup ageGroup = team.getAgeGroup();
-    team.setCrawlCompetition(loadRecordCompetitiveFile(databaseFolder + ageGroup + crawlCompetitionFile));
-    team.setBackCrawlCompetition(loadRecordCompetitiveFile(databaseFolder + ageGroup + backCrawlCompetitionFile));
-    team.setBreastStrokeCompetition(loadRecordCompetitiveFile(databaseFolder + ageGroup + breastStrokeCompetitionFile));
-    team.setButterflyCompetition(loadRecordCompetitiveFile(databaseFolder + ageGroup + butterflyCompetitionFile));
+    AgeGroup ageGroup = teamRecords.getAgeGroup();
+    teamRecords.setCrawlCompetition(loadRecordCompetitiveFile(databaseFolder + ageGroup + crawlCompetitionFile));
+    teamRecords.setBackCrawlCompetition(loadRecordCompetitiveFile(databaseFolder + ageGroup + backCrawlCompetitionFile));
+    teamRecords.setBreastStrokeCompetition(loadRecordCompetitiveFile(databaseFolder + ageGroup + breastStrokeCompetitionFile));
+    teamRecords.setButterflyCompetition(loadRecordCompetitiveFile(databaseFolder + ageGroup + butterflyCompetitionFile));
   }
   
-  public void saveRecordCompetition(Team team, Discipline discipline) {
+  public void saveRecordCompetition(TeamRecords teamRecords, Discipline discipline) {
     switch (discipline) {
-      case CRAWL -> writeToFileCompetition(team.getCrawlCompetition(), (team.getAgeGroup() + crawlCompetitionFile));
+      case CRAWL -> writeToFileCompetition(teamRecords.getCrawlCompetition(), (teamRecords.getAgeGroup() + crawlCompetitionFile));
       case BACK_CRAWL ->
-          writeToFileCompetition(team.getBackCrawlCompetition(), (team.getAgeGroup() + backCrawlCompetitionFile));
+          writeToFileCompetition(teamRecords.getBackCrawlCompetition(), (teamRecords.getAgeGroup() + backCrawlCompetitionFile));
       case BREAST_STROKE ->
-          writeToFileCompetition(team.getBreastStrokeCompetition(), (team.getAgeGroup() + breastStrokeCompetitionFile));
+          writeToFileCompetition(teamRecords.getBreastStrokeCompetition(), (teamRecords.getAgeGroup() + breastStrokeCompetitionFile));
       case BUTTERFLY ->
-          writeToFileCompetition(team.getButterflyCompetition(), (team.getAgeGroup() + butterflyCompetitionFile));
-      // TODO: 23/05/2022 add default?
+          writeToFileCompetition(teamRecords.getButterflyCompetition(), (teamRecords.getAgeGroup() + butterflyCompetitionFile));
     }
   }
   
@@ -206,14 +205,14 @@ public class FileHandlingTeam {
   }
   
   // trainer
-  public boolean saveTrainer(Team team) {
-    String filePath = (databaseFolder + team.getAgeGroup() + trainerFile);
+  public boolean saveTrainer(TeamRecords teamRecords) {
+    String filePath = (databaseFolder + teamRecords.getAgeGroup() + trainerFile);
     
     try {
       PrintStream write = new PrintStream(filePath);
       
       write.printf("%s\n",
-          team.getTrainer().getName());
+          teamRecords.getTrainer().getName());
       
       write.close();
       return true;
@@ -225,8 +224,8 @@ public class FileHandlingTeam {
     
   }
   
-  public void loadTrainerFile(Team team) {
-    String filePath = (databaseFolder + team.getAgeGroup() + trainerFile);
+  public void loadTrainerFile(TeamRecords teamRecords) {
+    String filePath = (databaseFolder + teamRecords.getAgeGroup() + trainerFile);
     Trainer trainer = null;
     
     try {
@@ -250,10 +249,10 @@ public class FileHandlingTeam {
       // create empty file if not found
       createEmptyFile(filePath);
       // default
-      team.setTrainer(new Trainer(String.format("%s TRAINER", team.getAgeGroup())));
+      teamRecords.setTrainer(new Trainer(String.format("%s TRAINER", teamRecords.getAgeGroup())));
     }
     
-    team.setTrainer(trainer);
+    teamRecords.setTrainer(trainer);
   }
   
   // helper methods

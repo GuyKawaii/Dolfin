@@ -1,4 +1,5 @@
-import other.Team;
+import org.junit.jupiter.api.BeforeEach;
+import other.TeamRecords;
 import other.Trainer;
 import enums.Discipline;
 import org.junit.jupiter.api.Test;
@@ -12,117 +13,60 @@ class MemberListTest {
   
   @Test
   void topFiveUnderFiveNoTraineesTest() {
-    Team team = new Team(JUNIOR, new Trainer("Bubba"));
-    
-    assertEquals(0, team.topFiveForDiscipline(Discipline.CRAWL).size());
+    TeamRecords teamRecords = new TeamRecords(JUNIOR, new Trainer("Bubba"));
+    assertEquals(0, teamRecords.topFiveForDiscipline(Discipline.CRAWL).size());
   }
   
   @Test
   void topFiveUnderFiveTraineesTest() {
-    Team team = new Team(JUNIOR, new Trainer("Bubba"));
+    TeamRecords teamRecords = new TeamRecords(JUNIOR, new Trainer("Bubba"));
     // 1
-    team.createTrainingRecord(Discipline.CRAWL, 1, "name1", 10, LocalDate.now());
+    teamRecords.createTrainingRecord(Discipline.CRAWL, 1, "1", 10, LocalDate.now());
     // 2
-    team.createTrainingRecord(Discipline.BACK_CRAWL, 1, "name1", 10, LocalDate.now());
-    team.createTrainingRecord(Discipline.BACK_CRAWL, 2, "name2", 10, LocalDate.now());
+    teamRecords.createTrainingRecord(Discipline.BACK_CRAWL, 1, "1", 10, LocalDate.now());
+    teamRecords.createTrainingRecord(Discipline.BACK_CRAWL, 2, "2", 10, LocalDate.now());
     // 3
-    team.createTrainingRecord(Discipline.BREAST_STROKE, 2, "name2", 10, LocalDate.now());
-    team.createTrainingRecord(Discipline.BREAST_STROKE, 2, "name2", 10, LocalDate.now());
-    team.createTrainingRecord(Discipline.BREAST_STROKE, 2, "name2", 10, LocalDate.now());
+    teamRecords.createTrainingRecord(Discipline.BREAST_STROKE, 1, "1", 10, LocalDate.now());
+    teamRecords.createTrainingRecord(Discipline.BREAST_STROKE, 2, "2", 10, LocalDate.now());
+    teamRecords.createTrainingRecord(Discipline.BREAST_STROKE, 3, "3", 10, LocalDate.now());
     // 4
-    team.createTrainingRecord(Discipline.BUTTERFLY, 2, "name2", 10, LocalDate.now());
-    team.createTrainingRecord(Discipline.BUTTERFLY, 2, "name2", 10, LocalDate.now());
-    team.createTrainingRecord(Discipline.BUTTERFLY, 2, "name2", 10, LocalDate.now());
-    team.createTrainingRecord(Discipline.BUTTERFLY, 2, "name2", 10, LocalDate.now());
+    teamRecords.createTrainingRecord(Discipline.BUTTERFLY, 1, "1", 10, LocalDate.now());
+    teamRecords.createTrainingRecord(Discipline.BUTTERFLY, 2, "2", 10, LocalDate.now());
+    teamRecords.createTrainingRecord(Discipline.BUTTERFLY, 3, "3", 10, LocalDate.now());
+    teamRecords.createTrainingRecord(Discipline.BUTTERFLY, 4, "4", 10, LocalDate.now());
     
     // top five less than 5 trainees
-    assertEquals(1, team.topFiveForDiscipline(Discipline.CRAWL).size());
-    assertEquals(2, team.topFiveForDiscipline(Discipline.BACK_CRAWL).size());
-    assertEquals(3, team.topFiveForDiscipline(Discipline.BREAST_STROKE).size());
-    assertEquals(4, team.topFiveForDiscipline(Discipline.BUTTERFLY).size());
+    assertEquals(1, teamRecords.topFiveForDiscipline(Discipline.CRAWL).size());
+    assertEquals(2, teamRecords.topFiveForDiscipline(Discipline.BACK_CRAWL).size());
+    assertEquals(3, teamRecords.topFiveForDiscipline(Discipline.BREAST_STROKE).size());
+    assertEquals(4, teamRecords.topFiveForDiscipline(Discipline.BUTTERFLY).size());
   }
   
   @Test
-    // get 5 exactly
-  void fiveTraineesTest() {
-    Team team = new Team(JUNIOR, new Trainer("Bubba"));
-    team.createTrainingRecord(Discipline.CRAWL, 1, "name", 10, LocalDate.now());
+  void topFiveTraineesTest() {
+    TeamRecords teamRecords = new TeamRecords(JUNIOR, new Trainer("Bubba"));
+    teamRecords.createTrainingRecord(Discipline.CRAWL, 1, "1", 10, LocalDate.now());
+    teamRecords.createTrainingRecord(Discipline.CRAWL, 2, "2", 10, LocalDate.now());
+    teamRecords.createTrainingRecord(Discipline.CRAWL, 3, "3", 10, LocalDate.now());
+    teamRecords.createTrainingRecord(Discipline.CRAWL, 4, "4", 10, LocalDate.now());
+    teamRecords.createTrainingRecord(Discipline.CRAWL, 5, "5", 10, LocalDate.now());
     
-    // top five less than 5 trainees
-    assertEquals(1, team.topFiveForDiscipline(Discipline.CRAWL).size());
+    // get 5 exactly
+    assertEquals(5, teamRecords.topFiveForDiscipline(Discipline.CRAWL).size());
   }
   
   @Test
   void aboveFiveTraineesTest() {
-    Team team = new Team(JUNIOR, new Trainer("Bubba"));
-    team.createTrainingRecord(Discipline.CRAWL, 1, "name1", 10, LocalDate.now());
-    team.createTrainingRecord(Discipline.CRAWL, 2, "name2", 10, LocalDate.now());
-    team.createTrainingRecord(Discipline.CRAWL, 3, "name3", 10, LocalDate.now());
-    team.createTrainingRecord(Discipline.CRAWL, 4, "name4", 10, LocalDate.now());
-    team.createTrainingRecord(Discipline.CRAWL, 5, "name5", 10, LocalDate.now());
-    team.createTrainingRecord(Discipline.CRAWL, 6, "name6", 10, LocalDate.now());
-    team.createTrainingRecord(Discipline.CRAWL, 7, "name7", 10, LocalDate.now());
+    TeamRecords teamRecords = new TeamRecords(JUNIOR, new Trainer("Bubba"));
+    teamRecords.createTrainingRecord(Discipline.CRAWL, 1, "1", 10, LocalDate.now());
+    teamRecords.createTrainingRecord(Discipline.CRAWL, 2, "2", 10, LocalDate.now());
+    teamRecords.createTrainingRecord(Discipline.CRAWL, 3, "3", 10, LocalDate.now());
+    teamRecords.createTrainingRecord(Discipline.CRAWL, 4, "4", 10, LocalDate.now());
+    teamRecords.createTrainingRecord(Discipline.CRAWL, 5, "5", 10, LocalDate.now());
+    teamRecords.createTrainingRecord(Discipline.CRAWL, 6, "6", 10, LocalDate.now());
+    teamRecords.createTrainingRecord(Discipline.CRAWL, 7, "7", 10, LocalDate.now());
     
-    assertEquals(5, team.topFiveForDiscipline(Discipline.CRAWL).size());
+    assertEquals(5, teamRecords.topFiveForDiscipline(Discipline.CRAWL).size());
   }
   
-  
-  void getMotionist() {
-  }
-  
-  @Test
-  void getCompetitive() {
-  }
-  
-  @Test
-  void getMember() {
-  }
-  
-  @Test
-  void addMotionist() {
-  }
-  
-  @Test
-  void addCompetitive() {
-  }
-  
-  @Test
-  void removeMotionist() {
-  }
-  
-  @Test
-  void removeCompetitive() {
-  }
-  
-  @Test
-  void removeMember() {
-  }
-  
-  @Test
-  void getMemberAmount() {
-  }
-  
-  @Test
-  void getMotionistAmount() {
-  }
-  
-  @Test
-  void getCompetitiveAmount() {
-  }
-  
-  @Test
-  void getCompetitors() {
-  }
-  
-  @Test
-  void getMotionists() {
-  }
-  
-  @Test
-  void getMembers() {
-  }
-  
-  @Test
-  void testToString() {
-  }
 }
