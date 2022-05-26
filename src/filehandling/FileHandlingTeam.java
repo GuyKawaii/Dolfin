@@ -183,24 +183,7 @@ public class FileHandlingTeam {
   }
   
   // trainer
-  public boolean saveTrainer(TeamRecords teamRecords) {
-    String filePath = (databaseFolder + teamRecords.getAgeGroup() + trainerFile);
-    
-    try {
-      PrintStream write = new PrintStream(filePath);
-      
-      write.printf("%s\n",
-          teamRecords.getTrainer().getName());
-      
-      write.close();
-      return true;
-      
-    } catch (Exception e) {
-      System.err.println(e);
-      return false;
-    }
-    
-  }
+ 
   
   public void loadTrainerFile(TeamRecords teamRecords) {
     String filePath = (databaseFolder + teamRecords.getAgeGroup() + trainerFile);

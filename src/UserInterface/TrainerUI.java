@@ -135,4 +135,15 @@ public class TrainerUI {
   return String.format("discipline: %-13s | convention: %s", CRAWL, conventionName);
   }
   
+  public static String printTeamBackCrawlCompetitionRecords(String conventionName) {
+  return String.format("discipline: %-13s | convention: %s", BACK_CRAWL, conventionName);
+  }
+  
+  public static String printTeamBreastStrokeCompetitionRecords(String conventionName) {
+  return String.format("discipline: %-13s | convention: %s", BREAST_STROKE, conventionName);
+  }
+  
+  public static String printTeamButterflyCompetitionRecords(String conventionName) {
+    return String.format("discipline: %-13s | convention: %s", BUTTERFLY, conventionName);
+  }
 }

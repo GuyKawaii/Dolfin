@@ -1,3 +1,16 @@
+import org.junit.jupiter.api.Test;
+import other.TeamRecords;
+import other.Trainer;
+import record.RecordTraining;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+
+import static enums.AgeGroup.*;
+import static enums.Discipline.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+
 class TeamRecordsTest {
   
   @Test

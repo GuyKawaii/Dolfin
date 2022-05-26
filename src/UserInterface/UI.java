@@ -253,7 +253,7 @@ public class UI {
     
     // heading
     System.out.printf("\n%s - %s", teamRecords.getAgeGroup().getString(), discipline.getString());
-    if (records.size() == 0) System.out.printf(" [NA]\n");
+    if (records.size() == 0) System.out.print(" [NA]\n");
     else {
       System.out.printf("\n%-15s  %-10s  %s\n", "NAME", "TIME (sec)", "DATE");
       

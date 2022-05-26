@@ -118,18 +118,6 @@ public class MemberList {
   }
   
   // general getters setters
-  public int getMemberAmount() {
-    return getMotionistAmount() + getCompetitiveAmount();
-  }
-  
-  public int getMotionistAmount() {
-    return motionists.size();
-  }
-  
-  public int getCompetitiveAmount() {
-    return competitors.size();
-  }
-  
   public ArrayList<Competitive> getCompetitors() {
     return competitors;
   }

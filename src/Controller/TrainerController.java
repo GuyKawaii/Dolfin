@@ -63,19 +63,19 @@ public class TrainerController {
     
     for (RecordCompetition recordCompetition : teamRecords.getCrawlCompetition())
       if (!conventions.contains(recordCompetition.getConvention()))
-        conventions.add(String.format("discipline: %-13s | convention: %s", CRAWL, recordCompetition.getConvention()));
+        conventions.add(TrainerUI.printTeamCrawlCompetitionsRecords(recordCompetition.getConvention()));
     
     for (RecordCompetition recordCompetition : teamRecords.getBackCrawlCompetition())
       if (!conventions.contains(recordCompetition.getConvention()))
-        conventions.add(String.format("discipline: %-13s | convention: %s", BACK_CRAWL, recordCompetition.getConvention()));
+        conventions.add(TrainerUI.printTeamBackCrawlCompetitionRecords(recordCompetition.getConvention()));
     
     for (RecordCompetition recordCompetition : teamRecords.getBreastStrokeCompetition())
       if (!conventions.contains(recordCompetition.getConvention()))
-        conventions.add(String.format("discipline: %-13s | convention: %s", BREAST_STROKE, recordCompetition.getConvention()));
+        conventions.add(TrainerUI.printTeamBreastStrokeCompetitionRecords(recordCompetition.getConvention()));
     
     for (RecordCompetition recordCompetition : teamRecords.getButterflyCompetition())
       if (!conventions.contains(recordCompetition.getConvention()))
-        conventions.add(String.format("discipline: %-13s | convention: %s", BUTTERFLY, recordCompetition.getConvention()));
+        conventions.add(TrainerUI.printTeamButterflyCompetitionRecords(recordCompetition.getConvention()));
     
     if (conventions.size() == 0) {
       TrainerUI.printEmptyConventionHeader(ageGroup);
