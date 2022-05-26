@@ -2,7 +2,7 @@ package filehandling;
 
 import enums.AgeGroup;
 import enums.Discipline;
-import other.*;
+import team.*;
 import record.*;
 
 import java.io.File;

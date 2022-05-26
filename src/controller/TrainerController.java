@@ -5,7 +5,7 @@ import userInterface.UI;
 import enums.AgeGroup;
 import enums.Discipline;
 import member.Competitive;
-import other.TeamRecords;
+import team.TeamRecords;
 import record.RecordCompetition;
 
 import java.time.LocalDate;

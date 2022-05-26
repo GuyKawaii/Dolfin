@@ -1,4 +1,4 @@
-package other;
+package team;
 
 public class Trainer {
   private String name;

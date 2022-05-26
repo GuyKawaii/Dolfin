@@ -5,7 +5,7 @@ import enums.AgeGroup;
 import filehandling.FileHandlingTeam;
 import member.*;
 import filehandling.FileHandlingMemberList;
-import other.TeamRecords;
+import team.TeamRecords;
 
 public class MainController {
   // other controllers

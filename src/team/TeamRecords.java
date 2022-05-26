@@ -1,4 +1,4 @@
-package other;
+package team;
 
 import enums.Discipline;
 import record.RecordCompetition;

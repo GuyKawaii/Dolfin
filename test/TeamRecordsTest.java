@@ -1,6 +1,6 @@
 import org.junit.jupiter.api.Test;
-import other.TeamRecords;
-import other.Trainer;
+import team.TeamRecords;
+import team.Trainer;
 import record.RecordTraining;
 
 import java.time.LocalDate;

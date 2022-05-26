@@ -2,7 +2,7 @@ package userInterface;
 
 import enums.Discipline;
 import member.*;
-import other.TeamRecords;
+import team.TeamRecords;
 import record.RecordTraining;
 
 import java.time.LocalDate;

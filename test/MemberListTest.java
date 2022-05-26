@@ -1,6 +1,5 @@
-import org.junit.jupiter.api.BeforeEach;
-import other.TeamRecords;
-import other.Trainer;
+import team.TeamRecords;
+import team.Trainer;
 import enums.Discipline;
 import org.junit.jupiter.api.Test;
 
