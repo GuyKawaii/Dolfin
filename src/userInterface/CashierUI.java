@@ -1,4 +1,4 @@
-package UserInterface;
+package userInterface;
 
 import member.Member;
 
@@ -8,12 +8,12 @@ public class CashierUI {
     System.out.print("""
         
         CASHIER:
-        - see all members                   -> 1
-        - see members in restance           -> 2
-        - see expedited earnings for period -> 3
-        - bill all members for one period   -> 4
-        - change member resistance          -> 5
-        - abort                             -> Enter
+        - See all members                   -> 1
+        - See members in restance           -> 2
+        - See expected earnings for period  -> 3
+        - Bill all members for one period   -> 4
+        - Edit member restance              -> 5
+        - Return to main menu               -> Enter
         SELECT:\040""");
   }
   
@@ -69,7 +69,7 @@ public class CashierUI {
         CHANGE MEMBER RESISTANCE
         select member     -> ID of member
         abort at any time -> Enter
-        INPUT:\40""");
+        INPUT:\040""");
   }
   
   public static void printAskForChoiceChangeRestance() {
@@ -80,7 +80,7 @@ public class CashierUI {
         remove restance for one period -> 2
         add    amount of restance      -> a amount
         remove amount of restance      -> r amount
-        INPUT:\40""");
+        INPUT:\040""");
   }
   
   public static String stringMemberWithNoRestance(Member member) {

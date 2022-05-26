@@ -1,4 +1,4 @@
-package UserInterface;
+package userInterface;
 
 import enums.Discipline;
 import member.*;

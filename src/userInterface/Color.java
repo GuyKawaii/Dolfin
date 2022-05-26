@@ -1,4 +1,4 @@
-package UserInterface;
+package userInterface;
 
 public class Color {
   public static final String TEXT_RESET = "\u001B[0m";

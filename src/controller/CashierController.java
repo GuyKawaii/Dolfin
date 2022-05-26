@@ -1,6 +1,6 @@
-package Controller;
+package controller;
 
-import UserInterface.*;
+import userInterface.*;
 import member.*;
 
 import java.util.ArrayList;

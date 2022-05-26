@@ -1,4 +1,4 @@
-package UserInterface;
+package userInterface;
 
 import enums.Discipline;
 
@@ -10,10 +10,10 @@ public class FormandUI {
     System.out.print("""
                     
           FORMAND:
-          - See all members     -> 1
-          - Register members    -> 2
-          - Delete members      -> 3
-          - Return to main menu -> Enter
+          - See all members      -> 1
+          - Register members     -> 2
+          - Delete members       -> 3
+          - Return to main menu  -> Enter
           SELECT:\040""");
   }
 
@@ -40,7 +40,7 @@ public class FormandUI {
   public static void printInputNameInstructions() {
     System.out.print("""
                     
-          INPUT name:\40""");
+          INPUT name:\040""");
   }
 
   public static void printInputBirthdayInstructions() {

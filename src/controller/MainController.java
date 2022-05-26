@@ -1,6 +1,6 @@
-package Controller;
+package controller;
 
-import UserInterface.UI;
+import userInterface.UI;
 import enums.AgeGroup;
 import filehandling.FileHandlingTeam;
 import member.*;

@@ -1,7 +1,7 @@
-package Controller;
+package controller;
 
-import UserInterface.TrainerUI;
-import UserInterface.UI;
+import userInterface.TrainerUI;
+import userInterface.UI;
 import enums.AgeGroup;
 import enums.Discipline;
 import member.Competitive;
