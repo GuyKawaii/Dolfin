@@ -1,6 +1,5 @@
 package Controller;
 
-import UserInterface.Color;
 import UserInterface.TrainerUI;
 import UserInterface.UI;
 import enums.AgeGroup;
@@ -27,8 +26,7 @@ public class TrainerController {
     this.mainController = mainController;
   }
   
-  // todo take 2 parameters to reduce options in menu
-  public void mainMenu() { // todo missing visual for competition
+  public void TrainerMenu() { // todo missing visual for competition
     boolean trainerMenu = true;
     do {
       System.out.print("""
@@ -138,7 +136,6 @@ public class TrainerController {
     
     // sort
     Collections.sort(conventionRecords);
-    
     
     // header
     System.out.printf("""

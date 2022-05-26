@@ -73,7 +73,7 @@ public class MainController {
       String userInput = UI.capitalizeStringInput();
       switch (userInput) {
         case "1" -> cashierController.cashierMenu();
-        case "2" -> trainerController.mainMenu();
+        case "2" -> trainerController.TrainerMenu();
         case "3" -> formandController.formandMenu();
         case "" -> {
           
