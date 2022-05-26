@@ -6,4 +6,4 @@
 - import Junit library done from test-folder
 
 ## runing program
-- main entry is in mainController
+- main entry is in its own Main-Class
