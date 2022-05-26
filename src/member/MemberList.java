@@ -14,7 +14,7 @@ public class MemberList {
     idCounter = 1;
   }
   
-  // ID specific // todo assing id to +1 over max when setting competitive and motionist as well as adding just one
+  // ID specific
   public void setIdCounter(int idCounter) {
     this.idCounter = idCounter;
   }
@@ -38,14 +38,6 @@ public class MemberList {
     return null;
   }
   
-//  public Motionist getMotionist(String name) {
-//    for (Motionist motionist : motionists)
-//      if (motionist.getName().equals(name)) return motionist;
-//
-//    // not found
-//    return null;
-//  }
-  
   public Competitive getCompetitive(int ID) {
     for (Competitive competitors : competitors)
       if (competitors.getID() == ID) return competitors;
@@ -54,33 +46,13 @@ public class MemberList {
     return null;
   }
   
-//  public Competitive getCompetitive(String name) {
-//    for (Competitive competitors : competitors)
-//      if (competitors.getName().equals(name)) return competitors;
-//
-//    // not found
-//    return null;
-//  }
-  
-//  public Member getMember(String name) {
-//    Member member;
-//
-//    member = (Member) getMotionist(name);
-//    if (member != null) return member;
-//
-//    member = (Member) getCompetitive(name);
-//    if (member != null) return member;
-//
-//    return null;
-//  }
-  
   public Member getMember(int ID) {
     Member member;
     
-    member = (Member) getMotionist(ID);
+    member = getMotionist(ID);
     if (member != null) return member;
     
-    member = (Member) getCompetitive(ID);
+    member = getCompetitive(ID);
     if (member != null) return member;
     
     return null;
@@ -122,17 +94,6 @@ public class MemberList {
     return null;
   }
   
-//  public boolean removeMotionist(String name) {
-//    for (Motionist motionist : motionists)
-//      if (motionist.getName().equals(name)) {
-//        motionists.remove(motionist);
-//        return true;
-//      }
-//
-//    // not found
-//    return false;
-//  }
-//
   public Competitive removeCompetitive(int ID) {
     for (Competitive competitive : competitors)
       if (competitive.getID() == ID) {
@@ -144,40 +105,17 @@ public class MemberList {
     return null;
   }
   
-//  public Member removeCompetitive(String name) {
-//    for (Competitive competitive : competitors)
-//      if (competitive.getName().equals(name)) {
-//        competitors.remove(competitive);
-//        return competitive;
-//      }
-//
-//    // not found
-//    return null;
-//  }
-  
   public Member removeMember(int ID) {
     Member removed;
     
-    removed = (Member) removeCompetitive(ID);
+    removed = removeCompetitive(ID);
     if (removed != null) return removed;
     
-    removed = (Member) removeMotionist(ID);
+    removed = removeMotionist(ID);
     if (removed != null) return removed;
     
     return null;
   }
-  
-//  public boolean removeMember(String name) {
-//    boolean removed;
-//
-//    removed = removeCompetitive(name);
-//    if (removed) return true;
-//
-//    removed = removeMotionist(name);
-//    if (removed) return true;
-//
-//    return false;
-//  }
   
   // general getters setters
   public int getMemberAmount() {
@@ -204,10 +142,10 @@ public class MemberList {
     ArrayList<Member> members = new ArrayList<>();
     
     for (Competitive competitive : competitors)
-      members.add((Member) competitive);
+      members.add(competitive);
     
     for (Motionist motionist : motionists)
-      members.add((Member) motionist);
+      members.add(motionist);
     
     return members;
   }
@@ -221,13 +159,6 @@ public class MemberList {
     // clear all already present
     this.motionists = motionists;
   }
-
-  @Override
-  public String toString() {
-    return "member.MemberList{" +
-           "motionists=" + motionists +
-           ", competitives=" + competitors +
-           '}';
-  }
+  
 }
 

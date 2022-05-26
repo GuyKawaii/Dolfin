@@ -2,6 +2,7 @@ package UserInterface;
 
 import enums.AgeGroup;
 import enums.Discipline;
+import member.Competitive;
 
 import java.time.LocalDate;
 
@@ -122,5 +123,16 @@ public class TrainerUI {
     System.out.printf("\n%sTEAM: %s | TRAINER: %s - ACTIVE MEMBERS%s [NA]\n", TEXT_GREEN, ageGroup, trainerName, TEXT_RESET);
   }
   
+  public static void printMemberInTeam(Competitive competitive) {
+    System.out.printf("%-15s %3s   | %5s | %10s | %13s | %9s |\n", competitive.getName(), competitive.getAge(),
+        competitive.hasDiscipline(CRAWL),
+        competitive.hasDiscipline(BACK_CRAWL),
+        competitive.hasDiscipline(BREAST_STROKE),
+        competitive.hasDiscipline(BUTTERFLY));
+  }
+  
+  public static String printTeamCrawlCompetitionsRecords(String conventionName) {
+  return String.format("discipline: %-13s | convention: %s", CRAWL, conventionName);
+  }
   
 }

@@ -7,6 +7,8 @@ import record.*;
 
 import java.io.File;
 import java.io.PrintStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -23,10 +25,10 @@ public class FileHandlingTeam {
   private final String crawlCompetitionFile = "crawlCompetition.csv";
   private final String backCrawlTrainingFile = "backCrawlTraining.csv";
   private final String backCrawlCompetitionFile = "backCrawlCompetition.csv";
-  private final String breastStrokeTrainingFile = "breastStrokeTrainingFile.csv";
+  private final String breastStrokeTrainingFile = "breastStrokeTraining.csv";
   private final String breastStrokeCompetitionFile = "breastStrokeCompetition.csv";
-  private final String butterflyTrainingFile = "butterflyTrainingFile.csv";
-  private final String butterflyCompetitionFile = "butterflyCompetitionFile.csv";
+  private final String butterflyTrainingFile = "butterflyTraining.csv";
+  private final String butterflyCompetitionFile = "butterflyCompetition.csv";
   
   // training records
   public void loadTrainingRecords(TeamRecords teamRecords) {
@@ -136,7 +138,7 @@ public class FileHandlingTeam {
         // parameters
         int ID = Integer.parseInt(token.next());
         String name = token.next();
-        AgeGroup ageGroup = setAgeGroup(token.next()); // todo gives error when reading file
+        AgeGroup ageGroup = setAgeGroup(token.next());
         int timeInSeconds = token.nextInt();
         LocalDate date = LocalDate.parse(token.next());
         int placement = Integer.parseInt(token.next());
@@ -223,7 +225,7 @@ public class FileHandlingTeam {
       
     } catch (Exception e) {
       // create empty file if not found
-      createEmptyFile(filePath);
+      createFile(filePath, String.format("%s TRAINER", teamRecords.getAgeGroup()));
       // default
       teamRecords.setTrainer(new Trainer(String.format("%s TRAINER", teamRecords.getAgeGroup())));
     }
@@ -241,11 +243,22 @@ public class FileHandlingTeam {
       return null;
   }
   
-  public void createEmptyFile(String filePath) { // todo make it write TRAINER for TRAINER LOAD
+  public void createEmptyFile(String filePath) {
     try {
       File newFile = new File(filePath);
       if (newFile.createNewFile()) System.out.println("File created: " + newFile.getName());
       else System.out.println("File already exists.");
+    } catch (Exception ee) {
+      System.out.println("An error occurred.");
+      ee.printStackTrace();
+    }
+  }
+  
+  public void createFile(String filePath, String text) {
+    try {
+      Path path = Path.of(filePath);
+      Files.writeString(path, text);
+      System.out.println("File created: " + filePath);
     } catch (Exception ee) {
       System.out.println("An error occurred.");
       ee.printStackTrace();

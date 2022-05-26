@@ -1,6 +1,5 @@
 package UserInterface;
 
-import enums.AgeGroup;
 import enums.Discipline;
 import member.*;
 import other.TeamRecords;
@@ -115,7 +114,7 @@ public class UI {
       try {
         ID = Integer.parseInt(stringID);
         competitive = memberList.getCompetitive(ID);
-      } catch (Exception e) {
+      } catch (Exception ignored) {
       }
       
       // tests

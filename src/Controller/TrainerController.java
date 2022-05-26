@@ -11,7 +11,6 @@ import record.RecordCompetition;
 import java.time.LocalDate;
 import java.util.*;
 
-import static UserInterface.Color.*;
 import static enums.AgeGroup.*;
 import static enums.Discipline.*;
 import static enums.MembershipStatus.*;
@@ -32,7 +31,7 @@ public class TrainerController {
         case "1" -> addRecord();
         case "2" -> seeTopFive(userInputs[1]);
         case "3" ->
-            writeTeam(userInputs[1], mainController.getMemberList().getCompetitors()); // todo can give error if there is no trainer loaded
+            writeTeam(userInputs[1], mainController.getMemberList().getCompetitors());
         case "4" -> selectConvention(userInputs[1]);
         case "5" -> showConventions(userInputs[1]);
         case "" -> trainerMenu = false;
@@ -122,7 +121,6 @@ public class TrainerController {
   
   public void selectConvention(String userInput) {
     TeamRecords teamRecords;
-    AgeGroup ageGroup;
     Discipline discipline;
     switch (userInput) {
       case "j" -> teamRecords = mainController.getTeamJunior();
@@ -199,7 +197,7 @@ public class TrainerController {
       // loop reset
       isCompetition = false;
       
-      UI.printCompetitors(mainController.getMemberList().getCompetitors()); // todo change method
+      UI.printCompetitors(mainController.getMemberList().getCompetitors());
       
       // competitive, name, ageGroup
       TrainerUI.printInputNameInRecordInstructions();
@@ -313,11 +311,7 @@ public class TrainerController {
     
     // competitors
     for (Competitive competitive : ageGroupCompetitors) {
-      System.out.printf("%-15s %3s   | %5s | %10s | %13s | %9s |\n", competitive.getName(), competitive.getAge(),
-          competitive.hasDiscipline(CRAWL),
-          competitive.hasDiscipline(BACK_CRAWL),
-          competitive.hasDiscipline(BREAST_STROKE),
-          competitive.hasDiscipline(BUTTERFLY));
+      TrainerUI.printMemberInTeam(competitive);
     }
   }
   

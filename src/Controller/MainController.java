@@ -7,8 +7,6 @@ import member.*;
 import filehandling.FileHandlingMemberList;
 import other.TeamRecords;
 
-import static java.time.LocalDate.now;
-
 public class MainController {
   // other controllers
   private FormandController formandController;
@@ -71,10 +69,7 @@ public class MainController {
         case "1" -> cashierController.cashierMenu();
         case "2" -> trainerController.TrainerMenu();
         case "3" -> formandController.formandMenu();
-        case "" -> {
-          
-          mainMenu = false;
-        }
+        case "" -> mainMenu = false;
         default -> UI.invalidInputMessage();
       }
       

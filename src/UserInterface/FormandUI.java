@@ -4,7 +4,6 @@ import enums.Discipline;
 
 import java.util.ArrayList;
 
-// todo maybe take printing elements into this class from controller part (kinda arbitrary split within a text based setup tbh hear patrick or tine again again maybe)
 public class FormandUI {
 
   public static void printFormandMenu() {
@@ -23,7 +22,7 @@ public class FormandUI {
                     
           INPUT DISCIPLINES
           crawl -> c | back crawl -> bc | breast stroke -> bs | butterfly -> b | retry -> r
-          INPUT:\40""");
+          INPUT:\040""");
   }
 
   public static void printDisciplines(ArrayList<Discipline> disciplines) {
@@ -55,7 +54,7 @@ public class FormandUI {
           active  -> 1
           passive -> 2
           abort   -> Enter
-          SELECT:\40""");
+          SELECT:\040""");
   }
 
   public static void printInputMemberTypeInstructions() {
@@ -64,7 +63,7 @@ public class FormandUI {
           MEMBER TYPE
           motionist   -> 1
           competitive -> 2
-          SELECT:\40""");
+          SELECT:\040""");
   }
 
   public static void printMemberCreatedConfirmation() {
